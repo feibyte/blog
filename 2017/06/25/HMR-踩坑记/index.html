@@ -28,7 +28,7 @@
 
 
 
-<link rel="icon" href="/blog/images/favicon.svg">
+<link rel="icon" href="/blog/gallery/site/logo.png">
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
@@ -66,6 +66,15 @@
 
     
     
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-141194294-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-141194294-1');
+</script>
+
 
     
     
@@ -94,7 +103,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/blog/">
             
-                <img src="/blog/images/logo.svg" alt="HMR 踩坑记" height="28">
+                <img src="/blog/gallery/site/logo.png" alt="HMR 踩坑记" height="28">
             
             </a>
         </div>
@@ -115,15 +124,6 @@
             </div>
             
             <div class="navbar-end">
-                
-                    
-                    
-                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
-                        
-                        <i class="fab fa-github"></i>
-                        
-                    </a>
-                    
                 
                 
                 
@@ -166,14 +166,19 @@
         <div class="content">
             <p>昨天遇到一个问题：使用 next/tree 时报错，即使最简单的 Demo 也会报错，而官网提供的则不会，最终问题定位到 react-hot-loader 上。我使用的是 <code>react-hot-loader@next</code>版本，需要在 babel 配置中引入 <code>react-hot-loader/babel</code> plugin。禁用这个 plugin 正常渲染，启用就报错，这个问题太诡异了，所以有必要搞清楚 HMR。</p>
 <a id="more"></a>
+
 <h2 id="了解-HMR"><a href="#了解-HMR" class="headerlink" title="了解 HMR"></a>了解 HMR</h2><p>热替换是 webpack 的很炫酷的特性，简直就是黑魔法般的存在。其实原理很简单，见下图（一直觉得别人画的图很厉害，虽然经常看不懂）：</p>
 <p><img src="https://private-alipayobjects.alipay.com/alipay-rmsdeploy-image/skylark/png/9206/00ab9c94b132c43f.png" alt="1-DoOmboEYHv0sgSjaOWo0Qw.png"></p>
 <p>webpack-dev-server 服务启动之后与 webpack 建立连接，本地发生变化通知 webpack-dev-server，页面注入 devServerClient.js 脚本保持与 webpack-dev-server 通信。本地发生变化之后，通知浏览器，浏览器拉取最新的变化模块。</p>
 <p>浏览器端维护着一个 <code>modules: {}</code> 集合，当某一个模块变更时，我们需要重新执行该模块，缓存模块对象。接下来就是如何重新渲染页面了，我们应该都见过下面这段代码。</p>
 <figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">if</span> (<span class="hljs-built_in">module</span>.hot) &#123;</span><br><span class="line">	<span class="hljs-built_in">module</span>.hot.accept(<span class="hljs-string">'./App'</span>, () =&gt; &#123;</span><br><span class="line">	   <span class="hljs-comment">// ...</span></span><br><span class="line">	   render();</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>这段代码可以理解问监听模块变化，重新渲染页面。得益于消息冒泡，我们只需要监听最顶层的模块就可以了。重新渲染页面，对于 React 应用来说可以用这种方式：</p>
 <figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> render = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="hljs-keyword">const</span> nextApp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./App'</span>).default;</span><br><span class="line">  <span class="hljs-comment">// ...</span></span><br><span class="line">&#125;;</span><br><span class="line">setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;</span><br><span class="line">  ReactDOM.unmountComponentAtNode(MOUNT_NODE);</span><br><span class="line">  render();</span><br><span class="line">));</span><br></pre></td></tr></table></figure>
-<p><a href="https://github.com/davezuko/react-redux-starter-kit" target="_blank" rel="noopener">react-redux-starter-kit</a> 就是这种方式。<br>对于样式文件，<a href="https://github.com/webpack-contrib/style-loader" target="_blank" rel="noopener">sytle-loader</a> 替我们做了热替换。我们在代码中引入样式文件：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &apos;./Demo.css&apos;</span><br></pre></td></tr></table></figure></p>
+
+<p><a href="https://github.com/davezuko/react-redux-starter-kit" target="_blank" rel="noopener">react-redux-starter-kit</a> 就是这种方式。<br>对于样式文件，<a href="https://github.com/webpack-contrib/style-loader" target="_blank" rel="noopener">sytle-loader</a> 替我们做了热替换。我们在代码中引入样式文件：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &apos;./Demo.css&apos;</span><br></pre></td></tr></table></figure>
+
 <p>实际上是这样的：<br><img src="https://private-alipayobjects.alipay.com/alipay-rmsdeploy-image/skylark/png/9206/9cb750c1f6292c5a.png" alt="style-loader--css.png"></p>
 <h2 id="热替换更顺滑"><a href="#热替换更顺滑" class="headerlink" title="热替换更顺滑"></a>热替换更顺滑</h2><p>大多数的项目示例都是上面这种形式重新渲染页面，用户并不会体会到页面重刷的感觉。不过如果组件有自己的内部状态，这个状态肯定会丢失。为了将替换体验做的更顺滑，Dan Abramov 开发了 <a href="https://github.com/gaearon/react-hot-loader" target="_blank" rel="noopener">React Hot Loader</a> 可以让更新组件时内部状态不丢失。<a href="https://github.com/gaearon/react-proxy" target="_blank" rel="noopener">react-proxy</a> 会包装每个组件类，组件发生变化，只是实例原型上的方法改变，并不影响组件实例本身，只不过再次执行的是新的方法。</p>
 <p>了解了这点之后，再检查下 next/tree 的代码就会发现，在 TreeNode 组件中包含有这样的代码逻辑：<br><code>item.type === TreeNode</code> 或者 <code>children.type === TreeNode</code> 来检查如果 children 是否是 TreeNode 类型。现在因为 <code>react-proxy</code> 包装了原来的组件类， children.type 类型其实是 ProxyComponent，虽然有着相同的属性和原型链，但其实是完全不同的对象，所以 <code>children.type === TreeNode</code> 结果就是 false。解决方法：我们在需要比较组件类型时，可以比较该类上的一个标识，或者比较原型链来绕过这个坑。</p>
@@ -204,40 +209,6 @@
 </div>
 
 
-
-<div class="card">
-    <div class="card-content">
-        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
-        <div class="buttons is-centered">
-            
-                
-<div class="notification is-danger">
-    You forgot to set the <code>qrcode</code> for Alipay. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-                
-<div class="notification is-danger">
-    You forgot to set the <code>qrcode</code> for Wechat. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-                <!-- Visit https://www.paypal.com/donate/buttons/ to get your donate button -->
-
-<div class="notification is-danger">
-    You forgot to set the <code>business</code> and <code>currency_code</code> for Paypal. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-                
-<div class="notification is-danger">
-    You forgot to set the <code>url</code> Patreon. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-        </div>
-    </div>
-</div>
 
 
 
@@ -278,22 +249,24 @@
             <div class="level-item has-text-centered">
                 <div>
                     
-                        <img class="image is-128x128 has-mb-6" src="/blog/images/avatar.png" alt="Your name">
+                        <figure class="image is-128x128 has-mb-6">
+                            <img class="is-rounded" src="/blog/gallery/site/shark.png" alt="fedeoo">
+                        </figure>
                     
                     
                     <p class="is-size-4 is-block">
-                        Your name
+                        fedeoo
                     </p>
                     
                     
                     <p class="is-size-6 is-block">
-                        Your title
+                        Web Developer
                     </p>
                     
                     
                     <p class="is-size-6 is-flex is-flex-center has-text-grey">
                         <i class="fas fa-map-marker-alt has-mr-7"></i>
-                        <span>Your location</span>
+                        <span>Sydney</span>
                     </p>
                     
                 </div>
@@ -332,88 +305,15 @@
             </div>
         </nav>
         <div class="level">
-            <a class="level-item button is-link is-rounded" href="https://github.com/ppoffice" target="_blank">
+            <a class="level-item button is-link is-rounded" href="/blog/" target="_blank">
                 关注我</a>
         </div>
         
         
-        <div class="level is-mobile">
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="https://github.com/ppoffice">
-                
-                <i class="fab fa-github"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="https://facebook.com">
-                
-                <i class="fab fa-facebook"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="https://twitter.com">
-                
-                <i class="fab fa-twitter"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="https://dribbble.com">
-                
-                <i class="fab fa-dribbble"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/blog/">
-                
-                <i class="fas fa-rss"></i>
-                
-            </a>
-            
-        </div>
-        
     </div>
 </div>
     
         
-    
-        
-
-<div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-        <h3 class="menu-label">
-            链接
-        </h3>
-        <ul class="menu-list">
-        
-            <li>
-                <a class="level is-mobile" href="https://hexo.io" target="_blank">
-                    <span class="level-left">
-                        <span class="level-item">Hexo</span>
-                    </span>
-                    <span class="level-right">
-                        <span class="level-item tag">hexo.io</span>
-                    </span>
-                </a>
-            </li>
-        
-            <li>
-                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
-                    <span class="level-left">
-                        <span class="level-item">PPOffice</span>
-                    </span>
-                    <span class="level-right">
-                        <span class="level-item tag">github.com</span>
-                    </span>
-                </a>
-            </li>
-        
-        </ul>
-        </div>
-    </div>
-</div>
-
-
     
         
 <div class="card widget">
@@ -476,17 +376,6 @@
         </div>
     </div>
 </div>
-    
-        
-<div class="card widget">
-    <div class="card-content">
-        <h3 class="menu-label">
-            标签云
-        </h3>
-        <a href="/blog/tags/AngularJS/" style="font-size: 10px;">AngularJS</a> <a href="/blog/tags/AngularJS-lazyload/" style="font-size: 10px;">AngularJS lazyload</a> <a href="/blog/tags/AngularJs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/CDN共享/" style="font-size: 10px;">CDN共享</a> <a href="/blog/tags/MobX/" style="font-size: 10px;">MobX</a> <a href="/blog/tags/Module-SeaJS/" style="font-size: 10px;">Module SeaJS</a> <a href="/blog/tags/MutationObserver/" style="font-size: 10px;">MutationObserver</a> <a href="/blog/tags/Promise/" style="font-size: 20px;">Promise</a> <a href="/blog/tags/React/" style="font-size: 10px;">React</a> <a href="/blog/tags/js模式/" style="font-size: 10px;">js模式</a> <a href="/blog/tags/mobile-video/" style="font-size: 10px;">mobile video</a> <a href="/blog/tags/react/" style="font-size: 10px;">react</a> <a href="/blog/tags/template/" style="font-size: 10px;">template</a> <a href="/blog/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/blog/tags/业务流程/" style="font-size: 10px;">业务流程</a> <a href="/blog/tags/前端工程化/" style="font-size: 10px;">前端工程化</a> <a href="/blog/tags/前端错误/" style="font-size: 10px;">前端错误</a> <a href="/blog/tags/框架/" style="font-size: 20px;">框架</a> <a href="/blog/tags/秒杀/" style="font-size: 10px;">秒杀</a> <a href="/blog/tags/组件/" style="font-size: 10px;">组件</a> <a href="/blog/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/blog/tags/设计/" style="font-size: 10px;">设计</a> <a href="/blog/tags/调研-MVVM/" style="font-size: 10px;">调研 MVVM</a> <a href="/blog/tags/阅读笔记/" style="font-size: 10px;">阅读笔记</a>
-    </div>
-</div>
-
     
     
         <div class="column-right-shadow is-hidden-widescreen ">
@@ -1510,7 +1399,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/blog/">
                 
-                    <img src="/blog/images/logo.svg" alt="HMR 踩坑记" height="28">
+                    <img src="/blog/gallery/site/logo.png" alt="HMR 踩坑记" height="28">
                 
                 </a>
                 <p class="is-size-7">

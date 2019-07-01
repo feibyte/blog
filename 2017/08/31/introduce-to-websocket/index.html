@@ -27,7 +27,7 @@
 
 
 
-<link rel="icon" href="/blog/images/favicon.svg">
+<link rel="icon" href="/blog/gallery/site/logo.png">
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
@@ -65,6 +65,15 @@
 
     
     
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-141194294-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-141194294-1');
+</script>
+
 
     
     
@@ -93,7 +102,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/blog/">
             
-                <img src="/blog/images/logo.svg" alt="introduce to websocket" height="28">
+                <img src="/blog/gallery/site/logo.png" alt="introduce to websocket" height="28">
             
             </a>
         </div>
@@ -114,15 +123,6 @@
             </div>
             
             <div class="navbar-end">
-                
-                    
-                    
-                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
-                        
-                        <i class="fab fa-github"></i>
-                        
-                    </a>
-                    
                 
                 
                 
@@ -165,19 +165,30 @@
         <div class="content">
             <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在 webSocket 出现之前，为了实现消息推送，实现方式有轮询和Comet。Comet 又分两种：长轮询和流技术。</p>
 <a id="more"></a>
-<h2 id="webSocket-API"><a href="#webSocket-API" class="headerlink" title="webSocket API"></a>webSocket API</h2><p>webSocket 使用非常简单，API 比较简单：<br><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> ws = <span class="hljs-keyword">new</span> WebSocket(<span class="hljs-string">'ws://localhost:8080'</span>);</span><br><span class="line">ws.onopen = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;&#125;;</span><br><span class="line">ws.onmessage = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;&#125;;</span><br><span class="line">ws.onclose = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;&#125;;</span><br><span class="line">ws.send(<span class="hljs-string">''</span>);</span><br><span class="line">ws.close()</span><br></pre></td></tr></table></figure></p>
+
+<h2 id="webSocket-API"><a href="#webSocket-API" class="headerlink" title="webSocket API"></a>webSocket API</h2><p>webSocket 使用非常简单，API 比较简单：</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> ws = <span class="hljs-keyword">new</span> WebSocket(<span class="hljs-string">'ws://localhost:8080'</span>);</span><br><span class="line">ws.onopen = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;&#125;;</span><br><span class="line">ws.onmessage = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;&#125;;</span><br><span class="line">ws.onclose = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;&#125;;</span><br><span class="line">ws.send(<span class="hljs-string">''</span>);</span><br><span class="line">ws.close()</span><br></pre></td></tr></table></figure>
+
 <h2 id="握手"><a href="#握手" class="headerlink" title="握手"></a>握手</h2><p>webSocket 需要借助 HTTP 协议，如果是 https 协议，则使用 wss 协议</p>
 <figure class="highlight http hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">GET</span> <span class="hljs-string">ws://dw-dev.alibaba-inc.com:8080/sockjs-node/056/yqjbei0m/websocket</span> HTTP/1.1</span><br><span class="line"><span class="hljs-attribute">Connection</span>: Upgrade</span><br><span class="line"><span class="hljs-attribute">Upgrade</span>: websocket</span><br><span class="line"><span class="hljs-attribute">Sec-WebSocket-Version</span>: 13</span><br><span class="line">Sec-WebSocket-Key:PnmANvXSAsaE+HljkwpFLA==</span><br><span class="line"><span class="hljs-attribute">Sec-WebSocket-Extensions</span>: permessage-deflate; client_max_window_bits</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-attribute">Connection</span>: Upgrade</span><br><span class="line"><span class="hljs-attribute">Upgrade</span>: websocket</span><br><span class="line">Sec-WebSocket-Accept:y2AYVF5ss1DbiA0wKhARD3d37fw=</span><br></pre></td></tr></table></figure>
-<p>服务端代码 Node.js 实现：<br><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> server = http.createServer();</span><br><span class="line">server.on(<span class="hljs-string">'upgrade'</span>, (req, socket) =&gt; &#123;</span><br><span class="line">  <span class="hljs-keyword">const</span> secKey = req.headers[<span class="hljs-string">'sec-websocket-key'</span>];</span><br><span class="line">  socket.write(<span class="hljs-string">'HTTP/1.1 101 Web Socket Protocol Handshake\r\n'</span> +</span><br><span class="line">               <span class="hljs-string">'Upgrade: WebSocket\r\n'</span> +</span><br><span class="line">               <span class="hljs-string">`Sec-WebSocket-Accept: <span class="hljs-subst">$&#123;calcAcceptHash(secKey)&#125;</span>\r\n`</span> +</span><br><span class="line">               <span class="hljs-string">'Connection: Upgrade\r\n'</span> +</span><br><span class="line">               <span class="hljs-string">'\r\n'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>服务端必须返回 Sec-WebSocket-Accept，否则浏览器将抛出错误。 Sec-WebSocket-Accept 的计算方法是 原 key 与 ‘258EAFA5-E914-47DA-95CA-C5AB0DC85B11’ （魔数）字符串拼接再取 sha-1 哈希值的 base64 编码。代码描述：<br><figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> MAGIC_STRING = <span class="hljs-string">'258EAFA5-E914-47DA-95CA-C5AB0DC85B11'</span>;</span><br><span class="line">crypto.createHash(<span class="hljs-string">'sha1'</span>).update(secKey + MAGIC_STRING).digest(<span class="hljs-string">'base64'</span>);</span><br></pre></td></tr></table></figure></p>
+
+<p>服务端代码 Node.js 实现：</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> server = http.createServer();</span><br><span class="line">server.on(<span class="hljs-string">'upgrade'</span>, (req, socket) =&gt; &#123;</span><br><span class="line">  <span class="hljs-keyword">const</span> secKey = req.headers[<span class="hljs-string">'sec-websocket-key'</span>];</span><br><span class="line">  socket.write(<span class="hljs-string">'HTTP/1.1 101 Web Socket Protocol Handshake\r\n'</span> +</span><br><span class="line">               <span class="hljs-string">'Upgrade: WebSocket\r\n'</span> +</span><br><span class="line">               <span class="hljs-string">`Sec-WebSocket-Accept: <span class="hljs-subst">$&#123;calcAcceptHash(secKey)&#125;</span>\r\n`</span> +</span><br><span class="line">               <span class="hljs-string">'Connection: Upgrade\r\n'</span> +</span><br><span class="line">               <span class="hljs-string">'\r\n'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>服务端必须返回 Sec-WebSocket-Accept，否则浏览器将抛出错误。 Sec-WebSocket-Accept 的计算方法是 原 key 与 ‘258EAFA5-E914-47DA-95CA-C5AB0DC85B11’ （魔数）字符串拼接再取 sha-1 哈希值的 base64 编码。代码描述：</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> MAGIC_STRING = <span class="hljs-string">'258EAFA5-E914-47DA-95CA-C5AB0DC85B11'</span>;</span><br><span class="line">crypto.createHash(<span class="hljs-string">'sha1'</span>).update(secKey + MAGIC_STRING).digest(<span class="hljs-string">'base64'</span>);</span><br></pre></td></tr></table></figure>
+
 <p>另外，服务端可以拒绝同一客户端的多个连接以避免 DOS 攻击。</p>
 <h2 id="数据帧"><a href="#数据帧" class="headerlink" title="数据帧"></a>数据帧</h2><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"> 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1</span><br><span class="line">+-+-+-+-+-------+-+-------------+-------------------------------+</span><br><span class="line">|F|R|R|R| opcode|M| Payload len |    Extended payload length    |</span><br><span class="line">|I|S|S|S|  (4)  |A|     (7)     |             (16/64)           |</span><br><span class="line">|N|V|V|V|       |S|             |   (if payload len==126/127)   |</span><br><span class="line">| |1|2|3|       |K|             |                               |</span><br><span class="line">+-+-+-+-+-------+-+-------------+ - - - - - - - - - - - - - - - +</span><br><span class="line">|     Extended payload length continued, if payload len == 127  |</span><br><span class="line">+ - - - - - - - - - - - - - - - +-------------------------------+</span><br><span class="line">|                               |Masking-key, if MASK set to 1  |</span><br><span class="line">+-------------------------------+-------------------------------+</span><br><span class="line">| Masking-key (continued)       |          Payload Data         |</span><br><span class="line">+-------------------------------- - - - - - - - - - - - - - - - +</span><br><span class="line">:                     Payload Data continued ...                :</span><br><span class="line">+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +</span><br><span class="line">|                     Payload Data continued ...                |</span><br><span class="line">+---------------------------------------------------------------+</span><br></pre></td></tr></table></figure>
+
 <ol>
 <li>数据长度可变；第二字节标示的 len 为 126 时，后面 16 位作为 payload 长度。如果为 127，用后面 64 位。</li>
 <li>Mask 如果是客户端发送则必需。浏览器随机生成掩码，避免随意伪造发送内容。</li>
 </ol>
 <figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">var</span> DECODED = <span class="hljs-string">""</span>;</span><br><span class="line"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; ENCODED.length; i++) &#123;</span><br><span class="line">    DECODED[i] = ENCODED[i] ^ MASK[i % <span class="hljs-number">4</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>opcode 4位<br>0x0 denotes a continuation frame<br>0x1 denotes a text frame<br>0x2 denotes a binary frame<br>0x8 关闭<br>0x9 (Ping)<br>0xA (Pong)<br>其它保留</p>
 <h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p><a href="https://github.com/webpack/webpack-dev-server" target="_blank" rel="noopener">webpack-dev-server</a> 断开重连-指数退避算法<br><a href="https://github.com/glenjamin/webpack-hot-middleware" target="_blank" rel="noopener">webpack-hot-middleware</a> <a href="https://www.html5rocks.com/en/tutorials/eventsource/basics/" target="_blank" rel="noopener">SSE</a></p>
 <h2 id="ReadMore"><a href="#ReadMore" class="headerlink" title="ReadMore"></a>ReadMore</h2><p><a href="https://www.websocket.org/aboutwebsocket.html" target="_blank" rel="noopener">aboutwebsocket</a><br><a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_servers" target="_blank" rel="noopener">Writing_WebSocket_servers</a><br>服务端实现全部代码可以参考 留香的 <a href="https://github.com/vincentLiuxiang/easy-websocket" target="_blank" rel="noopener">easy-websocket</a></p>
@@ -190,40 +201,6 @@
 </div>
 
 
-
-<div class="card">
-    <div class="card-content">
-        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
-        <div class="buttons is-centered">
-            
-                
-<div class="notification is-danger">
-    You forgot to set the <code>qrcode</code> for Alipay. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-                
-<div class="notification is-danger">
-    You forgot to set the <code>qrcode</code> for Wechat. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-                <!-- Visit https://www.paypal.com/donate/buttons/ to get your donate button -->
-
-<div class="notification is-danger">
-    You forgot to set the <code>business</code> and <code>currency_code</code> for Paypal. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-                
-<div class="notification is-danger">
-    You forgot to set the <code>url</code> Patreon. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-        </div>
-    </div>
-</div>
 
 
 
@@ -257,22 +234,24 @@
             <div class="level-item has-text-centered">
                 <div>
                     
-                        <img class="image is-128x128 has-mb-6" src="/blog/images/avatar.png" alt="Your name">
+                        <figure class="image is-128x128 has-mb-6">
+                            <img class="is-rounded" src="/blog/gallery/site/shark.png" alt="fedeoo">
+                        </figure>
                     
                     
                     <p class="is-size-4 is-block">
-                        Your name
+                        fedeoo
                     </p>
                     
                     
                     <p class="is-size-6 is-block">
-                        Your title
+                        Web Developer
                     </p>
                     
                     
                     <p class="is-size-6 is-flex is-flex-center has-text-grey">
                         <i class="fas fa-map-marker-alt has-mr-7"></i>
-                        <span>Your location</span>
+                        <span>Sydney</span>
                     </p>
                     
                 </div>
@@ -311,88 +290,15 @@
             </div>
         </nav>
         <div class="level">
-            <a class="level-item button is-link is-rounded" href="https://github.com/ppoffice" target="_blank">
+            <a class="level-item button is-link is-rounded" href="/blog/" target="_blank">
                 关注我</a>
         </div>
         
         
-        <div class="level is-mobile">
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="https://github.com/ppoffice">
-                
-                <i class="fab fa-github"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="https://facebook.com">
-                
-                <i class="fab fa-facebook"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="https://twitter.com">
-                
-                <i class="fab fa-twitter"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="https://dribbble.com">
-                
-                <i class="fab fa-dribbble"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/blog/">
-                
-                <i class="fas fa-rss"></i>
-                
-            </a>
-            
-        </div>
-        
     </div>
 </div>
     
         
-    
-        
-
-<div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-        <h3 class="menu-label">
-            链接
-        </h3>
-        <ul class="menu-list">
-        
-            <li>
-                <a class="level is-mobile" href="https://hexo.io" target="_blank">
-                    <span class="level-left">
-                        <span class="level-item">Hexo</span>
-                    </span>
-                    <span class="level-right">
-                        <span class="level-item tag">hexo.io</span>
-                    </span>
-                </a>
-            </li>
-        
-            <li>
-                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
-                    <span class="level-left">
-                        <span class="level-item">PPOffice</span>
-                    </span>
-                    <span class="level-right">
-                        <span class="level-item tag">github.com</span>
-                    </span>
-                </a>
-            </li>
-        
-        </ul>
-        </div>
-    </div>
-</div>
-
-
     
         
 <div class="card widget">
@@ -455,17 +361,6 @@
         </div>
     </div>
 </div>
-    
-        
-<div class="card widget">
-    <div class="card-content">
-        <h3 class="menu-label">
-            标签云
-        </h3>
-        <a href="/blog/tags/AngularJS/" style="font-size: 10px;">AngularJS</a> <a href="/blog/tags/AngularJS-lazyload/" style="font-size: 10px;">AngularJS lazyload</a> <a href="/blog/tags/AngularJs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/CDN共享/" style="font-size: 10px;">CDN共享</a> <a href="/blog/tags/MobX/" style="font-size: 10px;">MobX</a> <a href="/blog/tags/Module-SeaJS/" style="font-size: 10px;">Module SeaJS</a> <a href="/blog/tags/MutationObserver/" style="font-size: 10px;">MutationObserver</a> <a href="/blog/tags/Promise/" style="font-size: 20px;">Promise</a> <a href="/blog/tags/React/" style="font-size: 10px;">React</a> <a href="/blog/tags/js模式/" style="font-size: 10px;">js模式</a> <a href="/blog/tags/mobile-video/" style="font-size: 10px;">mobile video</a> <a href="/blog/tags/react/" style="font-size: 10px;">react</a> <a href="/blog/tags/template/" style="font-size: 10px;">template</a> <a href="/blog/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/blog/tags/业务流程/" style="font-size: 10px;">业务流程</a> <a href="/blog/tags/前端工程化/" style="font-size: 10px;">前端工程化</a> <a href="/blog/tags/前端错误/" style="font-size: 10px;">前端错误</a> <a href="/blog/tags/框架/" style="font-size: 20px;">框架</a> <a href="/blog/tags/秒杀/" style="font-size: 10px;">秒杀</a> <a href="/blog/tags/组件/" style="font-size: 10px;">组件</a> <a href="/blog/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/blog/tags/设计/" style="font-size: 10px;">设计</a> <a href="/blog/tags/调研-MVVM/" style="font-size: 10px;">调研 MVVM</a> <a href="/blog/tags/阅读笔记/" style="font-size: 10px;">阅读笔记</a>
-    </div>
-</div>
-
     
     
         <div class="column-right-shadow is-hidden-widescreen ">
@@ -1489,7 +1384,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/blog/">
                 
-                    <img src="/blog/images/logo.svg" alt="introduce to websocket" height="28">
+                    <img src="/blog/gallery/site/logo.png" alt="introduce to websocket" height="28">
                 
                 </a>
                 <p class="is-size-7">

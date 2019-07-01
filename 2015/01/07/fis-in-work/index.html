@@ -28,7 +28,7 @@
 
 
 
-<link rel="icon" href="/blog/images/favicon.svg">
+<link rel="icon" href="/blog/gallery/site/logo.png">
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
@@ -66,6 +66,15 @@
 
     
     
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-141194294-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-141194294-1');
+</script>
+
 
     
     
@@ -94,7 +103,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/blog/">
             
-                <img src="/blog/images/logo.svg" alt="工作中的前端工程化问题" height="28">
+                <img src="/blog/gallery/site/logo.png" alt="工作中的前端工程化问题" height="28">
             
             </a>
         </div>
@@ -115,15 +124,6 @@
             </div>
             
             <div class="navbar-end">
-                
-                    
-                    
-                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
-                        
-                        <i class="fab fa-github"></i>
-                        
-                    </a>
-                    
                 
                 
                 
@@ -173,6 +173,7 @@
 </blockquote>
 <p>先谈谈在工作中遇到的问题。平时工作中负责的管理系统较早的开始在两三年之前，采用了某个 SPA 框架，以及搭配的 UI。有几个现基于此技术系统需要不时升级维护。在开发过程中，经常遇到该 UI 引起的很诡异的 bug，并且该 UI 源码较难读懂维护。于是在新的系统中使用了另一套 UI，新的 UI 代码容易理解，也容易在此之上扩展。</p>
 <a id="more"></a>
+
 <h4 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h4><p>最开始接触这些项目时，规规矩矩按照框架的配置规范开发页面，遇到问题看着代码排查，觉得还很顺手。时间久了，做的多了，感觉有不少重复的工作，比如每次添加页面做的事情有些过程是完全重复的。在一个项目中有一个复杂的页面，代码有 1000 多行。维护这个复杂的页面实在麻烦，于是开始思考解决这种问题。</p>
 <p>在那个复杂的页面中，确实有很多事情要做，主要有几个大块头：一个按钮点击之后弹出对话框，选择几个数据，这样的组件有5个左右。然后显示在页面上；还有个是选择后的资源列表有优先级要求，要求支持排序；还有最下面的非常独特的功能强大的可编辑表格。</p>
 <h4 id="组件封装"><a href="#组件封装" class="headerlink" title="组件封装"></a>组件封装</h4><p>对这个问题，解决的方法是在原来的基础UI上，封装业务UI。将上面提到的大块头封装为一个业务级的UI组件，每个UI组件只对外暴露 setValue（编辑页面时，填充内容）， getValue（提交表单时，获取组件数据），render （渲染组件）。封装完业务UI之后，工作轻松了不少，不过还有些重复的劳动力，就是刚提到的每个页面很相似，只有少许的不同，每次新增模块，复制一份修改，也显得太不专业了。不过项目快结束了，不管了。</p>
@@ -205,40 +206,6 @@
 </div>
 
 
-
-<div class="card">
-    <div class="card-content">
-        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
-        <div class="buttons is-centered">
-            
-                
-<div class="notification is-danger">
-    You forgot to set the <code>qrcode</code> for Alipay. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-                
-<div class="notification is-danger">
-    You forgot to set the <code>qrcode</code> for Wechat. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-                <!-- Visit https://www.paypal.com/donate/buttons/ to get your donate button -->
-
-<div class="notification is-danger">
-    You forgot to set the <code>business</code> and <code>currency_code</code> for Paypal. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-                
-<div class="notification is-danger">
-    You forgot to set the <code>url</code> Patreon. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-        </div>
-    </div>
-</div>
 
 
 
@@ -279,22 +246,24 @@
             <div class="level-item has-text-centered">
                 <div>
                     
-                        <img class="image is-128x128 has-mb-6" src="/blog/images/avatar.png" alt="Your name">
+                        <figure class="image is-128x128 has-mb-6">
+                            <img class="is-rounded" src="/blog/gallery/site/shark.png" alt="fedeoo">
+                        </figure>
                     
                     
                     <p class="is-size-4 is-block">
-                        Your name
+                        fedeoo
                     </p>
                     
                     
                     <p class="is-size-6 is-block">
-                        Your title
+                        Web Developer
                     </p>
                     
                     
                     <p class="is-size-6 is-flex is-flex-center has-text-grey">
                         <i class="fas fa-map-marker-alt has-mr-7"></i>
-                        <span>Your location</span>
+                        <span>Sydney</span>
                     </p>
                     
                 </div>
@@ -333,88 +302,15 @@
             </div>
         </nav>
         <div class="level">
-            <a class="level-item button is-link is-rounded" href="https://github.com/ppoffice" target="_blank">
+            <a class="level-item button is-link is-rounded" href="/blog/" target="_blank">
                 关注我</a>
         </div>
         
         
-        <div class="level is-mobile">
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="https://github.com/ppoffice">
-                
-                <i class="fab fa-github"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="https://facebook.com">
-                
-                <i class="fab fa-facebook"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="https://twitter.com">
-                
-                <i class="fab fa-twitter"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="https://dribbble.com">
-                
-                <i class="fab fa-dribbble"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/blog/">
-                
-                <i class="fas fa-rss"></i>
-                
-            </a>
-            
-        </div>
-        
     </div>
 </div>
     
         
-    
-        
-
-<div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-        <h3 class="menu-label">
-            链接
-        </h3>
-        <ul class="menu-list">
-        
-            <li>
-                <a class="level is-mobile" href="https://hexo.io" target="_blank">
-                    <span class="level-left">
-                        <span class="level-item">Hexo</span>
-                    </span>
-                    <span class="level-right">
-                        <span class="level-item tag">hexo.io</span>
-                    </span>
-                </a>
-            </li>
-        
-            <li>
-                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
-                    <span class="level-left">
-                        <span class="level-item">PPOffice</span>
-                    </span>
-                    <span class="level-right">
-                        <span class="level-item tag">github.com</span>
-                    </span>
-                </a>
-            </li>
-        
-        </ul>
-        </div>
-    </div>
-</div>
-
-
     
         
 <div class="card widget">
@@ -477,17 +373,6 @@
         </div>
     </div>
 </div>
-    
-        
-<div class="card widget">
-    <div class="card-content">
-        <h3 class="menu-label">
-            标签云
-        </h3>
-        <a href="/blog/tags/AngularJS/" style="font-size: 10px;">AngularJS</a> <a href="/blog/tags/AngularJS-lazyload/" style="font-size: 10px;">AngularJS lazyload</a> <a href="/blog/tags/AngularJs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/CDN共享/" style="font-size: 10px;">CDN共享</a> <a href="/blog/tags/MobX/" style="font-size: 10px;">MobX</a> <a href="/blog/tags/Module-SeaJS/" style="font-size: 10px;">Module SeaJS</a> <a href="/blog/tags/MutationObserver/" style="font-size: 10px;">MutationObserver</a> <a href="/blog/tags/Promise/" style="font-size: 20px;">Promise</a> <a href="/blog/tags/React/" style="font-size: 10px;">React</a> <a href="/blog/tags/js模式/" style="font-size: 10px;">js模式</a> <a href="/blog/tags/mobile-video/" style="font-size: 10px;">mobile video</a> <a href="/blog/tags/react/" style="font-size: 10px;">react</a> <a href="/blog/tags/template/" style="font-size: 10px;">template</a> <a href="/blog/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/blog/tags/业务流程/" style="font-size: 10px;">业务流程</a> <a href="/blog/tags/前端工程化/" style="font-size: 10px;">前端工程化</a> <a href="/blog/tags/前端错误/" style="font-size: 10px;">前端错误</a> <a href="/blog/tags/框架/" style="font-size: 20px;">框架</a> <a href="/blog/tags/秒杀/" style="font-size: 10px;">秒杀</a> <a href="/blog/tags/组件/" style="font-size: 10px;">组件</a> <a href="/blog/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/blog/tags/设计/" style="font-size: 10px;">设计</a> <a href="/blog/tags/调研-MVVM/" style="font-size: 10px;">调研 MVVM</a> <a href="/blog/tags/阅读笔记/" style="font-size: 10px;">阅读笔记</a>
-    </div>
-</div>
-
     
     
         <div class="column-right-shadow is-hidden-widescreen ">
@@ -1511,7 +1396,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/blog/">
                 
-                    <img src="/blog/images/logo.svg" alt="工作中的前端工程化问题" height="28">
+                    <img src="/blog/gallery/site/logo.png" alt="工作中的前端工程化问题" height="28">
                 
                 </a>
                 <p class="is-size-7">

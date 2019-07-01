@@ -7,19 +7,19 @@
 
 
 
-    <meta name="description" content="收到产品同学反馈的一个 bug：在 iOS 上，进入首页之后很快滑动，再点击切换到第二个页面会一直处于loading状态，可以稳定复现。拿自己的手机试了几次果然可以复现。在模拟器上准备调试，打开控制台并未看到错误。于是猜想有异常没有处理，检查代码是否遗漏：1234showLoading();fetch(url).then(() =&amp;gt; &amp;#123;&amp;#125;, () =&amp;gt; ([])).">
+    <meta name="description" content="收到产品同学反馈的一个 bug：在 iOS 上，进入首页之后很快滑动，再点击切换到第二个页面会一直处于loading状态，可以稳定复现。拿自己的手机试了几次果然可以复现。在模拟器上准备调试，打开控制台并未看到错误。于是猜想有异常没有处理，检查代码是否遗漏： 1234showLoading();fetch(url).then(() =&amp;gt; &amp;#123;&amp;#125;, () =&amp;gt; ([]))">
 <meta name="keywords" content="Promise,MutationObserver">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Promise 被玩坏了">
 <meta property="og:url" content="https://fedeoo.github.io/blog/2017/01/19/Promise-被玩坏了/index.html">
 <meta property="og:site_name" content="fedeoo">
-<meta property="og:description" content="收到产品同学反馈的一个 bug：在 iOS 上，进入首页之后很快滑动，再点击切换到第二个页面会一直处于loading状态，可以稳定复现。拿自己的手机试了几次果然可以复现。在模拟器上准备调试，打开控制台并未看到错误。于是猜想有异常没有处理，检查代码是否遗漏：1234showLoading();fetch(url).then(() =&amp;gt; &amp;#123;&amp;#125;, () =&amp;gt; ([])).">
+<meta property="og:description" content="收到产品同学反馈的一个 bug：在 iOS 上，进入首页之后很快滑动，再点击切换到第二个页面会一直处于loading状态，可以稳定复现。拿自己的手机试了几次果然可以复现。在模拟器上准备调试，打开控制台并未看到错误。于是猜想有异常没有处理，检查代码是否遗漏： 1234showLoading();fetch(url).then(() =&amp;gt; &amp;#123;&amp;#125;, () =&amp;gt; ([]))">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://fedeoo.github.io/blog/images/og_image.png">
 <meta property="og:updated_time" content="2019-07-01T02:49:27.210Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Promise 被玩坏了">
-<meta name="twitter:description" content="收到产品同学反馈的一个 bug：在 iOS 上，进入首页之后很快滑动，再点击切换到第二个页面会一直处于loading状态，可以稳定复现。拿自己的手机试了几次果然可以复现。在模拟器上准备调试，打开控制台并未看到错误。于是猜想有异常没有处理，检查代码是否遗漏：1234showLoading();fetch(url).then(() =&amp;gt; &amp;#123;&amp;#125;, () =&amp;gt; ([])).">
+<meta name="twitter:description" content="收到产品同学反馈的一个 bug：在 iOS 上，进入首页之后很快滑动，再点击切换到第二个页面会一直处于loading状态，可以稳定复现。拿自己的手机试了几次果然可以复现。在模拟器上准备调试，打开控制台并未看到错误。于是猜想有异常没有处理，检查代码是否遗漏： 1234showLoading();fetch(url).then(() =&amp;gt; &amp;#123;&amp;#125;, () =&amp;gt; ([]))">
 <meta name="twitter:image" content="https://fedeoo.github.io/blog/images/og_image.png">
 
 
@@ -28,7 +28,7 @@
 
 
 
-<link rel="icon" href="/blog/images/favicon.svg">
+<link rel="icon" href="/blog/gallery/site/logo.png">
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
@@ -66,6 +66,15 @@
 
     
     
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-141194294-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-141194294-1');
+</script>
+
 
     
     
@@ -94,7 +103,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/blog/">
             
-                <img src="/blog/images/logo.svg" alt="Promise 被玩坏了" height="28">
+                <img src="/blog/gallery/site/logo.png" alt="Promise 被玩坏了" height="28">
             
             </a>
         </div>
@@ -115,15 +124,6 @@
             </div>
             
             <div class="navbar-end">
-                
-                    
-                    
-                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
-                        
-                        <i class="fab fa-github"></i>
-                        
-                    </a>
-                    
                 
                 
                 
@@ -164,14 +164,26 @@
             
         </h1>
         <div class="content">
-            <p>收到产品同学反馈的一个 bug：在 iOS 上，进入首页之后很快滑动，再点击切换到第二个页面会一直处于loading状态，可以稳定复现。拿自己的手机试了几次果然可以复现。在模拟器上准备调试，打开控制台并未看到错误。于是猜想有异常没有处理，检查代码是否遗漏：<br><figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">showLoading();</span><br><span class="line">fetch(url).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;&#125;, () =&gt; <span class="hljs-function">(<span class="hljs-params">[]</span>)).<span class="hljs-params">then</span>(<span class="hljs-params">(</span>) =&gt;</span> &#123;</span><br><span class="line">  hideLoading();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+            <p>收到产品同学反馈的一个 bug：在 iOS 上，进入首页之后很快滑动，再点击切换到第二个页面会一直处于loading状态，可以稳定复现。拿自己的手机试了几次果然可以复现。在模拟器上准备调试，打开控制台并未看到错误。于是猜想有异常没有处理，检查代码是否遗漏：</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">showLoading();</span><br><span class="line">fetch(url).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;&#125;, () =&gt; <span class="hljs-function">(<span class="hljs-params">[]</span>)).<span class="hljs-params">then</span>(<span class="hljs-params">(</span>) =&gt;</span> &#123;</span><br><span class="line">  hideLoading();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
 <a id="more"></a>
+
 <p>对这段逻辑还是不放心，手动在 fetch 之后的 <code>onsuccess</code>，<code>onerror</code> 中打印调试信息，发现两个方法都没有调用。因为 Safari 不支持 fetch，开始怀疑引用的 fetch 有问题，加上调试信息：</p>
 <figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">self.fetch = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">input, init</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resolve, reject</span>) </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();</span><br><span class="line">    <span class="hljs-comment">// ...省略部分代码</span></span><br><span class="line">    xhr.onload = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">      <span class="hljs-comment">// ...</span></span><br><span class="line">      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'---------&gt;'</span>, input);</span><br><span class="line">      resolve(<span class="hljs-keyword">new</span> Response(body, options))</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="hljs-comment">// ...省略部分代码</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>一切正常 resolve 响应内容，但是就是不处理之后的 then 方法。手动在控制台敲：<br><figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-params">resovle</span> =&gt;</span> &#123; resovle(<span class="hljs-string">'haha'</span>); &#125;).then(<span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> &#123; <span class="hljs-built_in">console</span>.log(data); &#125;, () =&gt; &#123; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'wwwwwww'</span>); &#125;)</span><br></pre></td></tr></table></figure></p>
-<p>不打印任何结果。检查 Promise 确认是原生对象<br><figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">Promise</span></span><br><span class="line"><span class="hljs-comment">// function Promise() &#123; [native code] &#125;</span></span><br></pre></td></tr></table></figure></p>
-<p>之前看过的 Promise 实现是基于 setTimeout 实现，再测 setTimeout 是否正常<br><figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'it works'</span>);</span><br><span class="line">&#125;, <span class="hljs-number">10</span>);</span><br></pre></td></tr></table></figure></p>
-<p>结果正常工作。既然是 Promise 有问题，就把原来的注释掉，换用 core-js 的实现，虽然 bug 照样复现，但好歹我们可以调试了。再次执行上面测试 Promise 的代码，发现 Promise 交给 mocrotask 执行时，压根未执行。关键代码：<br><figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">var</span> Observer  = <span class="hljs-built_in">window</span>.MutationObserver || <span class="hljs-built_in">window</span>.WebKitMutationObserver;</span><br><span class="line"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;</span><br><span class="line">  <span class="hljs-keyword">var</span> head, last, notify;</span><br><span class="line">  <span class="hljs-keyword">var</span> flush = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;</span><br><span class="line">    <span class="hljs-keyword">var</span> parent, fn;</span><br><span class="line">    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'&lt;---- flush'</span>);</span><br><span class="line">    <span class="hljs-keyword">while</span>(head)&#123;</span><br><span class="line">      fn   = head.fn;</span><br><span class="line">      head = head.next;</span><br><span class="line">      <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">        fn();</span><br><span class="line">      &#125; <span class="hljs-keyword">catch</span>(e)&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span>(head)notify();</span><br><span class="line">        <span class="hljs-keyword">else</span> last = <span class="hljs-literal">undefined</span>;</span><br><span class="line">        <span class="hljs-keyword">throw</span> e;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; last = <span class="hljs-literal">undefined</span>;</span><br><span class="line">    <span class="hljs-keyword">if</span>(parent)parent.enter();</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">var</span> toggle = <span class="hljs-literal">true</span></span><br><span class="line">      , node   = <span class="hljs-built_in">document</span>.createTextNode(<span class="hljs-string">''</span>);</span><br><span class="line">    <span class="hljs-keyword">new</span> Observer(flush).observe(node, &#123;<span class="hljs-attr">characterData</span>: <span class="hljs-literal">true</span>&#125;); <span class="hljs-comment">// eslint-disable-line no-new</span></span><br><span class="line">    notify = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;</span><br><span class="line">      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'notify----&gt;'</span>);</span><br><span class="line">      node.data = toggle = !toggle;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">fn</span>)</span>&#123;</span><br><span class="line">    <span class="hljs-keyword">var</span> task = &#123;<span class="hljs-attr">fn</span>: fn, <span class="hljs-attr">next</span>: <span class="hljs-literal">undefined</span>&#125;;</span><br><span class="line">    <span class="hljs-keyword">if</span>(last)last.next = task;</span><br><span class="line">    <span class="hljs-keyword">if</span>(!head)&#123;</span><br><span class="line">      head = task;</span><br><span class="line">      notify();</span><br><span class="line">    &#125; last = task;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+
+<p>一切正常 resolve 响应内容，但是就是不处理之后的 then 方法。手动在控制台敲：</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-params">resovle</span> =&gt;</span> &#123; resovle(<span class="hljs-string">'haha'</span>); &#125;).then(<span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> &#123; <span class="hljs-built_in">console</span>.log(data); &#125;, () =&gt; &#123; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'wwwwwww'</span>); &#125;)</span><br></pre></td></tr></table></figure>
+
+<p>不打印任何结果。检查 Promise 确认是原生对象</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">Promise</span></span><br><span class="line"><span class="hljs-comment">// function Promise() &#123; [native code] &#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>之前看过的 Promise 实现是基于 setTimeout 实现，再测 setTimeout 是否正常</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'it works'</span>);</span><br><span class="line">&#125;, <span class="hljs-number">10</span>);</span><br></pre></td></tr></table></figure>
+
+<p>结果正常工作。既然是 Promise 有问题，就把原来的注释掉，换用 core-js 的实现，虽然 bug 照样复现，但好歹我们可以调试了。再次执行上面测试 Promise 的代码，发现 Promise 交给 mocrotask 执行时，压根未执行。关键代码：</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">var</span> Observer  = <span class="hljs-built_in">window</span>.MutationObserver || <span class="hljs-built_in">window</span>.WebKitMutationObserver;</span><br><span class="line"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;</span><br><span class="line">  <span class="hljs-keyword">var</span> head, last, notify;</span><br><span class="line">  <span class="hljs-keyword">var</span> flush = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;</span><br><span class="line">    <span class="hljs-keyword">var</span> parent, fn;</span><br><span class="line">    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'&lt;---- flush'</span>);</span><br><span class="line">    <span class="hljs-keyword">while</span>(head)&#123;</span><br><span class="line">      fn   = head.fn;</span><br><span class="line">      head = head.next;</span><br><span class="line">      <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">        fn();</span><br><span class="line">      &#125; <span class="hljs-keyword">catch</span>(e)&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span>(head)notify();</span><br><span class="line">        <span class="hljs-keyword">else</span> last = <span class="hljs-literal">undefined</span>;</span><br><span class="line">        <span class="hljs-keyword">throw</span> e;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; last = <span class="hljs-literal">undefined</span>;</span><br><span class="line">    <span class="hljs-keyword">if</span>(parent)parent.enter();</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">var</span> toggle = <span class="hljs-literal">true</span></span><br><span class="line">      , node   = <span class="hljs-built_in">document</span>.createTextNode(<span class="hljs-string">''</span>);</span><br><span class="line">    <span class="hljs-keyword">new</span> Observer(flush).observe(node, &#123;<span class="hljs-attr">characterData</span>: <span class="hljs-literal">true</span>&#125;); <span class="hljs-comment">// eslint-disable-line no-new</span></span><br><span class="line">    notify = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;</span><br><span class="line">      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'notify----&gt;'</span>);</span><br><span class="line">      node.data = toggle = !toggle;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">fn</span>)</span>&#123;</span><br><span class="line">    <span class="hljs-keyword">var</span> task = &#123;<span class="hljs-attr">fn</span>: fn, <span class="hljs-attr">next</span>: <span class="hljs-literal">undefined</span>&#125;;</span><br><span class="line">    <span class="hljs-keyword">if</span>(last)last.next = task;</span><br><span class="line">    <span class="hljs-keyword">if</span>(!head)&#123;</span><br><span class="line">      head = task;</span><br><span class="line">      notify();</span><br><span class="line">    &#125; last = task;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
 <p>调试发现不知名的原因导致 head 不为空，追加任务只能追加在队列后面。手动调 flush 一下就会发现之前所有的未执行的任务都完成了处理。现在的问题就停留在是什么原因导致的 head 不为空。按说上面的代码确保队列里的任务最终都被处理， notify 之后都会触发 flush （注意不是说每个 notify 都会触发 flush，可能多个 notify 触发一次 flush ）。添加调试信息发现，某些情况下根本没有触发 flush，导致任务阻塞，Promise 被玩坏。</p>
 <p>查看了其它 Promise （bluebird 以及 ES-promise）的实现，如果支持 MutationObserver 都会使用 MutationObserver，不支持才会降级到 setTimeout 。有人提示 Vue 的异步队列也用到了这个方案。</p>
 <p>如何复现这种情况，调试时排除了路由的原因，只要在加载的时候滚动就会出现不触发 flush 的情况。尝试做了一个 demo 但是未能复现，google 了一下也未搜到 MutationObserver 相关 bug，只有一个类似 <a href="https://github.com/petkaantonov/bluebird/issues/666" target="_blank" rel="noopener">issues</a> 。</p>
@@ -195,40 +207,6 @@
 </div>
 
 
-
-<div class="card">
-    <div class="card-content">
-        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
-        <div class="buttons is-centered">
-            
-                
-<div class="notification is-danger">
-    You forgot to set the <code>qrcode</code> for Alipay. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-                
-<div class="notification is-danger">
-    You forgot to set the <code>qrcode</code> for Wechat. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-                <!-- Visit https://www.paypal.com/donate/buttons/ to get your donate button -->
-
-<div class="notification is-danger">
-    You forgot to set the <code>business</code> and <code>currency_code</code> for Paypal. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-                
-<div class="notification is-danger">
-    You forgot to set the <code>url</code> Patreon. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-        </div>
-    </div>
-</div>
 
 
 
@@ -269,22 +247,24 @@
             <div class="level-item has-text-centered">
                 <div>
                     
-                        <img class="image is-128x128 has-mb-6" src="/blog/images/avatar.png" alt="Your name">
+                        <figure class="image is-128x128 has-mb-6">
+                            <img class="is-rounded" src="/blog/gallery/site/shark.png" alt="fedeoo">
+                        </figure>
                     
                     
                     <p class="is-size-4 is-block">
-                        Your name
+                        fedeoo
                     </p>
                     
                     
                     <p class="is-size-6 is-block">
-                        Your title
+                        Web Developer
                     </p>
                     
                     
                     <p class="is-size-6 is-flex is-flex-center has-text-grey">
                         <i class="fas fa-map-marker-alt has-mr-7"></i>
-                        <span>Your location</span>
+                        <span>Sydney</span>
                     </p>
                     
                 </div>
@@ -323,88 +303,15 @@
             </div>
         </nav>
         <div class="level">
-            <a class="level-item button is-link is-rounded" href="https://github.com/ppoffice" target="_blank">
+            <a class="level-item button is-link is-rounded" href="/blog/" target="_blank">
                 关注我</a>
         </div>
         
         
-        <div class="level is-mobile">
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="https://github.com/ppoffice">
-                
-                <i class="fab fa-github"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="https://facebook.com">
-                
-                <i class="fab fa-facebook"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="https://twitter.com">
-                
-                <i class="fab fa-twitter"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="https://dribbble.com">
-                
-                <i class="fab fa-dribbble"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/blog/">
-                
-                <i class="fas fa-rss"></i>
-                
-            </a>
-            
-        </div>
-        
     </div>
 </div>
     
         
-    
-        
-
-<div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-        <h3 class="menu-label">
-            链接
-        </h3>
-        <ul class="menu-list">
-        
-            <li>
-                <a class="level is-mobile" href="https://hexo.io" target="_blank">
-                    <span class="level-left">
-                        <span class="level-item">Hexo</span>
-                    </span>
-                    <span class="level-right">
-                        <span class="level-item tag">hexo.io</span>
-                    </span>
-                </a>
-            </li>
-        
-            <li>
-                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
-                    <span class="level-left">
-                        <span class="level-item">PPOffice</span>
-                    </span>
-                    <span class="level-right">
-                        <span class="level-item tag">github.com</span>
-                    </span>
-                </a>
-            </li>
-        
-        </ul>
-        </div>
-    </div>
-</div>
-
-
     
         
 <div class="card widget">
@@ -467,17 +374,6 @@
         </div>
     </div>
 </div>
-    
-        
-<div class="card widget">
-    <div class="card-content">
-        <h3 class="menu-label">
-            标签云
-        </h3>
-        <a href="/blog/tags/AngularJS/" style="font-size: 10px;">AngularJS</a> <a href="/blog/tags/AngularJS-lazyload/" style="font-size: 10px;">AngularJS lazyload</a> <a href="/blog/tags/AngularJs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/CDN共享/" style="font-size: 10px;">CDN共享</a> <a href="/blog/tags/MobX/" style="font-size: 10px;">MobX</a> <a href="/blog/tags/Module-SeaJS/" style="font-size: 10px;">Module SeaJS</a> <a href="/blog/tags/MutationObserver/" style="font-size: 10px;">MutationObserver</a> <a href="/blog/tags/Promise/" style="font-size: 20px;">Promise</a> <a href="/blog/tags/React/" style="font-size: 10px;">React</a> <a href="/blog/tags/js模式/" style="font-size: 10px;">js模式</a> <a href="/blog/tags/mobile-video/" style="font-size: 10px;">mobile video</a> <a href="/blog/tags/react/" style="font-size: 10px;">react</a> <a href="/blog/tags/template/" style="font-size: 10px;">template</a> <a href="/blog/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/blog/tags/业务流程/" style="font-size: 10px;">业务流程</a> <a href="/blog/tags/前端工程化/" style="font-size: 10px;">前端工程化</a> <a href="/blog/tags/前端错误/" style="font-size: 10px;">前端错误</a> <a href="/blog/tags/框架/" style="font-size: 20px;">框架</a> <a href="/blog/tags/秒杀/" style="font-size: 10px;">秒杀</a> <a href="/blog/tags/组件/" style="font-size: 10px;">组件</a> <a href="/blog/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/blog/tags/设计/" style="font-size: 10px;">设计</a> <a href="/blog/tags/调研-MVVM/" style="font-size: 10px;">调研 MVVM</a> <a href="/blog/tags/阅读笔记/" style="font-size: 10px;">阅读笔记</a>
-    </div>
-</div>
-
     
     
         <div class="column-right-shadow is-hidden-widescreen ">
@@ -1501,7 +1397,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/blog/">
                 
-                    <img src="/blog/images/logo.svg" alt="Promise 被玩坏了" height="28">
+                    <img src="/blog/gallery/site/logo.png" alt="Promise 被玩坏了" height="28">
                 
                 </a>
                 <p class="is-size-7">

@@ -28,7 +28,7 @@
 
 
 
-<link rel="icon" href="/blog/images/favicon.svg">
+<link rel="icon" href="/blog/gallery/site/logo.png">
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
@@ -66,6 +66,15 @@
 
     
     
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-141194294-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-141194294-1');
+</script>
+
 
     
     
@@ -94,7 +103,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/blog/">
             
-                <img src="/blog/images/logo.svg" alt="也谈 JS 模块" height="28">
+                <img src="/blog/gallery/site/logo.png" alt="也谈 JS 模块" height="28">
             
             </a>
         </div>
@@ -115,15 +124,6 @@
             </div>
             
             <div class="navbar-end">
-                
-                    
-                    
-                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
-                        
-                        <i class="fab fa-github"></i>
-                        
-                    </a>
-                    
                 
                 
                 
@@ -170,37 +170,70 @@
         <div class="content">
             <p>跟大多数人一样，在最初接触JS时，没有考虑过模块的概念。当工作中前端做的事情越来越复杂，JS 越来越庞大，就必须好好考虑组织 JS 代码了。了解其它语言的人，可能会惊讶 JS 没有模块。当每个人都在做这件事情的时候，就不得不归咎到语言问题上了，或许在以后的规范中将加入对模块的支持。不过现在的我们还是有必要了解下怎么组织模块和懒加载的思想。</p>
 <a id="more"></a>
-<h2 id="闭包和命名空间解决方案"><a href="#闭包和命名空间解决方案" class="headerlink" title="闭包和命名空间解决方案"></a>闭包和命名空间解决方案</h2><p>当项目越来越复杂时，在项目开发中必须保证变量不冲突，当然最该考虑的就是约定，大家遵守同一个命名规范。不过总会用到别人的代码，外部代码就不一定遵从同一个规范了，为了避免变量冲突，最简单的处理，我们可以把代码包在一个匿名函数中。就像这样：<br><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">  <span class="hljs-comment">//变量 函数</span></span><br><span class="line">  <span class="hljs-keyword">var</span> privateMember;</span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">privateMethod</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">      <span class="hljs-comment">//....</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure></p>
-<p>如果我们的其它模块需要访问该文件中的变量或函数，我们可以这样：<br><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">var</span> m1 = (<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">$</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">var</span> privateMember;</span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">privateMethod</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="hljs-keyword">return</span> &#123;</span><br><span class="line">    publicMethod: privateMethod</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;)(Jquery);</span><br></pre></td></tr></table></figure></p>
-<p>或者直接交给全局：<br><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">global, $</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-comment">//变量 函数</span></span><br><span class="line">  <span class="hljs-keyword">var</span> privateMember;</span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">privateMethod</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">      <span class="hljs-comment">//....</span></span><br><span class="line">  &#125;</span><br><span class="line">  global.m1 = &#123;</span><br><span class="line"></span><br><span class="line">  &#125;;</span><br><span class="line">&#125;)(global, Jquery);</span><br></pre></td></tr></table></figure></p>
+
+<h2 id="闭包和命名空间解决方案"><a href="#闭包和命名空间解决方案" class="headerlink" title="闭包和命名空间解决方案"></a>闭包和命名空间解决方案</h2><p>当项目越来越复杂时，在项目开发中必须保证变量不冲突，当然最该考虑的就是约定，大家遵守同一个命名规范。不过总会用到别人的代码，外部代码就不一定遵从同一个规范了，为了避免变量冲突，最简单的处理，我们可以把代码包在一个匿名函数中。就像这样：</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">  <span class="hljs-comment">//变量 函数</span></span><br><span class="line">  <span class="hljs-keyword">var</span> privateMember;</span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">privateMethod</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">      <span class="hljs-comment">//....</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<p>如果我们的其它模块需要访问该文件中的变量或函数，我们可以这样：</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">var</span> m1 = (<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">$</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">var</span> privateMember;</span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">privateMethod</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="hljs-keyword">return</span> &#123;</span><br><span class="line">    publicMethod: privateMethod</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;)(Jquery);</span><br></pre></td></tr></table></figure>
+
+<p>或者直接交给全局：</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">global, $</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-comment">//变量 函数</span></span><br><span class="line">  <span class="hljs-keyword">var</span> privateMember;</span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">privateMethod</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">      <span class="hljs-comment">//....</span></span><br><span class="line">  &#125;</span><br><span class="line">  global.m1 = &#123;</span><br><span class="line"></span><br><span class="line">  &#125;;</span><br><span class="line">&#125;)(global, Jquery);</span><br></pre></td></tr></table></figure>
+
 <p>将全局变量导入模块，作为局部变量解析速度更快。</p>
-<p>使用模块模式，建立命名空间，假设项目名称：pandora；用户相关名称 pandora.user，可以这样约定命名规则。<br><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//代码出处：Javascript 模式</span></span><br><span class="line"><span class="hljs-keyword">var</span> pandora = pandora || &#123;&#125;;</span><br><span class="line">pandora.namespace = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">ns_string</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">var</span> parts = ns_string.split(<span class="hljs-string">'.'</span>),</span><br><span class="line">    parent = pandora,</span><br><span class="line">    i;</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">if</span> (parts[<span class="hljs-number">0</span>] === <span class="hljs-string">"pandora"</span>) &#123;</span><br><span class="line">    parts = parts.slice(<span class="hljs-number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; parts.length; i += <span class="hljs-number">1</span>) &#123;</span><br><span class="line">    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> parent[parts[i]] === <span class="hljs-string">'undefined'</span>) &#123;</span><br><span class="line">      parent[parts[i]] = &#123;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    parent = parent[parts[i]];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="hljs-keyword">return</span> parent;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">//使用</span></span><br><span class="line"><span class="hljs-keyword">var</span> moudle = pandora.namespace(<span class="hljs-string">'utilities.array'</span>);</span><br><span class="line">pandora.utilities.array = (<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">var</span> privateVariable = &#123;&#125;;</span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">privateMethod</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">      <span class="hljs-comment">//...</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="hljs-keyword">return</span> &#123;</span><br><span class="line">    publicMethod: privateMethod</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure></p>
-<h2 id="模块化编程"><a href="#模块化编程" class="headerlink" title="模块化编程"></a>模块化编程</h2><p>上面提到的是命名冲突，还有文件依赖问题。我们引入 Node.js 支持的模块编程，将上面代码改为模块的方式：<br><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//代码片段 003 math.js</span></span><br><span class="line">define(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">require, exports</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-comment">//变量 函数</span></span><br><span class="line">  <span class="hljs-keyword">var</span> privateMember;</span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">privateMethod</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">      <span class="hljs-comment">//....</span></span><br><span class="line">  &#125;</span><br><span class="line">  exports.publicMethod = privateMethod;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">//在另一个模块中 net.js</span></span><br><span class="line"></span><br><span class="line">define(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">require, exports</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">var</span> math = requeire(<span class="hljs-string">'math'</span>);</span><br><span class="line">  math.publicMethod();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>使用模块模式，建立命名空间，假设项目名称：pandora；用户相关名称 pandora.user，可以这样约定命名规则。</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//代码出处：Javascript 模式</span></span><br><span class="line"><span class="hljs-keyword">var</span> pandora = pandora || &#123;&#125;;</span><br><span class="line">pandora.namespace = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">ns_string</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">var</span> parts = ns_string.split(<span class="hljs-string">'.'</span>),</span><br><span class="line">    parent = pandora,</span><br><span class="line">    i;</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">if</span> (parts[<span class="hljs-number">0</span>] === <span class="hljs-string">"pandora"</span>) &#123;</span><br><span class="line">    parts = parts.slice(<span class="hljs-number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; parts.length; i += <span class="hljs-number">1</span>) &#123;</span><br><span class="line">    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> parent[parts[i]] === <span class="hljs-string">'undefined'</span>) &#123;</span><br><span class="line">      parent[parts[i]] = &#123;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    parent = parent[parts[i]];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="hljs-keyword">return</span> parent;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">//使用</span></span><br><span class="line"><span class="hljs-keyword">var</span> moudle = pandora.namespace(<span class="hljs-string">'utilities.array'</span>);</span><br><span class="line">pandora.utilities.array = (<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">var</span> privateVariable = &#123;&#125;;</span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">privateMethod</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">      <span class="hljs-comment">//...</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="hljs-keyword">return</span> &#123;</span><br><span class="line">    publicMethod: privateMethod</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<h2 id="模块化编程"><a href="#模块化编程" class="headerlink" title="模块化编程"></a>模块化编程</h2><p>上面提到的是命名冲突，还有文件依赖问题。我们引入 Node.js 支持的模块编程，将上面代码改为模块的方式：</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//代码片段 003 math.js</span></span><br><span class="line">define(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">require, exports</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-comment">//变量 函数</span></span><br><span class="line">  <span class="hljs-keyword">var</span> privateMember;</span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">privateMethod</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">      <span class="hljs-comment">//....</span></span><br><span class="line">  &#125;</span><br><span class="line">  exports.publicMethod = privateMethod;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">//在另一个模块中 net.js</span></span><br><span class="line"></span><br><span class="line">define(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">require, exports</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">var</span> math = requeire(<span class="hljs-string">'math'</span>);</span><br><span class="line">  math.publicMethod();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
 <p>Node.js 的模块系统就是这种方式，只不过不需要用户自己写define, node会对文件进行处理，Node.js 是服务端的应用当然可以这么写，而且读取文件依赖也是同步的。</p>
 <h2 id="同步模块实现"><a href="#同步模块实现" class="headerlink" title="同步模块实现"></a>同步模块实现</h2><p>如果我们要在浏览器端实现上面提到的模块功能，应该解决哪些问题呢？</p>
 <p>define 应该实现功能： 定义一个模块，模块 id 按照脚本 url 获取， 同时包括一个 function</p>
 <p>require 应该实现功能：获取模块，返回的是模块中的 exports。</p>
-<p>为避免重复，我们在全局变量 cacheMods 中保存加载的模块，并且保存 exports。<br>每个模块应该是这么一个对象：<br><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  id: uri,</span><br><span class="line">  factory: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">require, exports</span>)</span>&#123;&#125;,</span><br><span class="line">  exports: *** || &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>为避免重复，我们在全局变量 cacheMods 中保存加载的模块，并且保存 exports。<br>每个模块应该是这么一个对象：</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  id: uri,</span><br><span class="line">  factory: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">require, exports</span>)</span>&#123;&#125;,</span><br><span class="line">  exports: *** || &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>根据上面的分析：</p>
-<p>define和require的功能伪代码大概是这样的<br><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">define</span> (<span class="hljs-params">f</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">var</span> uri = getCurrentScriptUri(); <span class="hljs-comment">//该uri是当前脚本路径</span></span><br><span class="line">  <span class="hljs-keyword">var</span> mod = <span class="hljs-keyword">new</span> Module(uri, f);</span><br><span class="line">  mod.exports = factory(<span class="hljs-built_in">require</span>, mod.exports, mod);</span><br><span class="line">  cacheMods[uri] = mod;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">require</span> (<span class="hljs-params">uri</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">var</span> mod = cacheMods[uri];</span><br><span class="line">  <span class="hljs-keyword">return</span> mod.exports;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>define和require的功能伪代码大概是这样的</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">define</span> (<span class="hljs-params">f</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">var</span> uri = getCurrentScriptUri(); <span class="hljs-comment">//该uri是当前脚本路径</span></span><br><span class="line">  <span class="hljs-keyword">var</span> mod = <span class="hljs-keyword">new</span> Module(uri, f);</span><br><span class="line">  mod.exports = factory(<span class="hljs-built_in">require</span>, mod.exports, mod);</span><br><span class="line">  cacheMods[uri] = mod;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">require</span> (<span class="hljs-params">uri</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">var</span> mod = cacheMods[uri];</span><br><span class="line">  <span class="hljs-keyword">return</span> mod.exports;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>还有一个问题，当调用require的时候该模块还没加载怎么办？</p>
 <p>先考虑如果是同步加载的话：我们可以这样子，加载该模块代码–简单的说就是插入一个script （src=’uri’）当这个脚本加载完成后，执行define就有了这个模块。</p>
-<p>上面的require代码也需要调整一下：<br><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">require</span> (<span class="hljs-params">uri</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">var</span> mod = Module.get(uri);</span><br><span class="line">  <span class="hljs-keyword">return</span> mod.exports;</span><br><span class="line">&#125;</span><br><span class="line">Module.get: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">uri</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">var</span> mod = cacheMods[uri];</span><br><span class="line">  <span class="hljs-keyword">if</span> (!mod) &#123;</span><br><span class="line">      <span class="hljs-keyword">var</span> mod = <span class="hljs-keyword">new</span> Moudule(uri);</span><br><span class="line">      mod.load();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="hljs-keyword">return</span> mod;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面的require代码也需要调整一下：</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">require</span> (<span class="hljs-params">uri</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">var</span> mod = Module.get(uri);</span><br><span class="line">  <span class="hljs-keyword">return</span> mod.exports;</span><br><span class="line">&#125;</span><br><span class="line">Module.get: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">uri</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">var</span> mod = cacheMods[uri];</span><br><span class="line">  <span class="hljs-keyword">if</span> (!mod) &#123;</span><br><span class="line">      <span class="hljs-keyword">var</span> mod = <span class="hljs-keyword">new</span> Moudule(uri);</span><br><span class="line">      mod.load();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="hljs-keyword">return</span> mod;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>好简单啊！不过load方法必须是同步的，必须检测到依赖的模块已加载完成后才能往下执行。</p>
 <h2 id="异步加载模块实现"><a href="#异步加载模块实现" class="headerlink" title="异步加载模块实现"></a>异步加载模块实现</h2><p>如果我们要采用异步加载的方式，就不能在require时 加载依赖脚本。</p>
 <p>在代码片段003我们也能看出，在define的时候，require是不会执行的。我们可以在define的时候指明模块依赖，在define的时候就把所依赖模块下载下来。模块也多了一个属性deps，表明所依赖的模块;</p>
 <p>问题是这样强制用户指明依赖，是不是不太好。那我们自己来，分析下factory.toString()中的require (‘’);语句 获取到deps。</p>
-<p>这下就简单多了，不过还没完，所依赖的所有模块加载完成后，应该告知模块。并标示该模块的状态。003中的math模块加载完成后应该通知net模块。现在我们的模块应该定义成这样：<br><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  id: uri,</span><br><span class="line">  factory: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">require, exports</span>)</span>&#123;&#125;,</span><br><span class="line">  exports: *** || &#123;&#125;,</span><br><span class="line">  deps: [],</span><br><span class="line">  status: <span class="hljs-number">0</span>, <span class="hljs-comment">//标识模块状态</span></span><br><span class="line">  _awaiting: [], <span class="hljs-comment">//等待该模块的模块队列</span></span><br><span class="line">  _remain: deps.length <span class="hljs-comment">//当前模块依赖的deps还有几个没加载</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这下就简单多了，不过还没完，所依赖的所有模块加载完成后，应该告知模块。并标示该模块的状态。003中的math模块加载完成后应该通知net模块。现在我们的模块应该定义成这样：</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  id: uri,</span><br><span class="line">  factory: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">require, exports</span>)</span>&#123;&#125;,</span><br><span class="line">  exports: *** || &#123;&#125;,</span><br><span class="line">  deps: [],</span><br><span class="line">  status: <span class="hljs-number">0</span>, <span class="hljs-comment">//标识模块状态</span></span><br><span class="line">  _awaiting: [], <span class="hljs-comment">//等待该模块的模块队列</span></span><br><span class="line">  _remain: deps.length <span class="hljs-comment">//当前模块依赖的deps还有几个没加载</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//模块定义也变得复杂了点</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">define</span> (<span class="hljs-params">deps, factory</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">var</span> mod = cacheMods[uri] = <span class="hljs-keyword">new</span> Module(uri, f, deps);</span><br><span class="line">  mod._remain = deps.length;</span><br><span class="line">  mod._awaiting = &#123;&#125;;</span><br><span class="line">  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = deps.length - <span class="hljs-number">1</span>; i &gt; <span class="hljs-number">0</span>; i--) &#123;</span><br><span class="line">      Module.get(deps[i]).load();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="hljs-comment">//如果依赖的模块都已加载完成调用onload</span></span><br><span class="line">  <span class="hljs-keyword">if</span> (loadedAlldeps) &#123;</span><br><span class="line">      mod.onload();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">load</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">var</span> <span class="hljs-keyword">this</span>;</span><br><span class="line">  <span class="hljs-keyword">this</span>.fetch();<span class="hljs-comment">//在页面插入script 脚本加载之后又会调用define</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onload</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">  <span class="hljs-comment">//检查 _awaiting 上阻塞的模块</span></span><br><span class="line">  并对激活的模块 调用相应的 onload 方法</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>现在我们的模块应该差不多了。上面的 require 方法获取 mod 的 exports，如果多个地方调用 require(‘math’),也应该只有一个 exports，也就是每个模块的 factory 只执行那么一次。我们再稍微改下：<br><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">require</span> (<span class="hljs-params">uri</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">var</span> mod = Module.get(uri);</span><br><span class="line">  <span class="hljs-keyword">return</span> mod.exec();</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">exec</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">return</span> exports || mod.factory(<span class="hljs-built_in">require</span>, mod.exports, mod);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>启动执行第一个模块，我们的入口代码 只需要 <code>require(&#39;main&#39;)</code> 就可以了。等等，貌似哪里不对。main 模块这个时候还没加载啊。我们可以定义一个依赖 main 模块的 mod，加载这个<br><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">var</span> mod = <span class="hljs-keyword">new</span> Module([<span class="hljs-string">'main'</span>]);</span><br><span class="line">mod.onload = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">    mod.exec();</span><br><span class="line">&#125;</span><br><span class="line">mod.load();</span><br></pre></td></tr></table></figure></p>
-<p>以上描述了 CMD 模块加载器 seajs 的大概实现。seajs 就不用介绍。在 seajs 中 define 是个全局的函数，而 require 是一局部的变量。在 define 的时候并不做加载操作。我们看下 seajs 整个的结构<br><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Module</span>(<span class="hljs-params">uri, deps</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-comment">//没有 factory</span></span><br><span class="line">&#125;</span><br><span class="line">Module.prototype.load = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">  <span class="hljs-comment">//加载依赖模块</span></span><br><span class="line">  <span class="hljs-comment">//没用下载的模块 调用fetch</span></span><br><span class="line">&#125;</span><br><span class="line">Module.prototype.onload = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">  <span class="hljs-comment">//模块加载完成后的回调，通知_awaiting上的模块，如果所有依赖也完成就调用它的onload</span></span><br><span class="line">&#125;</span><br><span class="line">Module.prototype.fetch = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">  <span class="hljs-comment">//下载脚本，脚本下载完成后回调 load</span></span><br><span class="line">&#125;</span><br><span class="line">Module.prototype.exec = funcction () &#123;</span><br><span class="line">  <span class="hljs-comment">//执行factory 得到exports</span></span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">require</span>(<span class="hljs-params">id</span>) </span>&#123;</span><br><span class="line">      <span class="hljs-keyword">return</span> Module.get(<span class="hljs-built_in">require</span>.resolve(id)).exec()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Module.define = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">id, deps, factory</span>) </span>&#123;</span><br><span class="line">  parseDependencies();</span><br><span class="line">&#125;</span><br><span class="line">Module.get = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">uri, deps</span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line">Module.use = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">ids, callback, uri</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-comment">//加载匿名模块</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>当然还是有不少差别的，上面我们实现的是简化了很多的。seajs引入模块：<br><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">seajs.use(<span class="hljs-string">"examples/hello/1.0.0/main"</span>);</span><br></pre></td></tr></table></figure></p>
-<p>如果懒得提供匿名模块加载方式，我们也能用类似的方式来启动第一个模块：<br><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">var</span> mod = seajs.cache[<span class="hljs-string">'main'</span>] = <span class="hljs-keyword">new</span> seajs.Module(<span class="hljs-string">'main'</span> , [<span class="hljs-string">'examples/hello/1.0.0/main'</span>]);</span><br><span class="line">mod.callback = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">  seajs.cache[seajs.resolve(<span class="hljs-string">'examples/hello/1.0.0/main'</span>)].exec();</span><br><span class="line">&#125;;</span><br><span class="line">mod.load();</span><br></pre></td></tr></table></figure></p>
-<h2 id="模块周边"><a href="#模块周边" class="headerlink" title="模块周边"></a>模块周边</h2><p>大概或许就是这样，再来谈下文件合并的问题。CMD规范中一个文件只有一个模块，我们不能直接将所有模块连接到一个文件中。在seajs中定义的匿名模块是根据脚本的uri生成id的。在合并的时候必须指定该uri为id。即将原来的模块定义改成。<br><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//代码片段 003 math.js</span></span><br><span class="line">define(<span class="hljs-string">'main.js'</span>, [], <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">require, exports</span>) </span>&#123;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+
+<p>现在我们的模块应该差不多了。上面的 require 方法获取 mod 的 exports，如果多个地方调用 require(‘math’),也应该只有一个 exports，也就是每个模块的 factory 只执行那么一次。我们再稍微改下：</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">require</span> (<span class="hljs-params">uri</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">var</span> mod = Module.get(uri);</span><br><span class="line">  <span class="hljs-keyword">return</span> mod.exec();</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">exec</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">return</span> exports || mod.factory(<span class="hljs-built_in">require</span>, mod.exports, mod);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>启动执行第一个模块，我们的入口代码 只需要 <code>require(&#39;main&#39;)</code> 就可以了。等等，貌似哪里不对。main 模块这个时候还没加载啊。我们可以定义一个依赖 main 模块的 mod，加载这个</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">var</span> mod = <span class="hljs-keyword">new</span> Module([<span class="hljs-string">'main'</span>]);</span><br><span class="line">mod.onload = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">    mod.exec();</span><br><span class="line">&#125;</span><br><span class="line">mod.load();</span><br></pre></td></tr></table></figure>
+
+<p>以上描述了 CMD 模块加载器 seajs 的大概实现。seajs 就不用介绍。在 seajs 中 define 是个全局的函数，而 require 是一局部的变量。在 define 的时候并不做加载操作。我们看下 seajs 整个的结构</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Module</span>(<span class="hljs-params">uri, deps</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-comment">//没有 factory</span></span><br><span class="line">&#125;</span><br><span class="line">Module.prototype.load = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">  <span class="hljs-comment">//加载依赖模块</span></span><br><span class="line">  <span class="hljs-comment">//没用下载的模块 调用fetch</span></span><br><span class="line">&#125;</span><br><span class="line">Module.prototype.onload = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">  <span class="hljs-comment">//模块加载完成后的回调，通知_awaiting上的模块，如果所有依赖也完成就调用它的onload</span></span><br><span class="line">&#125;</span><br><span class="line">Module.prototype.fetch = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">  <span class="hljs-comment">//下载脚本，脚本下载完成后回调 load</span></span><br><span class="line">&#125;</span><br><span class="line">Module.prototype.exec = funcction () &#123;</span><br><span class="line">  <span class="hljs-comment">//执行factory 得到exports</span></span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">require</span>(<span class="hljs-params">id</span>) </span>&#123;</span><br><span class="line">      <span class="hljs-keyword">return</span> Module.get(<span class="hljs-built_in">require</span>.resolve(id)).exec()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Module.define = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">id, deps, factory</span>) </span>&#123;</span><br><span class="line">  parseDependencies();</span><br><span class="line">&#125;</span><br><span class="line">Module.get = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">uri, deps</span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line">Module.use = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">ids, callback, uri</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-comment">//加载匿名模块</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当然还是有不少差别的，上面我们实现的是简化了很多的。seajs引入模块：</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">seajs.use(<span class="hljs-string">"examples/hello/1.0.0/main"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>如果懒得提供匿名模块加载方式，我们也能用类似的方式来启动第一个模块：</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">var</span> mod = seajs.cache[<span class="hljs-string">'main'</span>] = <span class="hljs-keyword">new</span> seajs.Module(<span class="hljs-string">'main'</span> , [<span class="hljs-string">'examples/hello/1.0.0/main'</span>]);</span><br><span class="line">mod.callback = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">  seajs.cache[seajs.resolve(<span class="hljs-string">'examples/hello/1.0.0/main'</span>)].exec();</span><br><span class="line">&#125;;</span><br><span class="line">mod.load();</span><br></pre></td></tr></table></figure>
+
+<h2 id="模块周边"><a href="#模块周边" class="headerlink" title="模块周边"></a>模块周边</h2><p>大概或许就是这样，再来谈下文件合并的问题。CMD规范中一个文件只有一个模块，我们不能直接将所有模块连接到一个文件中。在seajs中定义的匿名模块是根据脚本的uri生成id的。在合并的时候必须指定该uri为id。即将原来的模块定义改成。</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//代码片段 003 math.js</span></span><br><span class="line">define(<span class="hljs-string">'main.js'</span>, [], <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">require, exports</span>) </span>&#123;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
 <p>seajs文件的合并是用spm-js做的。</p>
 <p>最后，提下 smash，d3 用到的一个文件拆分的处理方式。在 JS 中可以这么用</p>
 <figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> <span class="hljs-string">"math"</span></span><br></pre></td></tr></table></figure>
+
 <p>在运行前重新生成合并文件。主要是用 namespace 避免污染变量，这样的好处就是实际生成的 JS 还是原来的 JS 代码，但是在开发的时候各个文件很小，在开发的时候感觉更为清晰些（我们的一个项目中有用过这东东）。</p>
 
         </div>
@@ -220,40 +253,6 @@
 </div>
 
 
-
-<div class="card">
-    <div class="card-content">
-        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
-        <div class="buttons is-centered">
-            
-                
-<div class="notification is-danger">
-    You forgot to set the <code>qrcode</code> for Alipay. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-                
-<div class="notification is-danger">
-    You forgot to set the <code>qrcode</code> for Wechat. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-                <!-- Visit https://www.paypal.com/donate/buttons/ to get your donate button -->
-
-<div class="notification is-danger">
-    You forgot to set the <code>business</code> and <code>currency_code</code> for Paypal. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-                
-<div class="notification is-danger">
-    You forgot to set the <code>url</code> Patreon. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-        </div>
-    </div>
-</div>
 
 
 
@@ -294,22 +293,24 @@
             <div class="level-item has-text-centered">
                 <div>
                     
-                        <img class="image is-128x128 has-mb-6" src="/blog/images/avatar.png" alt="Your name">
+                        <figure class="image is-128x128 has-mb-6">
+                            <img class="is-rounded" src="/blog/gallery/site/shark.png" alt="fedeoo">
+                        </figure>
                     
                     
                     <p class="is-size-4 is-block">
-                        Your name
+                        fedeoo
                     </p>
                     
                     
                     <p class="is-size-6 is-block">
-                        Your title
+                        Web Developer
                     </p>
                     
                     
                     <p class="is-size-6 is-flex is-flex-center has-text-grey">
                         <i class="fas fa-map-marker-alt has-mr-7"></i>
-                        <span>Your location</span>
+                        <span>Sydney</span>
                     </p>
                     
                 </div>
@@ -348,88 +349,15 @@
             </div>
         </nav>
         <div class="level">
-            <a class="level-item button is-link is-rounded" href="https://github.com/ppoffice" target="_blank">
+            <a class="level-item button is-link is-rounded" href="/blog/" target="_blank">
                 关注我</a>
         </div>
         
         
-        <div class="level is-mobile">
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="https://github.com/ppoffice">
-                
-                <i class="fab fa-github"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="https://facebook.com">
-                
-                <i class="fab fa-facebook"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="https://twitter.com">
-                
-                <i class="fab fa-twitter"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="https://dribbble.com">
-                
-                <i class="fab fa-dribbble"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/blog/">
-                
-                <i class="fas fa-rss"></i>
-                
-            </a>
-            
-        </div>
-        
     </div>
 </div>
     
         
-    
-        
-
-<div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-        <h3 class="menu-label">
-            链接
-        </h3>
-        <ul class="menu-list">
-        
-            <li>
-                <a class="level is-mobile" href="https://hexo.io" target="_blank">
-                    <span class="level-left">
-                        <span class="level-item">Hexo</span>
-                    </span>
-                    <span class="level-right">
-                        <span class="level-item tag">hexo.io</span>
-                    </span>
-                </a>
-            </li>
-        
-            <li>
-                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
-                    <span class="level-left">
-                        <span class="level-item">PPOffice</span>
-                    </span>
-                    <span class="level-right">
-                        <span class="level-item tag">github.com</span>
-                    </span>
-                </a>
-            </li>
-        
-        </ul>
-        </div>
-    </div>
-</div>
-
-
     
         
 <div class="card widget">
@@ -492,17 +420,6 @@
         </div>
     </div>
 </div>
-    
-        
-<div class="card widget">
-    <div class="card-content">
-        <h3 class="menu-label">
-            标签云
-        </h3>
-        <a href="/blog/tags/AngularJS/" style="font-size: 10px;">AngularJS</a> <a href="/blog/tags/AngularJS-lazyload/" style="font-size: 10px;">AngularJS lazyload</a> <a href="/blog/tags/AngularJs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/CDN共享/" style="font-size: 10px;">CDN共享</a> <a href="/blog/tags/MobX/" style="font-size: 10px;">MobX</a> <a href="/blog/tags/Module-SeaJS/" style="font-size: 10px;">Module SeaJS</a> <a href="/blog/tags/MutationObserver/" style="font-size: 10px;">MutationObserver</a> <a href="/blog/tags/Promise/" style="font-size: 20px;">Promise</a> <a href="/blog/tags/React/" style="font-size: 10px;">React</a> <a href="/blog/tags/js模式/" style="font-size: 10px;">js模式</a> <a href="/blog/tags/mobile-video/" style="font-size: 10px;">mobile video</a> <a href="/blog/tags/react/" style="font-size: 10px;">react</a> <a href="/blog/tags/template/" style="font-size: 10px;">template</a> <a href="/blog/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/blog/tags/业务流程/" style="font-size: 10px;">业务流程</a> <a href="/blog/tags/前端工程化/" style="font-size: 10px;">前端工程化</a> <a href="/blog/tags/前端错误/" style="font-size: 10px;">前端错误</a> <a href="/blog/tags/框架/" style="font-size: 20px;">框架</a> <a href="/blog/tags/秒杀/" style="font-size: 10px;">秒杀</a> <a href="/blog/tags/组件/" style="font-size: 10px;">组件</a> <a href="/blog/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/blog/tags/设计/" style="font-size: 10px;">设计</a> <a href="/blog/tags/调研-MVVM/" style="font-size: 10px;">调研 MVVM</a> <a href="/blog/tags/阅读笔记/" style="font-size: 10px;">阅读笔记</a>
-    </div>
-</div>
-
     
     
         <div class="column-right-shadow is-hidden-widescreen ">
@@ -1526,7 +1443,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/blog/">
                 
-                    <img src="/blog/images/logo.svg" alt="也谈 JS 模块" height="28">
+                    <img src="/blog/gallery/site/logo.png" alt="也谈 JS 模块" height="28">
                 
                 </a>
                 <p class="is-size-7">

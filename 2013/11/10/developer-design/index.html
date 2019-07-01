@@ -28,7 +28,7 @@
 
 
 
-<link rel="icon" href="/blog/images/favicon.svg">
+<link rel="icon" href="/blog/gallery/site/logo.png">
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
@@ -66,6 +66,15 @@
 
     
     
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-141194294-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-141194294-1');
+</script>
+
 
     
     
@@ -94,7 +103,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/blog/">
             
-                <img src="/blog/images/logo.svg" alt="为开发者的设计" height="28">
+                <img src="/blog/gallery/site/logo.png" alt="为开发者的设计" height="28">
             
             </a>
         </div>
@@ -115,15 +124,6 @@
             </div>
             
             <div class="navbar-end">
-                
-                    
-                    
-                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
-                        
-                        <i class="fab fa-github"></i>
-                        
-                    </a>
-                    
                 
                 
                 
@@ -170,6 +170,7 @@
         <div class="content">
             <p>design for developers 老外的 presentation</p>
 <a id="more"></a>
+
 <p>大概整理了下：</p>
 <ul>
 <li>排版 字体大小最少14px 或者默认大小，有时也依赖字体； 可读长度不超过60字符；<br>headings 1.1倍行高 段落1.5倍行高</li>
@@ -182,6 +183,7 @@
 <p>总结：实际上，12px 的汉字实在是太小了，当然也跟分辨率设置有关。13px 的还差不多。verdana 字体看上还不错，不过放在在阅读的板块中间距显得大了点，所以下面就没用使用。简单看了下几个网站的间距、字体。13px 的中文还不少。行高在1.5左右。间距也是一样的，如果按照他所给的间距有时又显得太宽。按钮简单看了下几个网站的，bootstrap 的按钮点击状态并没用表现出太多区别，apple 的倒明显。musescore 的倒是变亮了。觉得 apple 的不错，下面用的就是 apple.com 的。另外，之前读的一篇文章讲层次感：背景色区域 —<br> 实线 — 虚线 — 空白。这个在新闻网站页面分栏能够很好的体现出来。原文章不记得链接了。</p>
 <p>最后依据这些原则简单定义了一些样式：</p>
 <figure class="highlight css hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-selector-tag">body</span> &#123;</span><br><span class="line">    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">12px</span>;</span><br><span class="line">    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.5</span>;</span><br><span class="line">    <span class="hljs-attribute">color</span>: <span class="hljs-number">#333</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-selector-tag">h1</span>, <span class="hljs-selector-tag">h2</span>, <span class="hljs-selector-tag">h3</span>, <span class="hljs-selector-tag">h4</span> , <span class="hljs-selector-tag">h5</span> &#123;</span><br><span class="line">    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">16px</span>;</span><br><span class="line">    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.1</span>;</span><br><span class="line">    <span class="hljs-attribute">color</span>: <span class="hljs-number">#000</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-selector-tag">header</span>&#123;</span><br><span class="line">    <span class="hljs-attribute">margin</span>: <span class="hljs-number">24px</span> <span class="hljs-number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-selector-class">.container</span> &#123;</span><br><span class="line">    <span class="hljs-attribute">width</span>: <span class="hljs-number">936px</span>;</span><br><span class="line">    <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-selector-tag">aside</span> &#123;</span><br><span class="line">    <span class="hljs-attribute">float</span>: left;</span><br><span class="line">    <span class="hljs-attribute">width</span>: <span class="hljs-number">216px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-selector-class">.post</span>&#123;</span><br><span class="line">    <span class="hljs-attribute">margin-left</span>: <span class="hljs-number">240px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-selector-tag">input</span><span class="hljs-selector-attr">[type="text"]</span>, <span class="hljs-selector-tag">input</span><span class="hljs-selector-attr">[type="email"]</span> , <span class="hljs-selector-tag">input</span><span class="hljs-selector-attr">[type="password"]</span>, <span class="hljs-selector-tag">textarea</span>&#123;</span><br><span class="line">    <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#ccc</span> <span class="hljs-meta">!important</span>;</span><br><span class="line">    <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">4px</span>;</span><br><span class="line">    <span class="hljs-attribute">-webkit-box-shadow</span>: inset <span class="hljs-number">0</span> <span class="hljs-number">1px</span> <span class="hljs-number">1px</span> <span class="hljs-built_in">rgba</span>(0,0,0,0.075);</span><br><span class="line">    <span class="hljs-attribute">box-shadow</span>: inset <span class="hljs-number">0</span> <span class="hljs-number">1px</span> <span class="hljs-number">1px</span> <span class="hljs-built_in">rgba</span>(0,0,0,0.075);</span><br><span class="line">    <span class="hljs-attribute">-webkit-transition</span>: border-color ease-in-out .<span class="hljs-number">15s</span>,box-shadow ease-in-out .<span class="hljs-number">15s</span>;</span><br><span class="line">    <span class="hljs-attribute">transition</span>: border-color ease-in-out .<span class="hljs-number">15s</span>,box-shadow ease-in-out .<span class="hljs-number">15s</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-selector-tag">input</span><span class="hljs-selector-attr">[type="text"]</span><span class="hljs-selector-pseudo">:focus</span>, <span class="hljs-selector-tag">input</span><span class="hljs-selector-attr">[type="email"]</span><span class="hljs-selector-pseudo">:focus</span>, <span class="hljs-selector-tag">input</span><span class="hljs-selector-attr">[type="password"]</span><span class="hljs-selector-pseudo">:focus</span>, <span class="hljs-selector-tag">textarea</span><span class="hljs-selector-pseudo">:focus</span>&#123;</span><br><span class="line">    <span class="hljs-attribute">border-color</span>: <span class="hljs-number">#66afe9</span> <span class="hljs-meta">!important</span>;</span><br><span class="line">    <span class="hljs-attribute">outline</span>: <span class="hljs-number">0</span>;</span><br><span class="line">    <span class="hljs-attribute">-webkit-box-shadow</span>: inset <span class="hljs-number">0</span> <span class="hljs-number">1px</span> <span class="hljs-number">1px</span> <span class="hljs-built_in">rgba</span>(0,0,0,0.075),<span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">8px</span> <span class="hljs-built_in">rgba</span>(102,175,233,0.6);</span><br><span class="line">    <span class="hljs-attribute">box-shadow</span>: inset <span class="hljs-number">0</span> <span class="hljs-number">1px</span> <span class="hljs-number">1px</span> <span class="hljs-built_in">rgba</span>(0,0,0,0.075),<span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">8px</span> <span class="hljs-built_in">rgba</span>(102,175,233,0.6);</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-selector-tag">button</span>, <span class="hljs-selector-tag">input</span><span class="hljs-selector-attr">[type="button"]</span>, <span class="hljs-selector-tag">input</span><span class="hljs-selector-attr">[type="reset"]</span>, <span class="hljs-selector-tag">input</span><span class="hljs-selector-attr">[type="submit"]</span>&#123;</span><br><span class="line">    <span class="hljs-attribute">color</span>: <span class="hljs-number">#FFF</span>;</span><br><span class="line">    <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid;</span><br><span class="line">    <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">4px</span>;</span><br><span class="line">    <span class="hljs-attribute">-webkit-box-shadow</span>: inset <span class="hljs-number">0</span> <span class="hljs-number">1px</span> <span class="hljs-number">1px</span> <span class="hljs-number">0</span> <span class="hljs-number">#6fc5f5</span>;</span><br><span class="line">    <span class="hljs-attribute">box-shadow</span>: inset <span class="hljs-number">0</span> <span class="hljs-number">1px</span> <span class="hljs-number">1px</span> <span class="hljs-number">0</span> <span class="hljs-number">#6fc5f5</span>;</span><br><span class="line">    <span class="hljs-attribute">background</span>: <span class="hljs-number">#117ed2</span>;</span><br><span class="line">    <span class="hljs-attribute">background</span>: <span class="hljs-built_in">-webkit-gradient</span>(linear,left top,left bottom,from(#37aaea),<span class="hljs-built_in">to</span>(#117ed2));</span><br><span class="line">    <span class="hljs-attribute">background-image</span>: <span class="hljs-built_in">linear-gradient</span>(to bottom,#37aaea 0,#117ed2 100%);</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-selector-tag">button</span><span class="hljs-selector-pseudo">:hover</span>, <span class="hljs-selector-tag">button</span><span class="hljs-selector-pseudo">:focus</span>, <span class="hljs-selector-tag">input</span><span class="hljs-selector-attr">[type="button"]</span><span class="hljs-selector-pseudo">:hover</span>, <span class="hljs-selector-tag">input</span><span class="hljs-selector-attr">[type="button"]</span><span class="hljs-selector-pseudo">:focus</span>,</span><br><span class="line"><span class="hljs-selector-tag">input</span><span class="hljs-selector-attr">[type="reset"]</span><span class="hljs-selector-pseudo">:hover</span>, <span class="hljs-selector-tag">input</span><span class="hljs-selector-attr">[type="reset"]</span><span class="hljs-selector-pseudo">:focus</span>, <span class="hljs-selector-tag">input</span><span class="hljs-selector-attr">[type="submit"]</span><span class="hljs-selector-pseudo">:hover</span>, <span class="hljs-selector-tag">input</span><span class="hljs-selector-attr">[type="submit"]</span><span class="hljs-selector-pseudo">:focus</span>&#123;</span><br><span class="line">    <span class="hljs-attribute">background</span>: <span class="hljs-number">#1c5bad</span>;</span><br><span class="line">    <span class="hljs-attribute">background</span>: <span class="hljs-built_in">-webkit-gradient</span>(linear,left top,left bottom,from(#2488d4),<span class="hljs-built_in">to</span>(#1c5bad));</span><br><span class="line">    <span class="hljs-attribute">background-image</span>: <span class="hljs-built_in">linear-gradient</span>(to bottom,#2488d4 0,#1c5bad 100%);</span><br><span class="line">    <span class="hljs-attribute">-webkit-box-shadow</span>: inset <span class="hljs-number">0</span> <span class="hljs-number">1px</span> <span class="hljs-number">1px</span> <span class="hljs-number">0</span> <span class="hljs-number">#64bef1</span>;</span><br><span class="line">    <span class="hljs-attribute">box-shadow</span>: inset <span class="hljs-number">0</span> <span class="hljs-number">1px</span> <span class="hljs-number">1px</span> <span class="hljs-number">0</span> <span class="hljs-number">#64bef1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
         </div>
         
@@ -200,40 +202,6 @@
 </div>
 
 
-
-<div class="card">
-    <div class="card-content">
-        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
-        <div class="buttons is-centered">
-            
-                
-<div class="notification is-danger">
-    You forgot to set the <code>qrcode</code> for Alipay. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-                
-<div class="notification is-danger">
-    You forgot to set the <code>qrcode</code> for Wechat. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-                <!-- Visit https://www.paypal.com/donate/buttons/ to get your donate button -->
-
-<div class="notification is-danger">
-    You forgot to set the <code>business</code> and <code>currency_code</code> for Paypal. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-                
-<div class="notification is-danger">
-    You forgot to set the <code>url</code> Patreon. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-        </div>
-    </div>
-</div>
 
 
 
@@ -274,22 +242,24 @@
             <div class="level-item has-text-centered">
                 <div>
                     
-                        <img class="image is-128x128 has-mb-6" src="/blog/images/avatar.png" alt="Your name">
+                        <figure class="image is-128x128 has-mb-6">
+                            <img class="is-rounded" src="/blog/gallery/site/shark.png" alt="fedeoo">
+                        </figure>
                     
                     
                     <p class="is-size-4 is-block">
-                        Your name
+                        fedeoo
                     </p>
                     
                     
                     <p class="is-size-6 is-block">
-                        Your title
+                        Web Developer
                     </p>
                     
                     
                     <p class="is-size-6 is-flex is-flex-center has-text-grey">
                         <i class="fas fa-map-marker-alt has-mr-7"></i>
-                        <span>Your location</span>
+                        <span>Sydney</span>
                     </p>
                     
                 </div>
@@ -328,88 +298,15 @@
             </div>
         </nav>
         <div class="level">
-            <a class="level-item button is-link is-rounded" href="https://github.com/ppoffice" target="_blank">
+            <a class="level-item button is-link is-rounded" href="/blog/" target="_blank">
                 关注我</a>
         </div>
         
         
-        <div class="level is-mobile">
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="https://github.com/ppoffice">
-                
-                <i class="fab fa-github"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="https://facebook.com">
-                
-                <i class="fab fa-facebook"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="https://twitter.com">
-                
-                <i class="fab fa-twitter"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="https://dribbble.com">
-                
-                <i class="fab fa-dribbble"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/blog/">
-                
-                <i class="fas fa-rss"></i>
-                
-            </a>
-            
-        </div>
-        
     </div>
 </div>
     
         
-    
-        
-
-<div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-        <h3 class="menu-label">
-            链接
-        </h3>
-        <ul class="menu-list">
-        
-            <li>
-                <a class="level is-mobile" href="https://hexo.io" target="_blank">
-                    <span class="level-left">
-                        <span class="level-item">Hexo</span>
-                    </span>
-                    <span class="level-right">
-                        <span class="level-item tag">hexo.io</span>
-                    </span>
-                </a>
-            </li>
-        
-            <li>
-                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
-                    <span class="level-left">
-                        <span class="level-item">PPOffice</span>
-                    </span>
-                    <span class="level-right">
-                        <span class="level-item tag">github.com</span>
-                    </span>
-                </a>
-            </li>
-        
-        </ul>
-        </div>
-    </div>
-</div>
-
-
     
         
 <div class="card widget">
@@ -472,17 +369,6 @@
         </div>
     </div>
 </div>
-    
-        
-<div class="card widget">
-    <div class="card-content">
-        <h3 class="menu-label">
-            标签云
-        </h3>
-        <a href="/blog/tags/AngularJS/" style="font-size: 10px;">AngularJS</a> <a href="/blog/tags/AngularJS-lazyload/" style="font-size: 10px;">AngularJS lazyload</a> <a href="/blog/tags/AngularJs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/CDN共享/" style="font-size: 10px;">CDN共享</a> <a href="/blog/tags/MobX/" style="font-size: 10px;">MobX</a> <a href="/blog/tags/Module-SeaJS/" style="font-size: 10px;">Module SeaJS</a> <a href="/blog/tags/MutationObserver/" style="font-size: 10px;">MutationObserver</a> <a href="/blog/tags/Promise/" style="font-size: 20px;">Promise</a> <a href="/blog/tags/React/" style="font-size: 10px;">React</a> <a href="/blog/tags/js模式/" style="font-size: 10px;">js模式</a> <a href="/blog/tags/mobile-video/" style="font-size: 10px;">mobile video</a> <a href="/blog/tags/react/" style="font-size: 10px;">react</a> <a href="/blog/tags/template/" style="font-size: 10px;">template</a> <a href="/blog/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/blog/tags/业务流程/" style="font-size: 10px;">业务流程</a> <a href="/blog/tags/前端工程化/" style="font-size: 10px;">前端工程化</a> <a href="/blog/tags/前端错误/" style="font-size: 10px;">前端错误</a> <a href="/blog/tags/框架/" style="font-size: 20px;">框架</a> <a href="/blog/tags/秒杀/" style="font-size: 10px;">秒杀</a> <a href="/blog/tags/组件/" style="font-size: 10px;">组件</a> <a href="/blog/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/blog/tags/设计/" style="font-size: 10px;">设计</a> <a href="/blog/tags/调研-MVVM/" style="font-size: 10px;">调研 MVVM</a> <a href="/blog/tags/阅读笔记/" style="font-size: 10px;">阅读笔记</a>
-    </div>
-</div>
-
     
     
         <div class="column-right-shadow is-hidden-widescreen ">
@@ -1506,7 +1392,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/blog/">
                 
-                    <img src="/blog/images/logo.svg" alt="为开发者的设计" height="28">
+                    <img src="/blog/gallery/site/logo.png" alt="为开发者的设计" height="28">
                 
                 </a>
                 <p class="is-size-7">

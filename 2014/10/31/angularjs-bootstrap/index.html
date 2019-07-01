@@ -28,7 +28,7 @@
 
 
 
-<link rel="icon" href="/blog/images/favicon.svg">
+<link rel="icon" href="/blog/gallery/site/logo.png">
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
@@ -66,6 +66,15 @@
 
     
     
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-141194294-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-141194294-1');
+</script>
+
 
     
     
@@ -94,7 +103,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/blog/">
             
-                <img src="/blog/images/logo.svg" alt="Angular启动" height="28">
+                <img src="/blog/gallery/site/logo.png" alt="Angular启动" height="28">
             
             </a>
         </div>
@@ -115,15 +124,6 @@
             </div>
             
             <div class="navbar-end">
-                
-                    
-                    
-                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
-                        
-                        <i class="fab fa-github"></i>
-                        
-                    </a>
-                    
                 
                 
                 
@@ -170,23 +170,31 @@
         <div class="content">
             <p>本来有一篇很好的文章讲解启动流程，后来设为秘密的了，虽然有复制，但也不太好拿人家不愿共享的东西出来。在这就贴一下我的总结啦。</p>
 <a id="more"></a>
+
 <h2 id="AngularJS加载完成后工作："><a href="#AngularJS加载完成后工作：" class="headerlink" title="AngularJS加载完成后工作："></a>AngularJS加载完成后工作：</h2><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">bindJQuery(); <span class="hljs-comment">// 如果有JQuery</span></span><br><span class="line"></span><br><span class="line">publishExternalAPI(angular); <span class="hljs-comment">// 暴露对外API</span></span><br><span class="line"></span><br><span class="line">jqLite(<span class="hljs-built_in">document</span>).ready(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">  angularInit(<span class="hljs-built_in">document</span>, bootstrap); <span class="hljs-comment">//初始启动</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
 <h2 id="publishExternalAPI"><a href="#publishExternalAPI" class="headerlink" title="publishExternalAPI"></a>publishExternalAPI</h2><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">publishExternalAPI:</span><br><span class="line">  extendAngular() <span class="hljs-comment">// 扩展bootstrap extend isArray...</span></span><br><span class="line">  angularModule() <span class="hljs-comment">// 定义angular.module</span></span><br><span class="line">  <span class="hljs-built_in">module</span>(<span class="hljs-string">'ngLocale'</span>, []).provider(<span class="hljs-string">'$locale'</span>, $localeProvider); <span class="hljs-comment">//创建模块</span></span><br><span class="line">  <span class="hljs-comment">// 实际结果是 _invokeQueue.push('$provider', 'provider', arguments); _invokeQueue是模块实例的一个属性，自己在控制台输出下一个模块所有的属性。</span></span><br><span class="line">  <span class="hljs-built_in">module</span>(<span class="hljs-string">'ng'</span>, [<span class="hljs-string">'ngLocale'</span>], [<span class="hljs-string">'$provider'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">$provider</span>)</span>&#123;</span><br><span class="line">      $provider.provider(&#123;</span><br><span class="line">          $animate: $AnimateProvider,</span><br><span class="line">          $browser: $BrowserProvider,</span><br><span class="line">          $http: $HttpProvider,</span><br><span class="line">          ......</span><br><span class="line">      &#125;);</span><br><span class="line">  &#125;]);</span><br><span class="line">  <span class="hljs-comment">// 实际效果： _invokeQueue.push('$injector', 'invoke', arguments);</span></span><br><span class="line">  <span class="hljs-comment">// 为了批量添加，provider接收一个object</span></span><br><span class="line">  <span class="hljs-built_in">module</span>(<span class="hljs-string">'app'</span>, []).controller(<span class="hljs-string">'ctrl'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;&#125;);</span><br><span class="line">  <span class="hljs-comment">// 实际效果： _invokeQueue.push('$controllerProvider', 'registre', arguments);</span></span><br></pre></td></tr></table></figure>
+
 <p>假设我们自己定义了一个 app 模块。</p>
 <figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">app.run([<span class="hljs-string">'$scope'</span>, <span class="hljs-string">'$http'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">$scope, $http</span>) </span>&#123;</span><br><span class="line">&#125;]);</span><br><span class="line"><span class="hljs-comment">// 实际先添加在_runblocks上</span></span><br></pre></td></tr></table></figure>
+
 <p>angularInit 做的事情是，查找页面上的 ng-app，启动整个应用。<br>doBootstrap 首先创建 injector，然后执行下面代码。</p>
 <figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">injector.invoke([<span class="hljs-string">'$rootScope'</span>, <span class="hljs-string">'$rootElement'</span>, <span class="hljs-string">'$compile'</span>, <span class="hljs-string">'$injector'</span>, <span class="hljs-string">'$animate'</span>,</span><br><span class="line">   <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">scope, element, compile, injector, animate</span>) </span>&#123;</span><br><span class="line">     scope.$apply(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">        element.data(<span class="hljs-string">'$injector'</span>, injector);</span><br><span class="line">        compile(element)(scope);</span><br><span class="line">     &#125;);</span><br><span class="line">   &#125;]</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
 <h2 id="创建Injector的过程："><a href="#创建Injector的过程：" class="headerlink" title="创建Injector的过程："></a>创建Injector的过程：</h2><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">doBootstrap--&gt;createInjector(modules):</span><br><span class="line">  <span class="hljs-comment">//modules参数: ['ng', ['$provider', function () &#123;$provide.value('$rootElement', element);&#125;], 'App'];</span></span><br><span class="line">  providerCache &#123;$provider, <span class="hljs-attr">$injector</span>: providerInjector&#125;</span><br><span class="line">  providerInjector &#123;<span class="hljs-attr">get</span>: 从providerCache中取&#125;</span><br><span class="line">  instanceCache</span><br><span class="line">  instanceInjector</span><br><span class="line"></span><br><span class="line">  loadModules: 递归加载Provider类，后加载的覆盖之前的。</span><br><span class="line">    loadModules(moduleFn.requires)</span><br><span class="line">    invoke(_invokeQueue) &#123; <span class="hljs-comment">// 大致操作</span></span><br><span class="line">        ngLocale: $provider.provider(<span class="hljs-string">'$locale'</span>, $localeProvider);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">return</span> _runBlocks.concat(reuqires._runBlocks);</span><br><span class="line"></span><br><span class="line">  provider:每个应用注册的provider类全在providerCache中</span><br><span class="line">    providerCache[<span class="hljs-string">'$httpProvider'</span>] = $httpProvider;</span><br><span class="line">    providerCache[<span class="hljs-string">'$filterProvider'</span>] = $filterProvider;</span><br><span class="line">    ......</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  instanceInjector.invoke([<span class="hljs-string">'$rooScope'</span>, <span class="hljs-string">'$http'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">$rootScope, $http</span>) </span>&#123;&#125;]);</span><br><span class="line"></span><br><span class="line">  instanceCache &#123;<span class="hljs-attr">$rootScope</span>: ,<span class="hljs-attr">$http</span>: .....,Config&#125; <span class="hljs-comment">//获取$rootScope实例时，可能递归的创建了其他的实例。</span></span><br></pre></td></tr></table></figure>
+
 <p>每个应用只创建一个Injector，当然一个页面可以手动启动几个独立的app，好像还没人这么干。</p>
 <p>从下面的代码中可以看到，一个app模块依赖的provider实例全在providerCache中，没错我说的就是xxProvider实例。</p>
 <p>当我们定义一个provider时，我们知道它是包装过的一个函数</p>
 <figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">XXXProvider</span>(<span class="hljs-params"></span>) </span>&#123;<span class="hljs-keyword">this</span>._get = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;&#125;&#125;</span><br></pre></td></tr></table></figure>
+
 <p>这个 providerCache 中保存的就是该函数的实例 instance 它有一个 <code>_get</code> 属性。而 instanceCache 中保存的是调用<code>_get</code> 返回的实例。</p>
 <p>一个 Injector 的实现并不复杂，cache 存放 provider 和实例，invoke 方法将函数提供的 $inject 或者参数名称 name 映射为 cache[name]，然后调用函数。</p>
 <p>将 Provider 类和 Provider 实例分开单独的 cache 和 injector是基于这样的考虑：Provider 类不应该注入一个实例，同样实例不应该注入一个 Provider 类。</p>
 <p>内部实现一个 createInternalInjector 方法提取共同部分创建这两个 injector。如果在 instanceCache 中查找不到，providerInjector 又有对应的 Provider 类，则会从 providerInjector 获取到该 Provider 类实例化一个。</p>
 <p>至于模块的 config 方法，当然是与 Provider 类有关，而 run 方法当然是与 Provider 实例有关。就是</p>
 <figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//config(['xxProvider', function (xxProvider) &#123;&#125;])  在Provider类注入完之后才应该调用，所以保存在_configBlocks 而非 _invokeQueue中</span></span><br><span class="line">providerInjector.invoke([<span class="hljs-string">'xxProvider'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">xxProvider</span>) </span>&#123;&#125;]);</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// run(function ()&#123;&#125;)</span></span><br><span class="line">instanceInjector.invoke(fn);</span><br></pre></td></tr></table></figure>
+
 <p>注册 directive 提供的的 directiveFactory 一般也不会被用到。注册的 Directive 有单独的 cache。$compile 的功能实现也不复杂，查找节点，以节点为参数调用对应 Directve 的 compile 方法。对每个节点都进行递归处理。</p>
 
         </div>
@@ -206,40 +214,6 @@
 </div>
 
 
-
-<div class="card">
-    <div class="card-content">
-        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
-        <div class="buttons is-centered">
-            
-                
-<div class="notification is-danger">
-    You forgot to set the <code>qrcode</code> for Alipay. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-                
-<div class="notification is-danger">
-    You forgot to set the <code>qrcode</code> for Wechat. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-                <!-- Visit https://www.paypal.com/donate/buttons/ to get your donate button -->
-
-<div class="notification is-danger">
-    You forgot to set the <code>business</code> and <code>currency_code</code> for Paypal. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-                
-<div class="notification is-danger">
-    You forgot to set the <code>url</code> Patreon. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-        </div>
-    </div>
-</div>
 
 
 
@@ -280,22 +254,24 @@
             <div class="level-item has-text-centered">
                 <div>
                     
-                        <img class="image is-128x128 has-mb-6" src="/blog/images/avatar.png" alt="Your name">
+                        <figure class="image is-128x128 has-mb-6">
+                            <img class="is-rounded" src="/blog/gallery/site/shark.png" alt="fedeoo">
+                        </figure>
                     
                     
                     <p class="is-size-4 is-block">
-                        Your name
+                        fedeoo
                     </p>
                     
                     
                     <p class="is-size-6 is-block">
-                        Your title
+                        Web Developer
                     </p>
                     
                     
                     <p class="is-size-6 is-flex is-flex-center has-text-grey">
                         <i class="fas fa-map-marker-alt has-mr-7"></i>
-                        <span>Your location</span>
+                        <span>Sydney</span>
                     </p>
                     
                 </div>
@@ -334,88 +310,15 @@
             </div>
         </nav>
         <div class="level">
-            <a class="level-item button is-link is-rounded" href="https://github.com/ppoffice" target="_blank">
+            <a class="level-item button is-link is-rounded" href="/blog/" target="_blank">
                 关注我</a>
         </div>
         
         
-        <div class="level is-mobile">
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="https://github.com/ppoffice">
-                
-                <i class="fab fa-github"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="https://facebook.com">
-                
-                <i class="fab fa-facebook"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="https://twitter.com">
-                
-                <i class="fab fa-twitter"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="https://dribbble.com">
-                
-                <i class="fab fa-dribbble"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/blog/">
-                
-                <i class="fas fa-rss"></i>
-                
-            </a>
-            
-        </div>
-        
     </div>
 </div>
     
         
-    
-        
-
-<div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-        <h3 class="menu-label">
-            链接
-        </h3>
-        <ul class="menu-list">
-        
-            <li>
-                <a class="level is-mobile" href="https://hexo.io" target="_blank">
-                    <span class="level-left">
-                        <span class="level-item">Hexo</span>
-                    </span>
-                    <span class="level-right">
-                        <span class="level-item tag">hexo.io</span>
-                    </span>
-                </a>
-            </li>
-        
-            <li>
-                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
-                    <span class="level-left">
-                        <span class="level-item">PPOffice</span>
-                    </span>
-                    <span class="level-right">
-                        <span class="level-item tag">github.com</span>
-                    </span>
-                </a>
-            </li>
-        
-        </ul>
-        </div>
-    </div>
-</div>
-
-
     
         
 <div class="card widget">
@@ -478,17 +381,6 @@
         </div>
     </div>
 </div>
-    
-        
-<div class="card widget">
-    <div class="card-content">
-        <h3 class="menu-label">
-            标签云
-        </h3>
-        <a href="/blog/tags/AngularJS/" style="font-size: 10px;">AngularJS</a> <a href="/blog/tags/AngularJS-lazyload/" style="font-size: 10px;">AngularJS lazyload</a> <a href="/blog/tags/AngularJs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/CDN共享/" style="font-size: 10px;">CDN共享</a> <a href="/blog/tags/MobX/" style="font-size: 10px;">MobX</a> <a href="/blog/tags/Module-SeaJS/" style="font-size: 10px;">Module SeaJS</a> <a href="/blog/tags/MutationObserver/" style="font-size: 10px;">MutationObserver</a> <a href="/blog/tags/Promise/" style="font-size: 20px;">Promise</a> <a href="/blog/tags/React/" style="font-size: 10px;">React</a> <a href="/blog/tags/js模式/" style="font-size: 10px;">js模式</a> <a href="/blog/tags/mobile-video/" style="font-size: 10px;">mobile video</a> <a href="/blog/tags/react/" style="font-size: 10px;">react</a> <a href="/blog/tags/template/" style="font-size: 10px;">template</a> <a href="/blog/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/blog/tags/业务流程/" style="font-size: 10px;">业务流程</a> <a href="/blog/tags/前端工程化/" style="font-size: 10px;">前端工程化</a> <a href="/blog/tags/前端错误/" style="font-size: 10px;">前端错误</a> <a href="/blog/tags/框架/" style="font-size: 20px;">框架</a> <a href="/blog/tags/秒杀/" style="font-size: 10px;">秒杀</a> <a href="/blog/tags/组件/" style="font-size: 10px;">组件</a> <a href="/blog/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/blog/tags/设计/" style="font-size: 10px;">设计</a> <a href="/blog/tags/调研-MVVM/" style="font-size: 10px;">调研 MVVM</a> <a href="/blog/tags/阅读笔记/" style="font-size: 10px;">阅读笔记</a>
-    </div>
-</div>
-
     
     
         <div class="column-right-shadow is-hidden-widescreen ">
@@ -1512,7 +1404,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/blog/">
                 
-                    <img src="/blog/images/logo.svg" alt="Angular启动" height="28">
+                    <img src="/blog/gallery/site/logo.png" alt="Angular启动" height="28">
                 
                 </a>
                 <p class="is-size-7">

@@ -28,7 +28,7 @@
 
 
 
-<link rel="icon" href="/blog/images/favicon.svg">
+<link rel="icon" href="/blog/gallery/site/logo.png">
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
@@ -66,6 +66,15 @@
 
     
     
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-141194294-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-141194294-1');
+</script>
+
 
     
     
@@ -94,7 +103,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/blog/">
             
-                <img src="/blog/images/logo.svg" alt="前端错误日志" height="28">
+                <img src="/blog/gallery/site/logo.png" alt="前端错误日志" height="28">
             
             </a>
         </div>
@@ -115,15 +124,6 @@
             </div>
             
             <div class="navbar-end">
-                
-                    
-                    
-                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
-                        
-                        <i class="fab fa-github"></i>
-                        
-                    </a>
-                    
                 
                 
                 
@@ -170,6 +170,7 @@
         <div class="content">
             <p>记录工作学习中遇到的问题，有些错误比较常见，有些错误花费了较长时间折腾。</p>
 <a id="more"></a>
+
 <h3 id="IE8以及以下split错误"><a href="#IE8以及以下split错误" class="headerlink" title="IE8以及以下split错误"></a>IE8以及以下split错误</h3><ul>
 <li>信息：IE8以及下无法获取属性“split”的值: 对象为 null 或未定义</li>
 <li>原因:[‘’,’’,’’,]在定义的数组中最后一个元素后多了个’,’</li>
@@ -192,19 +193,28 @@
 </ul>
 <h3 id="widget中属性数据"><a href="#widget中属性数据" class="headerlink" title="widget中属性数据"></a>widget中属性数据</h3><p>在定义的一个widget中，new出的实例感觉共用一个数据属性。</p>
 <figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$.widget(<span class="hljs-string">'pandora.Checkbox'</span>, **, &#123;</span><br><span class="line">	options:&#123;</span><br><span class="line">		w: <span class="hljs-number">5</span>,</span><br><span class="line">		items: [&#123;</span><br><span class="line">			label: <span class="hljs-string">''</span>,</span><br><span class="line">			value: <span class="hljs-number">0</span></span><br><span class="line">		&#125;]</span><br><span class="line">	&#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
 <p>在每个实例出的操作的 w 是不同的，在操作 items 中元素时，多个 Checkbox 对象共用 items[0] 对象。<br>随便查看 widget 方法，就会看到第三个形参名称是 prototype。这也就说明了为什么是多个对象操作的是同一个对象。</p>
 <h3 id="Jquery-ui-editable-IE不能编辑"><a href="#Jquery-ui-editable-IE不能编辑" class="headerlink" title="Jquery.ui.editable IE不能编辑"></a>Jquery.ui.editable IE不能编辑</h3><ul>
 <li>如下代码，在 chrome下 双击能够进入编辑状态，IE 下不能编辑。debug 时发现双击会触发提交事件。默认的情况下 submitBy:blur。</li>
 </ul>
-<p>代码如下：<br><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$dom.editable(&#123;</span><br><span class="line">  editBy:<span class="hljs-string">"dblclick"</span>,</span><br><span class="line">  type:<span class="hljs-string">"textarea"</span>,</span><br><span class="line">  onSubmit:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>调试代码发现：进入编辑状态后的绑定事件。$this执行了blur的事件处理。注释该方法IE8下可以编辑。<br><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$<span class="hljs-keyword">this</span>.one(opts.submitBy, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">	opts.toNonEditable($(<span class="hljs-keyword">this</span>), <span class="hljs-literal">true</span>);<span class="hljs-comment">//注释该行IE8可以编辑。</span></span><br><span class="line">&#125;).</span><br><span class="line">children().</span><br><span class="line">one(opts.submitBy, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">	opts.toNonEditable($(<span class="hljs-keyword">this</span>).parent(), <span class="hljs-literal">true</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>代码如下：</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$dom.editable(&#123;</span><br><span class="line">  editBy:<span class="hljs-string">"dblclick"</span>,</span><br><span class="line">  type:<span class="hljs-string">"textarea"</span>,</span><br><span class="line">  onSubmit:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>调试代码发现：进入编辑状态后的绑定事件。$this执行了blur的事件处理。注释该方法IE8下可以编辑。</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$<span class="hljs-keyword">this</span>.one(opts.submitBy, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">	opts.toNonEditable($(<span class="hljs-keyword">this</span>), <span class="hljs-literal">true</span>);<span class="hljs-comment">//注释该行IE8可以编辑。</span></span><br><span class="line">&#125;).</span><br><span class="line">children().</span><br><span class="line">one(opts.submitBy, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">	opts.toNonEditable($(<span class="hljs-keyword">this</span>).parent(), <span class="hljs-literal">true</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>问题：this 应该是一DIV 没有 blur事件，且也不应该触发。以后再看看了。</li>
 </ul>
 <h3 id="grunt-plugin-async"><a href="#grunt-plugin-async" class="headerlink" title="grunt plugin async"></a>grunt plugin async</h3><p>创建 grunt 插件：<a href="http://javascriptplayground.com/blog/2014/01/creating-your-first-grunt-plugin/" target="_blank" rel="noopener">http://javascriptplayground.com/blog/2014/01/creating-your-first-grunt-plugin/</a><br><a href="http://www.gruntjs.org/article/creating_tasks.html" target="_blank" rel="noopener">http://www.gruntjs.org/article/creating_tasks.html</a></p>
-<p>grunt 插件注册 task 中的异步事件不执行 <code>(setTimeout process.nextTick() setImmediate)</code>：必须<br><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">var</span> done = <span class="hljs-keyword">this</span>.async();</span><br><span class="line">setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">	<span class="hljs-comment">// Todo stub******</span></span><br><span class="line">	done();</span><br><span class="line">&#125;, <span class="hljs-number">0</span>);</span><br><span class="line"><span class="hljs-comment">// node --debug-brk $(which grunt) task</span></span><br></pre></td></tr></table></figure></p>
+<p>grunt 插件注册 task 中的异步事件不执行 <code>(setTimeout process.nextTick() setImmediate)</code>：必须</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">var</span> done = <span class="hljs-keyword">this</span>.async();</span><br><span class="line">setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">	<span class="hljs-comment">// Todo stub******</span></span><br><span class="line">	done();</span><br><span class="line">&#125;, <span class="hljs-number">0</span>);</span><br><span class="line"><span class="hljs-comment">// node --debug-brk $(which grunt) task</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="JS编码"><a href="#JS编码" class="headerlink" title="JS编码"></a>JS编码</h3><p>又是一个值得刻碑立柱的错误，查了一下午，才发现 js 文件编码是 utf-8；只在 IE6 下冒出非常奇怪的错误。调试的时候 alert 信息，插入的 alert 没有弹出窗口，但是后面的广告渲染出来了。一直以为是 IE6 的什么奇葩 bug，却未注意到文件编码问题。</p>
-<h3 id="IE人格分裂"><a href="#IE人格分裂" class="headerlink" title="IE人格分裂"></a>IE人格分裂</h3><p>时隔大半年，向别人描述的时候竟然描述错了。源文章在(IE 全局变量的人格分裂症)[<a href="http://hax.iteye.com/blog/349569]" target="_blank" rel="noopener">http://hax.iteye.com/blog/349569]</a><br>bug原因：在两个不同的 js 中用两种方式声明全局变量。<br><figure class="highlight html hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span>&gt;</span><span class="hljs-undefined"></span></span><br><span class="line"><span class="hljs-javascript">  <span class="hljs-built_in">window</span>[<span class="hljs-string">'global'</span>] = <span class="hljs-string">'A'</span>;</span></span><br><span class="line"><span class="hljs-undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"out.js"</span>&gt;</span><span class="hljs-undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><span class="line">var global = 'B';</span><br></pre></td></tr></table></figure></p>
+<h3 id="IE人格分裂"><a href="#IE人格分裂" class="headerlink" title="IE人格分裂"></a>IE人格分裂</h3><p>时隔大半年，向别人描述的时候竟然描述错了。源文章在(IE 全局变量的人格分裂症)[<a href="http://hax.iteye.com/blog/349569]" target="_blank" rel="noopener">http://hax.iteye.com/blog/349569]</a><br>bug原因：在两个不同的 js 中用两种方式声明全局变量。</p>
+<figure class="highlight html hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span>&gt;</span><span class="hljs-undefined"></span></span><br><span class="line"><span class="hljs-javascript">  <span class="hljs-built_in">window</span>[<span class="hljs-string">'global'</span>] = <span class="hljs-string">'A'</span>;</span></span><br><span class="line"><span class="hljs-undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"out.js"</span>&gt;</span><span class="hljs-undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><span class="line">var global = 'B';</span><br></pre></td></tr></table></figure>
+
 <p>之后你再获取 global 的值时，将会得到 undefined。大体是因为 JScript 引擎的设计与 IE DOM 对接的缺陷所导致。</p>
 <h3 id="IE6-insertBefore-appendChild"><a href="#IE6-insertBefore-appendChild" class="headerlink" title="IE6 insertBefore appendChild"></a>IE6 insertBefore appendChild</h3><p>在往 Container 这个 Dom 中插入元素 ele 时，如果这个 Container 尚未完成加载。<br>Container.appendChild(ele) 或 Container.insertBefore(ele) 都会导致出错。IE6下显示 无法打开站点，已经终止操作 页面崩溃。</p>
 <p>最常见的 container 是 body。文档没有加载完成就在后面追加，导致崩溃。插入 body 前面可以避免这个问题：<br><code>body.insertBefore(ele, body.firstChild);</code></p>
@@ -226,40 +236,6 @@
 </div>
 
 
-
-<div class="card">
-    <div class="card-content">
-        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
-        <div class="buttons is-centered">
-            
-                
-<div class="notification is-danger">
-    You forgot to set the <code>qrcode</code> for Alipay. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-                
-<div class="notification is-danger">
-    You forgot to set the <code>qrcode</code> for Wechat. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-                <!-- Visit https://www.paypal.com/donate/buttons/ to get your donate button -->
-
-<div class="notification is-danger">
-    You forgot to set the <code>business</code> and <code>currency_code</code> for Paypal. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-                
-<div class="notification is-danger">
-    You forgot to set the <code>url</code> Patreon. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-        </div>
-    </div>
-</div>
 
 
 
@@ -293,22 +269,24 @@
             <div class="level-item has-text-centered">
                 <div>
                     
-                        <img class="image is-128x128 has-mb-6" src="/blog/images/avatar.png" alt="Your name">
+                        <figure class="image is-128x128 has-mb-6">
+                            <img class="is-rounded" src="/blog/gallery/site/shark.png" alt="fedeoo">
+                        </figure>
                     
                     
                     <p class="is-size-4 is-block">
-                        Your name
+                        fedeoo
                     </p>
                     
                     
                     <p class="is-size-6 is-block">
-                        Your title
+                        Web Developer
                     </p>
                     
                     
                     <p class="is-size-6 is-flex is-flex-center has-text-grey">
                         <i class="fas fa-map-marker-alt has-mr-7"></i>
-                        <span>Your location</span>
+                        <span>Sydney</span>
                     </p>
                     
                 </div>
@@ -347,88 +325,15 @@
             </div>
         </nav>
         <div class="level">
-            <a class="level-item button is-link is-rounded" href="https://github.com/ppoffice" target="_blank">
+            <a class="level-item button is-link is-rounded" href="/blog/" target="_blank">
                 关注我</a>
         </div>
         
         
-        <div class="level is-mobile">
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="https://github.com/ppoffice">
-                
-                <i class="fab fa-github"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="https://facebook.com">
-                
-                <i class="fab fa-facebook"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="https://twitter.com">
-                
-                <i class="fab fa-twitter"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="https://dribbble.com">
-                
-                <i class="fab fa-dribbble"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/blog/">
-                
-                <i class="fas fa-rss"></i>
-                
-            </a>
-            
-        </div>
-        
     </div>
 </div>
     
         
-    
-        
-
-<div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-        <h3 class="menu-label">
-            链接
-        </h3>
-        <ul class="menu-list">
-        
-            <li>
-                <a class="level is-mobile" href="https://hexo.io" target="_blank">
-                    <span class="level-left">
-                        <span class="level-item">Hexo</span>
-                    </span>
-                    <span class="level-right">
-                        <span class="level-item tag">hexo.io</span>
-                    </span>
-                </a>
-            </li>
-        
-            <li>
-                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
-                    <span class="level-left">
-                        <span class="level-item">PPOffice</span>
-                    </span>
-                    <span class="level-right">
-                        <span class="level-item tag">github.com</span>
-                    </span>
-                </a>
-            </li>
-        
-        </ul>
-        </div>
-    </div>
-</div>
-
-
     
         
 <div class="card widget">
@@ -491,17 +396,6 @@
         </div>
     </div>
 </div>
-    
-        
-<div class="card widget">
-    <div class="card-content">
-        <h3 class="menu-label">
-            标签云
-        </h3>
-        <a href="/blog/tags/AngularJS/" style="font-size: 10px;">AngularJS</a> <a href="/blog/tags/AngularJS-lazyload/" style="font-size: 10px;">AngularJS lazyload</a> <a href="/blog/tags/AngularJs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/CDN共享/" style="font-size: 10px;">CDN共享</a> <a href="/blog/tags/MobX/" style="font-size: 10px;">MobX</a> <a href="/blog/tags/Module-SeaJS/" style="font-size: 10px;">Module SeaJS</a> <a href="/blog/tags/MutationObserver/" style="font-size: 10px;">MutationObserver</a> <a href="/blog/tags/Promise/" style="font-size: 20px;">Promise</a> <a href="/blog/tags/React/" style="font-size: 10px;">React</a> <a href="/blog/tags/js模式/" style="font-size: 10px;">js模式</a> <a href="/blog/tags/mobile-video/" style="font-size: 10px;">mobile video</a> <a href="/blog/tags/react/" style="font-size: 10px;">react</a> <a href="/blog/tags/template/" style="font-size: 10px;">template</a> <a href="/blog/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/blog/tags/业务流程/" style="font-size: 10px;">业务流程</a> <a href="/blog/tags/前端工程化/" style="font-size: 10px;">前端工程化</a> <a href="/blog/tags/前端错误/" style="font-size: 10px;">前端错误</a> <a href="/blog/tags/框架/" style="font-size: 20px;">框架</a> <a href="/blog/tags/秒杀/" style="font-size: 10px;">秒杀</a> <a href="/blog/tags/组件/" style="font-size: 10px;">组件</a> <a href="/blog/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/blog/tags/设计/" style="font-size: 10px;">设计</a> <a href="/blog/tags/调研-MVVM/" style="font-size: 10px;">调研 MVVM</a> <a href="/blog/tags/阅读笔记/" style="font-size: 10px;">阅读笔记</a>
-    </div>
-</div>
-
     
     
         <div class="column-right-shadow is-hidden-widescreen ">
@@ -1525,7 +1419,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/blog/">
                 
-                    <img src="/blog/images/logo.svg" alt="前端错误日志" height="28">
+                    <img src="/blog/gallery/site/logo.png" alt="前端错误日志" height="28">
                 
                 </a>
                 <p class="is-size-7">
