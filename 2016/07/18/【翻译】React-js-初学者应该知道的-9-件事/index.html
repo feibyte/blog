@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
 <title>【翻译】React.js 初学者应该知道的 9 件事 - fedeoo</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -11,16 +11,16 @@
 <meta name="keywords" content="翻译,React">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【翻译】React.js 初学者应该知道的 9 件事">
-<meta property="og:url" content="http://fedeoo.github.io/blog/2016/07/18/【翻译】React-js-初学者应该知道的-9-件事/index.html">
+<meta property="og:url" content="https://fedeoo.github.io/blog/2016/07/18/【翻译】React-js-初学者应该知道的-9-件事/index.html">
 <meta property="og:site_name" content="fedeoo">
 <meta property="og:description" content="原文地址：9 things every reactjs beginner should know 2016年1月份的文章，现在才翻译，又落后了半年  现在为止我使用 React.js  已经6 个月了。6 个月 放长远看一点也不长。但是，在 JavaScript 框架层出不穷的今天，6 个月可以称为老前辈了。最近指点了几个新人入门 React ，所以想总结一下写篇文章启发更多的人。下面总结的这些">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://fedeoo.github.io/images/og_image.png">
+<meta property="og:image" content="https://fedeoo.github.io/blog/images/og_image.png">
 <meta property="og:updated_time" content="2019-07-01T02:49:27.202Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【翻译】React.js 初学者应该知道的 9 件事">
 <meta name="twitter:description" content="原文地址：9 things every reactjs beginner should know 2016年1月份的文章，现在才翻译，又落后了半年  现在为止我使用 React.js  已经6 个月了。6 个月 放长远看一点也不长。但是，在 JavaScript 框架层出不穷的今天，6 个月可以称为老前辈了。最近指点了几个新人入门 React ，所以想总结一下写篇文章启发更多的人。下面总结的这些">
-<meta name="twitter:image" content="http://fedeoo.github.io/images/og_image.png">
+<meta name="twitter:image" content="https://fedeoo.github.io/blog/images/og_image.png">
 
 
 
@@ -28,7 +28,7 @@
 
 
 
-<link rel="icon" href="/images/favicon.svg">
+<link rel="icon" href="/blog/images/favicon.svg">
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
@@ -61,7 +61,7 @@
     
     
 
-<link rel="stylesheet" href="/css/back-to-top.css">
+<link rel="stylesheet" href="/blog/css/back-to-top.css">
 
 
     
@@ -74,7 +74,7 @@
 
     
     
-<link rel="stylesheet" href="/css/progressbar.css">
+<link rel="stylesheet" href="/blog/css/progressbar.css">
 <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
 
     
@@ -86,15 +86,15 @@
     
 
 
-<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/blog/css/style.css">
 </head>
 <body class="is-3-column">
     <nav class="navbar navbar-main">
     <div class="container">
         <div class="navbar-brand is-flex-center">
-            <a class="navbar-item navbar-logo" href="/">
+            <a class="navbar-item navbar-logo" href="/blog/">
             
-                <img src="/images/logo.svg" alt="【翻译】React.js 初学者应该知道的 9 件事" height="28">
+                <img src="/blog/images/logo.svg" alt="【翻译】React.js 初学者应该知道的 9 件事" height="28">
             
             </a>
         </div>
@@ -102,15 +102,15 @@
             
             <div class="navbar-start">
                 
-                <a class="navbar-item" href="/">Home</a>
+                <a class="navbar-item" href="/blog/">Home</a>
                 
-                <a class="navbar-item" href="/archives">Archives</a>
+                <a class="navbar-item" href="/blog/archives">Archives</a>
                 
-                <a class="navbar-item" href="/categories">Categories</a>
+                <a class="navbar-item" href="/blog/categories">Categories</a>
                 
-                <a class="navbar-item" href="/tags">Tags</a>
+                <a class="navbar-item" href="/blog/tags">Tags</a>
                 
-                <a class="navbar-item" href="/about">About</a>
+                <a class="navbar-item" href="/blog/about">About</a>
                 
             </div>
             
@@ -171,13 +171,13 @@
 <a id="more"></a>
 <p>本文假定你已经有了一下基本的概念。如果你不熟悉 component、props 或者 state  这些名词，你最好先去阅读下官方<a href="https://facebook.github.io/react/docs/getting-started.html" target="_blank" rel="noopener">起步</a>和<a href="https://facebook.github.io/react/docs/tutorial.html" target="_blank" rel="noopener">手册</a>。下面的代码示例我将使用 JSX 作演示，因为使用 JSX 语法写组件更为简洁，也更具表达力。</p>
 <h1 id="1-React-js-只是一个视图库"><a href="#1-React-js-只是一个视图库" class="headerlink" title="1. React.js 只是一个视图库"></a>1. React.js 只是一个视图库</h1><p>我们从最基本的开始。React 不是一个 MVC 框架，好吧，它根本就不是一个框架。它只是一个渲染视图的库。如果你对 MVC 熟悉的话，你就会意识到 React.js 只对应了<code>V</code> 这部分，如果它插手了 <code>M</code>  或 <code>C</code> 的逻辑，你就需要考虑用其它方法来解了。否则，到最后，你的代码很可能会变成一坨翔。这部分后面会细说。</p>
-<h1 id="2-组件尽可能的小"><a href="#2-组件尽可能的小" class="headerlink" title="2. 组件尽可能的小"></a>2. 组件尽可能的小</h1><p>这一点有些显而易见，但是有必要强调一下。每个良好的程序员都知道，较小的类、模块更容易理解、测试和维护，对于组件来说也是一样。我起初犯的错误是低估了 React 组件合适的大小。当然，合适的大小取决于很多不同的因素（包括个人与团队偏好），但是，一般来说，我建议，让组件明显小于你本认为的必需大小。举个栗子，我的<a href="https://camjackson.net/" target="_blank" rel="noopener">个人网站</a>主页上的这个组件，用于展示我的最新博文：<br><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> LatestPostsComponent = <span class="function"><span class="params">props</span> =&gt;</span> (</span><br><span class="line">  &lt;section&gt;</span><br><span class="line">    &lt;div&gt;<span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Latest posts<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &#123; props.posts.map(<span class="function"><span class="params">post</span> =&gt;</span> &lt;PostPreview key=&#123;post.slug&#125; post=&#123;post&#125;/&gt;) &#125;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>section&gt;</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<h1 id="2-组件尽可能的小"><a href="#2-组件尽可能的小" class="headerlink" title="2. 组件尽可能的小"></a>2. 组件尽可能的小</h1><p>这一点有些显而易见，但是有必要强调一下。每个良好的程序员都知道，较小的类、模块更容易理解、测试和维护，对于组件来说也是一样。我起初犯的错误是低估了 React 组件合适的大小。当然，合适的大小取决于很多不同的因素（包括个人与团队偏好），但是，一般来说，我建议，让组件明显小于你本认为的必需大小。举个栗子，我的<a href="https://camjackson.net/" target="_blank" rel="noopener">个人网站</a>主页上的这个组件，用于展示我的最新博文：<br><figure class="highlight jsx hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> LatestPostsComponent = <span class="hljs-function"><span class="hljs-params">props</span> =&gt;</span> (</span><br><span class="line">  &lt;section&gt;</span><br><span class="line">    &lt;div&gt;<span class="hljs-xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Latest posts<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span><span class="hljs-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span></span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &#123; props.posts.map(<span class="hljs-function"><span class="hljs-params">post</span> =&gt;</span> &lt;PostPreview key=&#123;post.slug&#125; post=&#123;post&#125;/&gt;) &#125;</span><br><span class="line">    &lt;<span class="hljs-regexp">/div&gt;</span></span><br><span class="line"><span class="hljs-regexp">  &lt;/</span>section&gt;</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
 <p>这个组件本身是一个 <code>&lt;section&gt;</code>，里面只有两个 <code>&lt;div&gt;</code>。第一个<code>&lt;div&gt;</code>有一个标题，第二个<code>&lt;div&gt;</code>只是映射一些数据，使用数据中的每个元素渲染 <code>&lt;PostPreview&gt;</code>。还有一部分抽取<code>&lt;PostPreview&gt;</code>作为独立组件，这点很重要。我认为这是一个组件最合适的大小。</p>
-<h1 id="3-写函数式组件"><a href="#3-写函数式组件" class="headerlink" title="3. 写函数式组件"></a>3. 写函数式组件</h1><p>首先，我们有两种定义 React 组件的方式，第一种是用 <code>React.createClass()</code>：<br><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> MyComponent = React.createClass(&#123;</span><br><span class="line">  render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#123;this.props.className&#125;/</span>&gt;</span>;</span></span><br><span class="line"><span class="xml">  &#125;</span></span><br><span class="line"><span class="xml">&#125;);</span></span><br></pre></td></tr></table></figure></p>
-<p>另一种是 ES6 class 写法：<br><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyComponent</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#123;this.props.className&#125;/</span>&gt;</span>;</span></span><br><span class="line"><span class="xml">  &#125;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br></pre></td></tr></table></figure></p>
-<p>React 0.14 <a href="https://facebook.github.io/react/blog/2015/10/07/react-v0.14.html#stateless-functional-components" target="_blank" rel="noopener">引入</a>了一个新语法来定义组件，使用属性作为参数的函数：<br><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> MyComponent = <span class="function"><span class="params">props</span> =&gt;</span> (</span><br><span class="line">  &lt;div className=&#123;props.className&#125;/&gt;</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
-<p>这是我最喜欢的定义 React 组件的方式。除了语法上简洁，这种方法还能帮助你界定什么时候需要拆分组件了。我们来回顾下之前的例子，假设下面是没拆分之前的代码：<br><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LatestPostsComponent</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">const</span> postPreviews = renderPostPreviews();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;section&gt;</span><br><span class="line">        &lt;div&gt;<span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Latest posts<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">        &lt;div&gt;</span><br><span class="line">          &#123; postPreviews &#125;</span><br><span class="line">        &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>section&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  renderPostPreviews() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.props.posts.map(<span class="function"><span class="params">post</span> =&gt;</span> <span class="keyword">this</span>.renderPostPreview(post));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  renderPostPreview(post) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;article&gt;</span><br><span class="line">        &lt;h3&gt;<span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&#123;</span>`/<span class="attr">post</span>/$&#123;<span class="attr">post.slug</span>&#125;`&#125;&gt;</span>&#123;post.title&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><span class="xml"><span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span></span><br><span class="line">        &lt;time pubdate&gt;<span class="xml"><span class="tag">&lt;<span class="name">em</span>&gt;</span>&#123;post.posted&#125;<span class="tag">&lt;/<span class="name">em</span>&gt;</span></span><span class="xml"><span class="tag">&lt;/<span class="name">time</span>&gt;</span></span></span><br><span class="line">        &lt;div&gt;</span><br><span class="line">          &lt;span&gt;&#123;post.blurb&#125;&lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">          &lt;a href=&#123;`/</span>post/$&#123;post.slug&#125;<span class="string">`&#125;&gt;Read more...&lt;/a&gt;</span></span><br><span class="line"><span class="string">        &lt;/div&gt;</span></span><br><span class="line"><span class="string">      &lt;/article&gt;</span></span><br><span class="line"><span class="string">    );</span></span><br><span class="line"><span class="string">  &#125;</span></span><br></pre></td></tr></table></figure></p>
-<p>这个 class 还凑合。我们已经从 render 方法中抽取了几个方法，方法足够小，命名合理。我们来试着用函数式的语法重写一下：<br><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> LatestPostsComponent = <span class="function"><span class="params">props</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> postPreviews = renderPostPreviews(props.posts);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;section&gt;</span><br><span class="line">      &lt;div&gt;<span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Latest posts<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &#123; postPreviews &#125;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>section&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> renderPostPreviews = <span class="function"><span class="params">posts</span> =&gt;</span> (</span><br><span class="line">  posts.map(<span class="function"><span class="params">post</span> =&gt;</span> <span class="keyword">this</span>.renderPostPreview(post))</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> renderPostPreview = <span class="function"><span class="params">post</span> =&gt;</span> (</span><br><span class="line">  &lt;article&gt;</span><br><span class="line">    &lt;h3&gt;<span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&#123;</span>`/<span class="attr">post</span>/$&#123;<span class="attr">post.slug</span>&#125;`&#125;&gt;</span>&#123;post.title&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><span class="xml"><span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span></span><br><span class="line">    &lt;time pubdate&gt;<span class="xml"><span class="tag">&lt;<span class="name">em</span>&gt;</span>&#123;post.posted&#125;<span class="tag">&lt;/<span class="name">em</span>&gt;</span></span><span class="xml"><span class="tag">&lt;/<span class="name">time</span>&gt;</span></span></span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;span&gt;&#123;post.blurb&#125;&lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">      &lt;a href=&#123;`/</span>post/$&#123;post.slug&#125;<span class="string">`&#125;&gt;Read more...&lt;/a&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">  &lt;/article&gt;</span></span><br><span class="line"><span class="string">);</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="3-写函数式组件"><a href="#3-写函数式组件" class="headerlink" title="3. 写函数式组件"></a>3. 写函数式组件</h1><p>首先，我们有两种定义 React 组件的方式，第一种是用 <code>React.createClass()</code>：<br><figure class="highlight jsx hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> MyComponent = React.createClass(&#123;</span><br><span class="line">  render: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&#123;this.props.className&#125;/</span>&gt;</span>;</span></span><br><span class="line"><span class="hljs-xml">  &#125;</span></span><br><span class="line"><span class="hljs-xml">&#125;);</span></span><br></pre></td></tr></table></figure></p>
+<p>另一种是 ES6 class 写法：<br><figure class="highlight jsx hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyComponent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&#123;this.props.className&#125;/</span>&gt;</span>;</span></span><br><span class="line"><span class="hljs-xml">  &#125;</span></span><br><span class="line"><span class="hljs-xml">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>React 0.14 <a href="https://facebook.github.io/react/blog/2015/10/07/react-v0.14.html#stateless-functional-components" target="_blank" rel="noopener">引入</a>了一个新语法来定义组件，使用属性作为参数的函数：<br><figure class="highlight jsx hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> MyComponent = <span class="hljs-function"><span class="hljs-params">props</span> =&gt;</span> (</span><br><span class="line">  &lt;div className=&#123;props.className&#125;/&gt;</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<p>这是我最喜欢的定义 React 组件的方式。除了语法上简洁，这种方法还能帮助你界定什么时候需要拆分组件了。我们来回顾下之前的例子，假设下面是没拆分之前的代码：<br><figure class="highlight jsx hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LatestPostsComponent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="hljs-keyword">const</span> postPreviews = renderPostPreviews();</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">return</span> (</span><br><span class="line">      &lt;section&gt;</span><br><span class="line">        &lt;div&gt;<span class="hljs-xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Latest posts<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span><span class="hljs-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span></span><br><span class="line">        &lt;div&gt;</span><br><span class="line">          &#123; postPreviews &#125;</span><br><span class="line">        &lt;<span class="hljs-regexp">/div&gt;</span></span><br><span class="line"><span class="hljs-regexp">      &lt;/</span>section&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  renderPostPreviews() &#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.props.posts.map(<span class="hljs-function"><span class="hljs-params">post</span> =&gt;</span> <span class="hljs-keyword">this</span>.renderPostPreview(post));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  renderPostPreview(post) &#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> (</span><br><span class="line">      &lt;article&gt;</span><br><span class="line">        &lt;h3&gt;<span class="hljs-xml"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&#123;</span>`/<span class="hljs-attr">post</span>/$&#123;<span class="hljs-attr">post.slug</span>&#125;`&#125;&gt;</span>&#123;post.title&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></span><span class="hljs-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span></span></span><br><span class="line">        &lt;time pubdate&gt;<span class="hljs-xml"><span class="hljs-tag">&lt;<span class="hljs-name">em</span>&gt;</span>&#123;post.posted&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">em</span>&gt;</span></span><span class="hljs-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">time</span>&gt;</span></span></span><br><span class="line">        &lt;div&gt;</span><br><span class="line">          &lt;span&gt;&#123;post.blurb&#125;&lt;<span class="hljs-regexp">/span&gt;</span></span><br><span class="line"><span class="hljs-regexp">          &lt;a href=&#123;`/</span>post/$&#123;post.slug&#125;<span class="hljs-string">`&#125;&gt;Read more...&lt;/a&gt;</span></span><br><span class="line"><span class="hljs-string">        &lt;/div&gt;</span></span><br><span class="line"><span class="hljs-string">      &lt;/article&gt;</span></span><br><span class="line"><span class="hljs-string">    );</span></span><br><span class="line"><span class="hljs-string">  &#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>这个 class 还凑合。我们已经从 render 方法中抽取了几个方法，方法足够小，命名合理。我们来试着用函数式的语法重写一下：<br><figure class="highlight jsx hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> LatestPostsComponent = <span class="hljs-function"><span class="hljs-params">props</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="hljs-keyword">const</span> postPreviews = renderPostPreviews(props.posts);</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">return</span> (</span><br><span class="line">    &lt;section&gt;</span><br><span class="line">      &lt;div&gt;<span class="hljs-xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Latest posts<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span><span class="hljs-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span></span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &#123; postPreviews &#125;</span><br><span class="line">      &lt;<span class="hljs-regexp">/div&gt;</span></span><br><span class="line"><span class="hljs-regexp">    &lt;/</span>section&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">const</span> renderPostPreviews = <span class="hljs-function"><span class="hljs-params">posts</span> =&gt;</span> (</span><br><span class="line">  posts.map(<span class="hljs-function"><span class="hljs-params">post</span> =&gt;</span> <span class="hljs-keyword">this</span>.renderPostPreview(post))</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">const</span> renderPostPreview = <span class="hljs-function"><span class="hljs-params">post</span> =&gt;</span> (</span><br><span class="line">  &lt;article&gt;</span><br><span class="line">    &lt;h3&gt;<span class="hljs-xml"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&#123;</span>`/<span class="hljs-attr">post</span>/$&#123;<span class="hljs-attr">post.slug</span>&#125;`&#125;&gt;</span>&#123;post.title&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></span><span class="hljs-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span></span></span><br><span class="line">    &lt;time pubdate&gt;<span class="hljs-xml"><span class="hljs-tag">&lt;<span class="hljs-name">em</span>&gt;</span>&#123;post.posted&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">em</span>&gt;</span></span><span class="hljs-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">time</span>&gt;</span></span></span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;span&gt;&#123;post.blurb&#125;&lt;<span class="hljs-regexp">/span&gt;</span></span><br><span class="line"><span class="hljs-regexp">      &lt;a href=&#123;`/</span>post/$&#123;post.slug&#125;<span class="hljs-string">`&#125;&gt;Read more...&lt;/a&gt;</span></span><br><span class="line"><span class="hljs-string">    &lt;/div&gt;</span></span><br><span class="line"><span class="hljs-string">  &lt;/article&gt;</span></span><br><span class="line"><span class="hljs-string">);</span></span><br></pre></td></tr></table></figure></p>
 <p>代码基本一样，无非是将类里的方法暴露为函数。但是，对我来说，区别可大了。在基于类的例子中，我看到的是<code>class LatestPostsComponent {</code>，自然而然会往下扫描闭合括号，然后在心中默想“在这儿这个类结束了，这个组件也到这”。对比函数式组件，我看到 <code>const LatestPostsComponent = props =&gt; {</code>，看到函数结束，就已经知道“这个函数结束，组件也在这结束”。“但是，等等，这个组件外面的代码是些什么鬼？还在同一个模块，哦，这是另一个函数，接收数据然后渲染视图，我把它抽取到出来就行了”</p>
 <p>我就不再啰嗦函数式组件有助于我们遵循上面第二点。</p>
 <p>以后，React 也会做一些优化，会使函数式组件比基于类的组件更为高效。（<strong>更新</strong>：函数式组组件的性能影响比我想象的要复杂。但是，如果性能不是大的问题，我依然推荐尽可能的写函数式组件，你应该好阅读下<a href="https://github.com/facebook/react/issues/5677" target="_blank" rel="noopener">这个</a>和<a href="https://github.com/rackt/redux/issues/1176" target="_blank" rel="noopener">这个</a>，选择一个合适自己的）</p>
@@ -218,23 +218,23 @@
 </li>
 </ul>
 <p>Redux 是不是真正的 Flux，每个人都有自己的见解。个人觉得它符合 Flux 框架的核心思想，不过这个争论只是个语义问题。</p>
-<h1 id="6-一直使用-propTypes"><a href="#6-一直使用-propTypes" class="headerlink" title="6. 一直使用 propTypes"></a>6. 一直使用 propTypes</h1><p><a href="https://facebook.github.io/react/docs/reusable-components.html#prop-validation" target="_blank" rel="noopener">propTypes</a> 很容易为组件添加类型安全保障。他们看起来像这样：<br><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ListOfNumbers = <span class="function"><span class="params">props</span> =&gt;</span> (</span><br><span class="line">  &lt;ol className=&#123;props.className&#125;&gt;</span><br><span class="line">    &#123;</span><br><span class="line">      props.numbers.map(<span class="function"><span class="params">number</span> =&gt;</span> (</span><br><span class="line">        &lt;li&gt;&#123;number&#125;&lt;<span class="regexp">/li&gt;)</span></span><br><span class="line"><span class="regexp">      )</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>ol&gt;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">ListOfNumbers.propTypes = &#123;</span><br><span class="line">  className: React.PropTypes.string.isRequired,</span><br><span class="line">  numbers: React.PropTypes.arrayOf(React.PropTypes.number)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h1 id="6-一直使用-propTypes"><a href="#6-一直使用-propTypes" class="headerlink" title="6. 一直使用 propTypes"></a>6. 一直使用 propTypes</h1><p><a href="https://facebook.github.io/react/docs/reusable-components.html#prop-validation" target="_blank" rel="noopener">propTypes</a> 很容易为组件添加类型安全保障。他们看起来像这样：<br><figure class="highlight jsx hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> ListOfNumbers = <span class="hljs-function"><span class="hljs-params">props</span> =&gt;</span> (</span><br><span class="line">  &lt;ol className=&#123;props.className&#125;&gt;</span><br><span class="line">    &#123;</span><br><span class="line">      props.numbers.map(<span class="hljs-function"><span class="hljs-params">number</span> =&gt;</span> (</span><br><span class="line">        &lt;li&gt;&#123;number&#125;&lt;<span class="hljs-regexp">/li&gt;)</span></span><br><span class="line"><span class="hljs-regexp">      )</span></span><br><span class="line"><span class="hljs-regexp">    &#125;</span></span><br><span class="line"><span class="hljs-regexp">  &lt;/</span>ol&gt;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">ListOfNumbers.propTypes = &#123;</span><br><span class="line">  className: React.PropTypes.string.isRequired,</span><br><span class="line">  numbers: React.PropTypes.arrayOf(React.PropTypes.number)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
 <p>在开发阶段（生产不会），如果任何组件没有给到必需的属性，或者所给的属性与声明的不匹配，React 会打印这些错误信息通知你。这有几点好处：</p>
 <ul>
 <li>防止低级错误，捕获 bugs</li>
 <li>如果你使用 <code>isRequired</code>，你就不需要检查 <code>undefined</code> 或 <code>null</code></li>
 <li>就像文档所说，列出组件的所有属性，省去阅读代码的人搜索整个组件。</li>
 </ul>
-<p>上面的这些点，你可能似曾相识，静态类型支持者的论点。个人来讲，我通常喜欢动态类型带来的开发速度和舒适，但是我发现 propTypes 可以毫不费力的为我的组件添加一些安全感。坦白讲，没有理由不一直用它们。<br>最后一点是，任何 propType 错误时，让你的测试用例失败。下面这个例子有点简单粗暴的，不过可行：<br><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">beforeAll(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.error = <span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(error);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>上面的这些点，你可能似曾相识，静态类型支持者的论点。个人来讲，我通常喜欢动态类型带来的开发速度和舒适，但是我发现 propTypes 可以毫不费力的为我的组件添加一些安全感。坦白讲，没有理由不一直用它们。<br>最后一点是，任何 propType 错误时，让你的测试用例失败。下面这个例子有点简单粗暴的，不过可行：<br><figure class="highlight jsx hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">beforeAll(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="hljs-built_in">console</span>.error = <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(error);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 <h1 id="7-使用浅渲染"><a href="#7-使用浅渲染" class="headerlink" title="7. 使用浅渲染"></a>7. 使用浅渲染</h1><p>测试 React 组件依然是有点棘手的话题。不是因为太难，而是因为还在发展，还没有出现一个最佳方案。目前来看，我的 go-to 方法是使用 <a href="https://facebook.github.io/react/docs/test-utils.html#shallow-rendering" target="_blank" rel="noopener">浅渲染</a>和属性断言。</p>
 <p>浅渲染很好用，它允许你完整的渲染一个单一组件，而不涉及子元素的渲染。也就是说，结果对象只会告诉你子元素的类型和属性。这样子单一组件单一时间点可以提供很好的隔离。这儿有三种类型的组件单元测试，我自己也经常这么做：</p>
-<h2 id="渲染逻辑"><a href="#渲染逻辑" class="headerlink" title="渲染逻辑"></a>渲染逻辑</h2><p>假定一个组件，因条件不同，可能会显示一张图片，或者一个加载图标：<br><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Image = <span class="function"><span class="params">props</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (props.loading) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">LoadingIcon</span>/&gt;</span></span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&#123;props.src&#125;/</span>&gt;</span>;</span></span><br><span class="line"><span class="xml">&#125;;</span></span><br></pre></td></tr></table></figure></p>
-<p>我们可以这么测试：<br><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="string">'Image'</span>, () =&gt; &#123;</span><br><span class="line">  it(<span class="string">'renders a loading icon when the image is loading'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> image = shallowRender(<span class="xml"><span class="tag">&lt;<span class="name">Image</span> <span class="attr">loading</span>=<span class="string">&#123;true&#125;/</span>&gt;</span>);</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    expect(image.type).toEqual(LoadingIcon);</span></span><br><span class="line"><span class="xml">  &#125;);</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">  it('renders the image once it has loaded', () =&gt; &#123;</span></span><br><span class="line">    const image = shallowRender(&lt;Image loading=&#123;false&#125; src="https://example.com/image.jpg"/&gt;);</span><br><span class="line"></span><br><span class="line">    expect(image.type).toEqual('img');</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>非常简单！当然，浅渲染的API 略微比我展示的复杂。上面使用的浅渲染函数是我们自己的 辅助方法，这个辅助方法包装了真正的 API，使用起来更简单一些。<br>回头看下我们的 <code>ListOfNumbers</code> 组件，下面是我们如何测试映射结果确实正确：<br><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="string">'ListOfNumbers'</span>, () =&gt; &#123;</span><br><span class="line">  it(<span class="string">'renders an item for each provided number'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> listOfNumbers = shallowRender(<span class="xml"><span class="tag">&lt;<span class="name">ListOfNumbers</span> <span class="attr">className</span>=<span class="string">"red"</span> <span class="attr">numbers</span>=<span class="string">&#123;[3,</span> <span class="attr">4</span>, <span class="attr">5</span>, <span class="attr">6</span>]&#125;/&gt;</span>);</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    expect(listOfNumbers.props.children.length).toEqual(4);</span></span><br><span class="line"><span class="xml">  &#125;);</span></span><br><span class="line"><span class="xml">&#125;);</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="属性转换"><a href="#属性转换" class="headerlink" title="属性转换"></a>属性转换</h2><p>在最后的例子中，我们深入测试组件的子元素，确保它们被正确渲染。我们不止断言组件是否存在，同时检查所给的属性是否正确。当组件确实在传递属性之前根据属性做些转换时，这点特别有用。例如，下面这个组件接受一个字符串数组作为 CSS 类名，往下传递一个单引号空白分割的字符串：<br><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> TextWithArrayOfClassNames = <span class="function"><span class="params">props</span> =&gt;</span> (</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;p className=&#123;props.classNames.join(<span class="string">' '</span>)&#125;&gt;</span><br><span class="line">     &#123;props.text&#125;</span><br><span class="line">    &lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>div&gt;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">describe(<span class="string">'TextWithArrayOfClassNames'</span>, () =&gt; &#123;</span><br><span class="line">  it(<span class="string">'turns the array into a space-separated string'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> text = <span class="string">'Hello, world!'</span>;</span><br><span class="line">    <span class="keyword">const</span> classNames = [<span class="string">'red'</span>, <span class="string">'bold'</span>, <span class="string">'float-right'</span>];</span><br><span class="line">    <span class="keyword">const</span> textWithArrayOfClassNames = shallowRender(<span class="xml"><span class="tag">&lt;<span class="name">TextWithArrayOfClassNames</span> <span class="attr">text</span>=<span class="string">&#123;text&#125;</span> <span class="attr">classNames</span>=<span class="string">&#123;classNames&#125;/</span>&gt;</span>);</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    const childClassNames = textWithArrayOfClassNames.props.children.props.className;</span></span><br><span class="line"><span class="xml">    expect(childClassNames).toEqual('red bold float-right');</span></span><br><span class="line"><span class="xml">  &#125;);</span></span><br><span class="line"><span class="xml">&#125;);</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="渲染逻辑"><a href="#渲染逻辑" class="headerlink" title="渲染逻辑"></a>渲染逻辑</h2><p>假定一个组件，因条件不同，可能会显示一张图片，或者一个加载图标：<br><figure class="highlight jsx hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> Image = <span class="hljs-function"><span class="hljs-params">props</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="hljs-keyword">if</span> (props.loading) &#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-xml"><span class="hljs-tag">&lt;<span class="hljs-name">LoadingIcon</span>/&gt;</span></span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">return</span> <span class="hljs-xml"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&#123;props.src&#125;/</span>&gt;</span>;</span></span><br><span class="line"><span class="hljs-xml">&#125;;</span></span><br></pre></td></tr></table></figure></p>
+<p>我们可以这么测试：<br><figure class="highlight jsx hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="hljs-string">'Image'</span>, () =&gt; &#123;</span><br><span class="line">  it(<span class="hljs-string">'renders a loading icon when the image is loading'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="hljs-keyword">const</span> image = shallowRender(<span class="hljs-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Image</span> <span class="hljs-attr">loading</span>=<span class="hljs-string">&#123;true&#125;/</span>&gt;</span>);</span></span><br><span class="line"><span class="hljs-xml"></span></span><br><span class="line"><span class="hljs-xml">    expect(image.type).toEqual(LoadingIcon);</span></span><br><span class="line"><span class="hljs-xml">  &#125;);</span></span><br><span class="line"><span class="hljs-xml"></span></span><br><span class="line"><span class="hljs-xml">  it('renders the image once it has loaded', () =&gt; &#123;</span></span><br><span class="line">    const image = shallowRender(&lt;Image loading=&#123;false&#125; src="https://example.com/image.jpg"/&gt;);</span><br><span class="line"></span><br><span class="line">    expect(image.type).toEqual('img');</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>非常简单！当然，浅渲染的API 略微比我展示的复杂。上面使用的浅渲染函数是我们自己的 辅助方法，这个辅助方法包装了真正的 API，使用起来更简单一些。<br>回头看下我们的 <code>ListOfNumbers</code> 组件，下面是我们如何测试映射结果确实正确：<br><figure class="highlight jsx hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="hljs-string">'ListOfNumbers'</span>, () =&gt; &#123;</span><br><span class="line">  it(<span class="hljs-string">'renders an item for each provided number'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="hljs-keyword">const</span> listOfNumbers = shallowRender(<span class="hljs-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ListOfNumbers</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"red"</span> <span class="hljs-attr">numbers</span>=<span class="hljs-string">&#123;[3,</span> <span class="hljs-attr">4</span>, <span class="hljs-attr">5</span>, <span class="hljs-attr">6</span>]&#125;/&gt;</span>);</span></span><br><span class="line"><span class="hljs-xml"></span></span><br><span class="line"><span class="hljs-xml">    expect(listOfNumbers.props.children.length).toEqual(4);</span></span><br><span class="line"><span class="hljs-xml">  &#125;);</span></span><br><span class="line"><span class="hljs-xml">&#125;);</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="属性转换"><a href="#属性转换" class="headerlink" title="属性转换"></a>属性转换</h2><p>在最后的例子中，我们深入测试组件的子元素，确保它们被正确渲染。我们不止断言组件是否存在，同时检查所给的属性是否正确。当组件确实在传递属性之前根据属性做些转换时，这点特别有用。例如，下面这个组件接受一个字符串数组作为 CSS 类名，往下传递一个单引号空白分割的字符串：<br><figure class="highlight jsx hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> TextWithArrayOfClassNames = <span class="hljs-function"><span class="hljs-params">props</span> =&gt;</span> (</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;p className=&#123;props.classNames.join(<span class="hljs-string">' '</span>)&#125;&gt;</span><br><span class="line">     &#123;props.text&#125;</span><br><span class="line">    &lt;<span class="hljs-regexp">/p&gt;</span></span><br><span class="line"><span class="hljs-regexp">  &lt;/</span>div&gt;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">describe(<span class="hljs-string">'TextWithArrayOfClassNames'</span>, () =&gt; &#123;</span><br><span class="line">  it(<span class="hljs-string">'turns the array into a space-separated string'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="hljs-keyword">const</span> text = <span class="hljs-string">'Hello, world!'</span>;</span><br><span class="line">    <span class="hljs-keyword">const</span> classNames = [<span class="hljs-string">'red'</span>, <span class="hljs-string">'bold'</span>, <span class="hljs-string">'float-right'</span>];</span><br><span class="line">    <span class="hljs-keyword">const</span> textWithArrayOfClassNames = shallowRender(<span class="hljs-xml"><span class="hljs-tag">&lt;<span class="hljs-name">TextWithArrayOfClassNames</span> <span class="hljs-attr">text</span>=<span class="hljs-string">&#123;text&#125;</span> <span class="hljs-attr">classNames</span>=<span class="hljs-string">&#123;classNames&#125;/</span>&gt;</span>);</span></span><br><span class="line"><span class="hljs-xml"></span></span><br><span class="line"><span class="hljs-xml">    const childClassNames = textWithArrayOfClassNames.props.children.props.className;</span></span><br><span class="line"><span class="hljs-xml">    expect(childClassNames).toEqual('red bold float-right');</span></span><br><span class="line"><span class="hljs-xml">  &#125;);</span></span><br><span class="line"><span class="hljs-xml">&#125;);</span></span><br></pre></td></tr></table></figure></p>
 <p>对这样方法最多的批判是激增的 <code>props.children.props.children</code> 。当然这不是最完美的代码，个人觉得如果一个测试中的 <code>props.children</code> 多的让人受不了，这说明这个组件太大了，太复杂了，嵌套太深。它可能需要拆分。<br>另外一点，我经常听说的是，你的测试太依赖你的组件内部实现，以至于稍微改变你的 DOM 结构都能导致你所有的测试崩溃。这的确是一个很公正的评论，脆弱的测试套件是每个人想要的最好件事。管理这些最好的方式是保持你的组件足够小，足够简单，应该控制因组件变更引起的测试崩溃数目。</p>
-<h2 id="用户交互"><a href="#用户交互" class="headerlink" title="用户交互"></a>用户交互</h2><p>当然，组件不止展示，还有交互：<br><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> RedInput = <span class="function"><span class="params">props</span> =&gt;</span> (</span><br><span class="line">  &lt;input className=<span class="string">"red"</span> onChange=&#123;props.onChange&#125; /&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
-<p>这是我最喜欢的测试方法：<br><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="string">'RedInput'</span>, () =&gt; &#123;</span><br><span class="line">  it(<span class="string">'passes the event to the given callback when the value changes'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> callback = jasmine.createSpy();</span><br><span class="line">    <span class="keyword">const</span> redInput = shallowRender(<span class="xml"><span class="tag">&lt;<span class="name">RedInput</span> <span class="attr">onChange</span>=<span class="string">&#123;callback&#125;/</span>&gt;</span>);</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    redInput.props.onChange('an event!');</span></span><br><span class="line"><span class="xml">    expect(callback).toHaveBeenCalledWith('an event!');</span></span><br><span class="line"><span class="xml">  &#125;);</span></span><br><span class="line"><span class="xml">&#125;);</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="用户交互"><a href="#用户交互" class="headerlink" title="用户交互"></a>用户交互</h2><p>当然，组件不止展示，还有交互：<br><figure class="highlight jsx hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> RedInput = <span class="hljs-function"><span class="hljs-params">props</span> =&gt;</span> (</span><br><span class="line">  &lt;input className=<span class="hljs-string">"red"</span> onChange=&#123;props.onChange&#125; /&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<p>这是我最喜欢的测试方法：<br><figure class="highlight jsx hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="hljs-string">'RedInput'</span>, () =&gt; &#123;</span><br><span class="line">  it(<span class="hljs-string">'passes the event to the given callback when the value changes'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="hljs-keyword">const</span> callback = jasmine.createSpy();</span><br><span class="line">    <span class="hljs-keyword">const</span> redInput = shallowRender(<span class="hljs-xml"><span class="hljs-tag">&lt;<span class="hljs-name">RedInput</span> <span class="hljs-attr">onChange</span>=<span class="hljs-string">&#123;callback&#125;/</span>&gt;</span>);</span></span><br><span class="line"><span class="hljs-xml"></span></span><br><span class="line"><span class="hljs-xml">    redInput.props.onChange('an event!');</span></span><br><span class="line"><span class="hljs-xml">    expect(callback).toHaveBeenCalledWith('an event!');</span></span><br><span class="line"><span class="hljs-xml">  &#125;);</span></span><br><span class="line"><span class="hljs-xml">&#125;);</span></span><br></pre></td></tr></table></figure></p>
 <p>这只是一个例子，希望你能受到启发。</p>
 <h2 id="集成测试"><a href="#集成测试" class="headerlink" title="集成测试"></a>集成测试</h2><p>上面我内容只覆盖到组件的独立的单元测试，但是你可能想确保你的应用各个部分协同工作，想在测试上走的更远。我对这部分了解的不够深入，但是列出一些基本点：</p>
 <ol>
@@ -257,7 +257,7 @@
             <div class="level-start">
                 <div class="level-item">
                     <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/React/">React</a>, <a class="has-link-grey -link" href="/tags/翻译/">翻译</a>
+                    <a class="has-link-grey -link" href="/blog/tags/React/">React</a>, <a class="has-link-grey -link" href="/blog/tags/翻译/">翻译</a>
                 </div>
             </div>
         </div>
@@ -309,7 +309,7 @@
     <div class="level post-navigation is-flex-wrap is-mobile">
         
         <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2017/01/01/前端框架的最佳实践（AngularJS-和-React）/">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/blog/2017/01/01/前端框架的最佳实践（AngularJS-和-React）/">
                 <i class="level-item fas fa-chevron-left"></i>
                 <span class="level-item">前端框架的最佳实践（AngularJS 和 React）</span>
             </a>
@@ -317,7 +317,7 @@
         
         
         <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2016/05/15/就一个静态页面/">
+            <a class="level level-item has-link-grey  article-nav-next" href="/blog/2016/05/15/就一个静态页面/">
                 <span class="level-item">就一个静态页面</span>
                 <i class="level-item fas fa-chevron-right"></i>
             </a>
@@ -342,7 +342,7 @@
             <div class="level-item has-text-centered">
                 <div>
                     
-                        <img class="image is-128x128 has-mb-6" src="/images/avatar.png" alt="Your name">
+                        <img class="image is-128x128 has-mb-6" src="/blog/images/avatar.png" alt="Your name">
                     
                     
                     <p class="is-size-4 is-block">
@@ -427,7 +427,7 @@
                 
             </a>
             
-            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/blog/">
                 
                 <i class="fas fa-rss"></i>
                 
@@ -488,7 +488,7 @@
             </h3>
             <ul class="menu-list">
             <li>
-        <a class="level is-marginless" href="/categories/心得总结/">
+        <a class="level is-marginless" href="/blog/categories/心得总结/">
             <span class="level-start">
                 <span class="level-item">心得总结</span>
             </span>
@@ -496,7 +496,7 @@
                 <span class="level-item tag">6</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/总结/">
+        <a class="level is-marginless" href="/blog/categories/总结/">
             <span class="level-start">
                 <span class="level-item">总结</span>
             </span>
@@ -504,7 +504,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/积累/">
+        <a class="level is-marginless" href="/blog/categories/积累/">
             <span class="level-start">
                 <span class="level-item">积累</span>
             </span>
@@ -512,7 +512,7 @@
                 <span class="level-item tag">2</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/移动端/">
+        <a class="level is-marginless" href="/blog/categories/移动端/">
             <span class="level-start">
                 <span class="level-item">移动端</span>
             </span>
@@ -520,7 +520,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/翻译/">
+        <a class="level is-marginless" href="/blog/categories/翻译/">
             <span class="level-start">
                 <span class="level-item">翻译</span>
             </span>
@@ -528,7 +528,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/造轮子/">
+        <a class="level is-marginless" href="/blog/categories/造轮子/">
             <span class="level-start">
                 <span class="level-item">造轮子</span>
             </span>
@@ -547,7 +547,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/AngularJS/" style="font-size: 10px;">AngularJS</a> <a href="/tags/AngularJS-lazyload/" style="font-size: 10px;">AngularJS lazyload</a> <a href="/tags/AngularJs/" style="font-size: 10px;">AngularJs</a> <a href="/tags/CDN共享/" style="font-size: 10px;">CDN共享</a> <a href="/tags/MobX/" style="font-size: 10px;">MobX</a> <a href="/tags/Module-SeaJS/" style="font-size: 10px;">Module SeaJS</a> <a href="/tags/MutationObserver/" style="font-size: 10px;">MutationObserver</a> <a href="/tags/Promise/" style="font-size: 20px;">Promise</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/js模式/" style="font-size: 10px;">js模式</a> <a href="/tags/mobile-video/" style="font-size: 10px;">mobile video</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/template/" style="font-size: 10px;">template</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/业务流程/" style="font-size: 10px;">业务流程</a> <a href="/tags/前端工程化/" style="font-size: 10px;">前端工程化</a> <a href="/tags/前端错误/" style="font-size: 10px;">前端错误</a> <a href="/tags/框架/" style="font-size: 20px;">框架</a> <a href="/tags/秒杀/" style="font-size: 10px;">秒杀</a> <a href="/tags/组件/" style="font-size: 10px;">组件</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/设计/" style="font-size: 10px;">设计</a> <a href="/tags/调研-MVVM/" style="font-size: 10px;">调研 MVVM</a> <a href="/tags/阅读笔记/" style="font-size: 10px;">阅读笔记</a>
+        <a href="/blog/tags/AngularJS/" style="font-size: 10px;">AngularJS</a> <a href="/blog/tags/AngularJS-lazyload/" style="font-size: 10px;">AngularJS lazyload</a> <a href="/blog/tags/AngularJs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/CDN共享/" style="font-size: 10px;">CDN共享</a> <a href="/blog/tags/MobX/" style="font-size: 10px;">MobX</a> <a href="/blog/tags/Module-SeaJS/" style="font-size: 10px;">Module SeaJS</a> <a href="/blog/tags/MutationObserver/" style="font-size: 10px;">MutationObserver</a> <a href="/blog/tags/Promise/" style="font-size: 20px;">Promise</a> <a href="/blog/tags/React/" style="font-size: 10px;">React</a> <a href="/blog/tags/js模式/" style="font-size: 10px;">js模式</a> <a href="/blog/tags/mobile-video/" style="font-size: 10px;">mobile video</a> <a href="/blog/tags/react/" style="font-size: 10px;">react</a> <a href="/blog/tags/template/" style="font-size: 10px;">template</a> <a href="/blog/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/blog/tags/业务流程/" style="font-size: 10px;">业务流程</a> <a href="/blog/tags/前端工程化/" style="font-size: 10px;">前端工程化</a> <a href="/blog/tags/前端错误/" style="font-size: 10px;">前端错误</a> <a href="/blog/tags/框架/" style="font-size: 20px;">框架</a> <a href="/blog/tags/秒杀/" style="font-size: 10px;">秒杀</a> <a href="/blog/tags/组件/" style="font-size: 10px;">组件</a> <a href="/blog/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/blog/tags/设计/" style="font-size: 10px;">设计</a> <a href="/blog/tags/调研-MVVM/" style="font-size: 10px;">调研 MVVM</a> <a href="/blog/tags/阅读笔记/" style="font-size: 10px;">阅读笔记</a>
     </div>
 </div>
 
@@ -564,16 +564,16 @@
         
         <article class="media">
             
-            <a href="/2017/08/31/introduce-to-websocket/" class="media-left">
+            <a href="/blog/2017/08/31/introduce-to-websocket/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="introduce to websocket">
+                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="introduce to websocket">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2017-08-31T03:32:17.000Z">2017-08-31</time></div>
-                    <a href="/2017/08/31/introduce-to-websocket/" class="has-link-black-ter is-size-6">introduce to websocket</a>
+                    <a href="/blog/2017/08/31/introduce-to-websocket/" class="has-link-black-ter is-size-6">introduce to websocket</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -583,16 +583,16 @@
         
         <article class="media">
             
-            <a href="/2017/06/26/一点思考/" class="media-left">
+            <a href="/blog/2017/06/26/一点思考/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="一点思考">
+                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="一点思考">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2017-06-26T10:14:59.000Z">2017-06-26</time></div>
-                    <a href="/2017/06/26/一点思考/" class="has-link-black-ter is-size-6">一点思考</a>
+                    <a href="/blog/2017/06/26/一点思考/" class="has-link-black-ter is-size-6">一点思考</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -602,16 +602,16 @@
         
         <article class="media">
             
-            <a href="/2017/06/25/HMR-踩坑记/" class="media-left">
+            <a href="/blog/2017/06/25/HMR-踩坑记/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="HMR 踩坑记">
+                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="HMR 踩坑记">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2017-06-25T09:44:55.000Z">2017-06-25</time></div>
-                    <a href="/2017/06/25/HMR-踩坑记/" class="has-link-black-ter is-size-6">HMR 踩坑记</a>
+                    <a href="/blog/2017/06/25/HMR-踩坑记/" class="has-link-black-ter is-size-6">HMR 踩坑记</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -621,16 +621,16 @@
         
         <article class="media">
             
-            <a href="/2017/03/30/探秘-MobX/" class="media-left">
+            <a href="/blog/2017/03/30/探秘-MobX/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="探秘 MobX">
+                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="探秘 MobX">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2017-03-30T10:41:22.000Z">2017-03-30</time></div>
-                    <a href="/2017/03/30/探秘-MobX/" class="has-link-black-ter is-size-6">探秘 MobX</a>
+                    <a href="/blog/2017/03/30/探秘-MobX/" class="has-link-black-ter is-size-6">探秘 MobX</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -640,16 +640,16 @@
         
         <article class="media">
             
-            <a href="/2017/02/22/git-合并策略-之-recursive/" class="media-left">
+            <a href="/blog/2017/02/22/git-合并策略-之-recursive/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git 合并策略 之 recursive">
+                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="git 合并策略 之 recursive">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2017-02-22T00:52:04.000Z">2017-02-22</time></div>
-                    <a href="/2017/02/22/git-合并策略-之-recursive/" class="has-link-black-ter is-size-6">git 合并策略 之 recursive</a>
+                    <a href="/blog/2017/02/22/git-合并策略-之-recursive/" class="has-link-black-ter is-size-6">git 合并策略 之 recursive</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -670,7 +670,7 @@
         <ul class="menu-list">
         
         <li>
-            <a class="level is-marginless" href="/archives/2017/08/">
+            <a class="level is-marginless" href="/blog/archives/2017/08/">
                 <span class="level-start">
                     <span class="level-item">八月 2017</span>
                 </span>
@@ -681,7 +681,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2017/06/">
+            <a class="level is-marginless" href="/blog/archives/2017/06/">
                 <span class="level-start">
                     <span class="level-item">六月 2017</span>
                 </span>
@@ -692,7 +692,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2017/03/">
+            <a class="level is-marginless" href="/blog/archives/2017/03/">
                 <span class="level-start">
                     <span class="level-item">三月 2017</span>
                 </span>
@@ -703,7 +703,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2017/02/">
+            <a class="level is-marginless" href="/blog/archives/2017/02/">
                 <span class="level-start">
                     <span class="level-item">二月 2017</span>
                 </span>
@@ -714,7 +714,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2017/01/">
+            <a class="level is-marginless" href="/blog/archives/2017/01/">
                 <span class="level-start">
                     <span class="level-item">一月 2017</span>
                 </span>
@@ -725,7 +725,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2016/07/">
+            <a class="level is-marginless" href="/blog/archives/2016/07/">
                 <span class="level-start">
                     <span class="level-item">七月 2016</span>
                 </span>
@@ -736,7 +736,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2016/05/">
+            <a class="level is-marginless" href="/blog/archives/2016/05/">
                 <span class="level-start">
                     <span class="level-item">五月 2016</span>
                 </span>
@@ -747,7 +747,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2016/02/">
+            <a class="level is-marginless" href="/blog/archives/2016/02/">
                 <span class="level-start">
                     <span class="level-item">二月 2016</span>
                 </span>
@@ -758,7 +758,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2015/05/">
+            <a class="level is-marginless" href="/blog/archives/2015/05/">
                 <span class="level-start">
                     <span class="level-item">五月 2015</span>
                 </span>
@@ -769,7 +769,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2015/04/">
+            <a class="level is-marginless" href="/blog/archives/2015/04/">
                 <span class="level-start">
                     <span class="level-item">四月 2015</span>
                 </span>
@@ -780,7 +780,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2015/01/">
+            <a class="level is-marginless" href="/blog/archives/2015/01/">
                 <span class="level-start">
                     <span class="level-item">一月 2015</span>
                 </span>
@@ -791,7 +791,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2014/11/">
+            <a class="level is-marginless" href="/blog/archives/2014/11/">
                 <span class="level-start">
                     <span class="level-item">十一月 2014</span>
                 </span>
@@ -802,7 +802,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2014/10/">
+            <a class="level is-marginless" href="/blog/archives/2014/10/">
                 <span class="level-start">
                     <span class="level-item">十月 2014</span>
                 </span>
@@ -813,7 +813,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2014/03/">
+            <a class="level is-marginless" href="/blog/archives/2014/03/">
                 <span class="level-start">
                     <span class="level-item">三月 2014</span>
                 </span>
@@ -824,7 +824,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2014/02/">
+            <a class="level is-marginless" href="/blog/archives/2014/02/">
                 <span class="level-start">
                     <span class="level-item">二月 2014</span>
                 </span>
@@ -835,7 +835,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2013/11/">
+            <a class="level is-marginless" href="/blog/archives/2013/11/">
                 <span class="level-start">
                     <span class="level-item">十一月 2013</span>
                 </span>
@@ -846,7 +846,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2013/10/">
+            <a class="level is-marginless" href="/blog/archives/2013/10/">
                 <span class="level-start">
                     <span class="level-item">十月 2013</span>
                 </span>
@@ -857,7 +857,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2013/08/">
+            <a class="level is-marginless" href="/blog/archives/2013/08/">
                 <span class="level-start">
                     <span class="level-item">八月 2013</span>
                 </span>
@@ -881,168 +881,168 @@
             <div class="field is-grouped is-grouped-multiline">
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/AngularJS/">
+                    <a class="tags has-addons" href="/blog/tags/AngularJS/">
                         <span class="tag">AngularJS</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/AngularJS-lazyload/">
+                    <a class="tags has-addons" href="/blog/tags/AngularJS-lazyload/">
                         <span class="tag">AngularJS lazyload</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/AngularJs/">
+                    <a class="tags has-addons" href="/blog/tags/AngularJs/">
                         <span class="tag">AngularJs</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/CDN共享/">
+                    <a class="tags has-addons" href="/blog/tags/CDN共享/">
                         <span class="tag">CDN共享</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/MobX/">
+                    <a class="tags has-addons" href="/blog/tags/MobX/">
                         <span class="tag">MobX</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/Module-SeaJS/">
+                    <a class="tags has-addons" href="/blog/tags/Module-SeaJS/">
                         <span class="tag">Module SeaJS</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/MutationObserver/">
+                    <a class="tags has-addons" href="/blog/tags/MutationObserver/">
                         <span class="tag">MutationObserver</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/Promise/">
+                    <a class="tags has-addons" href="/blog/tags/Promise/">
                         <span class="tag">Promise</span>
                         <span class="tag is-grey">2</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/React/">
+                    <a class="tags has-addons" href="/blog/tags/React/">
                         <span class="tag">React</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/js模式/">
+                    <a class="tags has-addons" href="/blog/tags/js模式/">
                         <span class="tag">js模式</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/mobile-video/">
+                    <a class="tags has-addons" href="/blog/tags/mobile-video/">
                         <span class="tag">mobile video</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/react/">
+                    <a class="tags has-addons" href="/blog/tags/react/">
                         <span class="tag">react</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/template/">
+                    <a class="tags has-addons" href="/blog/tags/template/">
                         <span class="tag">template</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/webpack/">
+                    <a class="tags has-addons" href="/blog/tags/webpack/">
                         <span class="tag">webpack</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/业务流程/">
+                    <a class="tags has-addons" href="/blog/tags/业务流程/">
                         <span class="tag">业务流程</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/前端工程化/">
+                    <a class="tags has-addons" href="/blog/tags/前端工程化/">
                         <span class="tag">前端工程化</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/前端错误/">
+                    <a class="tags has-addons" href="/blog/tags/前端错误/">
                         <span class="tag">前端错误</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/框架/">
+                    <a class="tags has-addons" href="/blog/tags/框架/">
                         <span class="tag">框架</span>
                         <span class="tag is-grey">2</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/秒杀/">
+                    <a class="tags has-addons" href="/blog/tags/秒杀/">
                         <span class="tag">秒杀</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/组件/">
+                    <a class="tags has-addons" href="/blog/tags/组件/">
                         <span class="tag">组件</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/翻译/">
+                    <a class="tags has-addons" href="/blog/tags/翻译/">
                         <span class="tag">翻译</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/设计/">
+                    <a class="tags has-addons" href="/blog/tags/设计/">
                         <span class="tag">设计</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/调研-MVVM/">
+                    <a class="tags has-addons" href="/blog/tags/调研-MVVM/">
                         <span class="tag">调研 MVVM</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/阅读笔记/">
+                    <a class="tags has-addons" href="/blog/tags/阅读笔记/">
                         <span class="tag">阅读笔记</span>
                         <span class="tag is-grey">1</span>
                     </a>
@@ -1073,16 +1073,16 @@
         
         <article class="media">
             
-            <a href="/2017/08/31/introduce-to-websocket/" class="media-left">
+            <a href="/blog/2017/08/31/introduce-to-websocket/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="introduce to websocket">
+                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="introduce to websocket">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2017-08-31T03:32:17.000Z">2017-08-31</time></div>
-                    <a href="/2017/08/31/introduce-to-websocket/" class="has-link-black-ter is-size-6">introduce to websocket</a>
+                    <a href="/blog/2017/08/31/introduce-to-websocket/" class="has-link-black-ter is-size-6">introduce to websocket</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -1092,16 +1092,16 @@
         
         <article class="media">
             
-            <a href="/2017/06/26/一点思考/" class="media-left">
+            <a href="/blog/2017/06/26/一点思考/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="一点思考">
+                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="一点思考">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2017-06-26T10:14:59.000Z">2017-06-26</time></div>
-                    <a href="/2017/06/26/一点思考/" class="has-link-black-ter is-size-6">一点思考</a>
+                    <a href="/blog/2017/06/26/一点思考/" class="has-link-black-ter is-size-6">一点思考</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -1111,16 +1111,16 @@
         
         <article class="media">
             
-            <a href="/2017/06/25/HMR-踩坑记/" class="media-left">
+            <a href="/blog/2017/06/25/HMR-踩坑记/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="HMR 踩坑记">
+                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="HMR 踩坑记">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2017-06-25T09:44:55.000Z">2017-06-25</time></div>
-                    <a href="/2017/06/25/HMR-踩坑记/" class="has-link-black-ter is-size-6">HMR 踩坑记</a>
+                    <a href="/blog/2017/06/25/HMR-踩坑记/" class="has-link-black-ter is-size-6">HMR 踩坑记</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -1130,16 +1130,16 @@
         
         <article class="media">
             
-            <a href="/2017/03/30/探秘-MobX/" class="media-left">
+            <a href="/blog/2017/03/30/探秘-MobX/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="探秘 MobX">
+                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="探秘 MobX">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2017-03-30T10:41:22.000Z">2017-03-30</time></div>
-                    <a href="/2017/03/30/探秘-MobX/" class="has-link-black-ter is-size-6">探秘 MobX</a>
+                    <a href="/blog/2017/03/30/探秘-MobX/" class="has-link-black-ter is-size-6">探秘 MobX</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -1149,16 +1149,16 @@
         
         <article class="media">
             
-            <a href="/2017/02/22/git-合并策略-之-recursive/" class="media-left">
+            <a href="/blog/2017/02/22/git-合并策略-之-recursive/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git 合并策略 之 recursive">
+                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="git 合并策略 之 recursive">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2017-02-22T00:52:04.000Z">2017-02-22</time></div>
-                    <a href="/2017/02/22/git-合并策略-之-recursive/" class="has-link-black-ter is-size-6">git 合并策略 之 recursive</a>
+                    <a href="/blog/2017/02/22/git-合并策略-之-recursive/" class="has-link-black-ter is-size-6">git 合并策略 之 recursive</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -1179,7 +1179,7 @@
         <ul class="menu-list">
         
         <li>
-            <a class="level is-marginless" href="/archives/2017/08/">
+            <a class="level is-marginless" href="/blog/archives/2017/08/">
                 <span class="level-start">
                     <span class="level-item">八月 2017</span>
                 </span>
@@ -1190,7 +1190,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2017/06/">
+            <a class="level is-marginless" href="/blog/archives/2017/06/">
                 <span class="level-start">
                     <span class="level-item">六月 2017</span>
                 </span>
@@ -1201,7 +1201,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2017/03/">
+            <a class="level is-marginless" href="/blog/archives/2017/03/">
                 <span class="level-start">
                     <span class="level-item">三月 2017</span>
                 </span>
@@ -1212,7 +1212,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2017/02/">
+            <a class="level is-marginless" href="/blog/archives/2017/02/">
                 <span class="level-start">
                     <span class="level-item">二月 2017</span>
                 </span>
@@ -1223,7 +1223,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2017/01/">
+            <a class="level is-marginless" href="/blog/archives/2017/01/">
                 <span class="level-start">
                     <span class="level-item">一月 2017</span>
                 </span>
@@ -1234,7 +1234,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2016/07/">
+            <a class="level is-marginless" href="/blog/archives/2016/07/">
                 <span class="level-start">
                     <span class="level-item">七月 2016</span>
                 </span>
@@ -1245,7 +1245,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2016/05/">
+            <a class="level is-marginless" href="/blog/archives/2016/05/">
                 <span class="level-start">
                     <span class="level-item">五月 2016</span>
                 </span>
@@ -1256,7 +1256,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2016/02/">
+            <a class="level is-marginless" href="/blog/archives/2016/02/">
                 <span class="level-start">
                     <span class="level-item">二月 2016</span>
                 </span>
@@ -1267,7 +1267,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2015/05/">
+            <a class="level is-marginless" href="/blog/archives/2015/05/">
                 <span class="level-start">
                     <span class="level-item">五月 2015</span>
                 </span>
@@ -1278,7 +1278,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2015/04/">
+            <a class="level is-marginless" href="/blog/archives/2015/04/">
                 <span class="level-start">
                     <span class="level-item">四月 2015</span>
                 </span>
@@ -1289,7 +1289,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2015/01/">
+            <a class="level is-marginless" href="/blog/archives/2015/01/">
                 <span class="level-start">
                     <span class="level-item">一月 2015</span>
                 </span>
@@ -1300,7 +1300,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2014/11/">
+            <a class="level is-marginless" href="/blog/archives/2014/11/">
                 <span class="level-start">
                     <span class="level-item">十一月 2014</span>
                 </span>
@@ -1311,7 +1311,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2014/10/">
+            <a class="level is-marginless" href="/blog/archives/2014/10/">
                 <span class="level-start">
                     <span class="level-item">十月 2014</span>
                 </span>
@@ -1322,7 +1322,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2014/03/">
+            <a class="level is-marginless" href="/blog/archives/2014/03/">
                 <span class="level-start">
                     <span class="level-item">三月 2014</span>
                 </span>
@@ -1333,7 +1333,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2014/02/">
+            <a class="level is-marginless" href="/blog/archives/2014/02/">
                 <span class="level-start">
                     <span class="level-item">二月 2014</span>
                 </span>
@@ -1344,7 +1344,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2013/11/">
+            <a class="level is-marginless" href="/blog/archives/2013/11/">
                 <span class="level-start">
                     <span class="level-item">十一月 2013</span>
                 </span>
@@ -1355,7 +1355,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2013/10/">
+            <a class="level is-marginless" href="/blog/archives/2013/10/">
                 <span class="level-start">
                     <span class="level-item">十月 2013</span>
                 </span>
@@ -1366,7 +1366,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2013/08/">
+            <a class="level is-marginless" href="/blog/archives/2013/08/">
                 <span class="level-start">
                     <span class="level-item">八月 2013</span>
                 </span>
@@ -1390,168 +1390,168 @@
             <div class="field is-grouped is-grouped-multiline">
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/AngularJS/">
+                    <a class="tags has-addons" href="/blog/tags/AngularJS/">
                         <span class="tag">AngularJS</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/AngularJS-lazyload/">
+                    <a class="tags has-addons" href="/blog/tags/AngularJS-lazyload/">
                         <span class="tag">AngularJS lazyload</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/AngularJs/">
+                    <a class="tags has-addons" href="/blog/tags/AngularJs/">
                         <span class="tag">AngularJs</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/CDN共享/">
+                    <a class="tags has-addons" href="/blog/tags/CDN共享/">
                         <span class="tag">CDN共享</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/MobX/">
+                    <a class="tags has-addons" href="/blog/tags/MobX/">
                         <span class="tag">MobX</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/Module-SeaJS/">
+                    <a class="tags has-addons" href="/blog/tags/Module-SeaJS/">
                         <span class="tag">Module SeaJS</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/MutationObserver/">
+                    <a class="tags has-addons" href="/blog/tags/MutationObserver/">
                         <span class="tag">MutationObserver</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/Promise/">
+                    <a class="tags has-addons" href="/blog/tags/Promise/">
                         <span class="tag">Promise</span>
                         <span class="tag is-grey">2</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/React/">
+                    <a class="tags has-addons" href="/blog/tags/React/">
                         <span class="tag">React</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/js模式/">
+                    <a class="tags has-addons" href="/blog/tags/js模式/">
                         <span class="tag">js模式</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/mobile-video/">
+                    <a class="tags has-addons" href="/blog/tags/mobile-video/">
                         <span class="tag">mobile video</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/react/">
+                    <a class="tags has-addons" href="/blog/tags/react/">
                         <span class="tag">react</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/template/">
+                    <a class="tags has-addons" href="/blog/tags/template/">
                         <span class="tag">template</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/webpack/">
+                    <a class="tags has-addons" href="/blog/tags/webpack/">
                         <span class="tag">webpack</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/业务流程/">
+                    <a class="tags has-addons" href="/blog/tags/业务流程/">
                         <span class="tag">业务流程</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/前端工程化/">
+                    <a class="tags has-addons" href="/blog/tags/前端工程化/">
                         <span class="tag">前端工程化</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/前端错误/">
+                    <a class="tags has-addons" href="/blog/tags/前端错误/">
                         <span class="tag">前端错误</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/框架/">
+                    <a class="tags has-addons" href="/blog/tags/框架/">
                         <span class="tag">框架</span>
                         <span class="tag is-grey">2</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/秒杀/">
+                    <a class="tags has-addons" href="/blog/tags/秒杀/">
                         <span class="tag">秒杀</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/组件/">
+                    <a class="tags has-addons" href="/blog/tags/组件/">
                         <span class="tag">组件</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/翻译/">
+                    <a class="tags has-addons" href="/blog/tags/翻译/">
                         <span class="tag">翻译</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/设计/">
+                    <a class="tags has-addons" href="/blog/tags/设计/">
                         <span class="tag">设计</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/调研-MVVM/">
+                    <a class="tags has-addons" href="/blog/tags/调研-MVVM/">
                         <span class="tag">调研 MVVM</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/阅读笔记/">
+                    <a class="tags has-addons" href="/blog/tags/阅读笔记/">
                         <span class="tag">阅读笔记</span>
                         <span class="tag is-grey">1</span>
                     </a>
@@ -1572,9 +1572,9 @@
     <div class="container">
         <div class="level">
             <div class="level-start has-text-centered-mobile">
-                <a class="footer-logo is-block has-mb-6" href="/">
+                <a class="footer-logo is-block has-mb-6" href="/blog/">
                 
-                    <img src="/images/logo.svg" alt="【翻译】React.js 初学者应该知道的 9 件事" height="28">
+                    <img src="/blog/images/logo.svg" alt="【翻译】React.js 初学者应该知道的 9 件事" height="28">
                 
                 </a>
                 <p class="is-size-7">
@@ -1626,7 +1626,7 @@
     
     
     
-    <script src="/js/animation.js"></script>
+    <script src="/blog/js/animation.js"></script>
     
 
     
@@ -1634,7 +1634,7 @@
     
     <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
-    <script src="/js/gallery.js" defer></script>
+    <script src="/blog/js/gallery.js" defer></script>
     
 
     
@@ -1689,7 +1689,7 @@ document.addEventListener('DOMContentLoaded', function () {
 <a id="back-to-top" title="回到顶端" href="javascript:;">
     <i class="fas fa-chevron-up"></i>
 </a>
-<script src="/js/back-to-top.js" defer></script>
+<script src="/blog/js/back-to-top.js" defer></script>
 
 
     
@@ -1706,7 +1706,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
     
     <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
-    <script src="/js/clipboard.js" defer></script>
+    <script src="/blog/js/clipboard.js" defer></script>
     
 
     
@@ -1714,7 +1714,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
 
 
-<script src="/js/main.js" defer></script>
+<script src="/blog/js/main.js" defer></script>
 
     
     <div class="searchbox ins-search">
@@ -1738,14 +1738,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 TAGS: '标签',
                 UNTITLED: '(无标题)',
             },
-            CONTENT_URL: '/content.json',
+            CONTENT_URL: '/blog/content.json',
         };
         window.INSIGHT_CONFIG = INSIGHT_CONFIG;
     })(window);
 </script>
-<script src="/js/insight.js" defer></script>
-<link rel="stylesheet" href="/css/search.css">
-<link rel="stylesheet" href="/css/insight.css">
+<script src="/blog/js/insight.js" defer></script>
+<link rel="stylesheet" href="/blog/css/search.css">
+<link rel="stylesheet" href="/blog/css/insight.css">
     
 </body>
 </html>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
 <title>HMR 踩坑记 - fedeoo</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -11,16 +11,16 @@
 <meta name="keywords" content="webpack">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HMR 踩坑记">
-<meta property="og:url" content="http://fedeoo.github.io/blog/2017/06/25/HMR-踩坑记/index.html">
+<meta property="og:url" content="https://fedeoo.github.io/blog/2017/06/25/HMR-踩坑记/index.html">
 <meta property="og:site_name" content="fedeoo">
 <meta property="og:description" content="昨天遇到一个问题：使用 next/tree 时报错，即使最简单的 Demo 也会报错，而官网提供的则不会，最终问题定位到 react-hot-loader 上。我使用的是 react-hot-loader@next版本，需要在 babel 配置中引入 react-hot-loader/babel plugin。禁用这个 plugin 正常渲染，启用就报错，这个问题太诡异了，所以有必要搞清楚 HMR">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://fedeoo.github.io/images/og_image.png">
+<meta property="og:image" content="https://fedeoo.github.io/blog/images/og_image.png">
 <meta property="og:updated_time" content="2019-07-01T02:49:27.206Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HMR 踩坑记">
 <meta name="twitter:description" content="昨天遇到一个问题：使用 next/tree 时报错，即使最简单的 Demo 也会报错，而官网提供的则不会，最终问题定位到 react-hot-loader 上。我使用的是 react-hot-loader@next版本，需要在 babel 配置中引入 react-hot-loader/babel plugin。禁用这个 plugin 正常渲染，启用就报错，这个问题太诡异了，所以有必要搞清楚 HMR">
-<meta name="twitter:image" content="http://fedeoo.github.io/images/og_image.png">
+<meta name="twitter:image" content="https://fedeoo.github.io/blog/images/og_image.png">
 
 
 
@@ -28,7 +28,7 @@
 
 
 
-<link rel="icon" href="/images/favicon.svg">
+<link rel="icon" href="/blog/images/favicon.svg">
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
@@ -61,7 +61,7 @@
     
     
 
-<link rel="stylesheet" href="/css/back-to-top.css">
+<link rel="stylesheet" href="/blog/css/back-to-top.css">
 
 
     
@@ -74,7 +74,7 @@
 
     
     
-<link rel="stylesheet" href="/css/progressbar.css">
+<link rel="stylesheet" href="/blog/css/progressbar.css">
 <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
 
     
@@ -86,15 +86,15 @@
     
 
 
-<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/blog/css/style.css">
 </head>
 <body class="is-3-column">
     <nav class="navbar navbar-main">
     <div class="container">
         <div class="navbar-brand is-flex-center">
-            <a class="navbar-item navbar-logo" href="/">
+            <a class="navbar-item navbar-logo" href="/blog/">
             
-                <img src="/images/logo.svg" alt="HMR 踩坑记" height="28">
+                <img src="/blog/images/logo.svg" alt="HMR 踩坑记" height="28">
             
             </a>
         </div>
@@ -102,15 +102,15 @@
             
             <div class="navbar-start">
                 
-                <a class="navbar-item" href="/">Home</a>
+                <a class="navbar-item" href="/blog/">Home</a>
                 
-                <a class="navbar-item" href="/archives">Archives</a>
+                <a class="navbar-item" href="/blog/archives">Archives</a>
                 
-                <a class="navbar-item" href="/categories">Categories</a>
+                <a class="navbar-item" href="/blog/categories">Categories</a>
                 
-                <a class="navbar-item" href="/tags">Tags</a>
+                <a class="navbar-item" href="/blog/tags">Tags</a>
                 
-                <a class="navbar-item" href="/about">About</a>
+                <a class="navbar-item" href="/blog/about">About</a>
                 
             </div>
             
@@ -170,10 +170,10 @@
 <p><img src="https://private-alipayobjects.alipay.com/alipay-rmsdeploy-image/skylark/png/9206/00ab9c94b132c43f.png" alt="1-DoOmboEYHv0sgSjaOWo0Qw.png"></p>
 <p>webpack-dev-server 服务启动之后与 webpack 建立连接，本地发生变化通知 webpack-dev-server，页面注入 devServerClient.js 脚本保持与 webpack-dev-server 通信。本地发生变化之后，通知浏览器，浏览器拉取最新的变化模块。</p>
 <p>浏览器端维护着一个 <code>modules: {}</code> 集合，当某一个模块变更时，我们需要重新执行该模块，缓存模块对象。接下来就是如何重新渲染页面了，我们应该都见过下面这段代码。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">module</span>.hot) &#123;</span><br><span class="line">	<span class="built_in">module</span>.hot.accept(<span class="string">'./App'</span>, () =&gt; &#123;</span><br><span class="line">	   <span class="comment">// ...</span></span><br><span class="line">	   render();</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">if</span> (<span class="hljs-built_in">module</span>.hot) &#123;</span><br><span class="line">	<span class="hljs-built_in">module</span>.hot.accept(<span class="hljs-string">'./App'</span>, () =&gt; &#123;</span><br><span class="line">	   <span class="hljs-comment">// ...</span></span><br><span class="line">	   render();</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这段代码可以理解问监听模块变化，重新渲染页面。得益于消息冒泡，我们只需要监听最顶层的模块就可以了。重新渲染页面，对于 React 应用来说可以用这种方式：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> render = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> nextApp = <span class="built_in">require</span>(<span class="string">'./App'</span>).default;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;;</span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  ReactDOM.unmountComponentAtNode(MOUNT_NODE);</span><br><span class="line">  render();</span><br><span class="line">));</span><br></pre></td></tr></table></figure>
-<p><a href="https://github.com/davezuko/react-redux-starter-kit" target="_blank" rel="noopener">react-redux-starter-kit</a> 就是这种方式。<br>对于样式文件，<a href="https://github.com/webpack-contrib/style-loader" target="_blank" rel="noopener">sytle-loader</a> 替我们做了热替换。我们在代码中引入样式文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &apos;./Demo.css&apos;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> render = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="hljs-keyword">const</span> nextApp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./App'</span>).default;</span><br><span class="line">  <span class="hljs-comment">// ...</span></span><br><span class="line">&#125;;</span><br><span class="line">setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;</span><br><span class="line">  ReactDOM.unmountComponentAtNode(MOUNT_NODE);</span><br><span class="line">  render();</span><br><span class="line">));</span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/davezuko/react-redux-starter-kit" target="_blank" rel="noopener">react-redux-starter-kit</a> 就是这种方式。<br>对于样式文件，<a href="https://github.com/webpack-contrib/style-loader" target="_blank" rel="noopener">sytle-loader</a> 替我们做了热替换。我们在代码中引入样式文件：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &apos;./Demo.css&apos;</span><br></pre></td></tr></table></figure></p>
 <p>实际上是这样的：<br><img src="https://private-alipayobjects.alipay.com/alipay-rmsdeploy-image/skylark/png/9206/9cb750c1f6292c5a.png" alt="style-loader--css.png"></p>
 <h2 id="热替换更顺滑"><a href="#热替换更顺滑" class="headerlink" title="热替换更顺滑"></a>热替换更顺滑</h2><p>大多数的项目示例都是上面这种形式重新渲染页面，用户并不会体会到页面重刷的感觉。不过如果组件有自己的内部状态，这个状态肯定会丢失。为了将替换体验做的更顺滑，Dan Abramov 开发了 <a href="https://github.com/gaearon/react-hot-loader" target="_blank" rel="noopener">React Hot Loader</a> 可以让更新组件时内部状态不丢失。<a href="https://github.com/gaearon/react-proxy" target="_blank" rel="noopener">react-proxy</a> 会包装每个组件类，组件发生变化，只是实例原型上的方法改变，并不影响组件实例本身，只不过再次执行的是新的方法。</p>
 <p>了解了这点之后，再检查下 next/tree 的代码就会发现，在 TreeNode 组件中包含有这样的代码逻辑：<br><code>item.type === TreeNode</code> 或者 <code>children.type === TreeNode</code> 来检查如果 children 是否是 TreeNode 类型。现在因为 <code>react-proxy</code> 包装了原来的组件类， children.type 类型其实是 ProxyComponent，虽然有着相同的属性和原型链，但其实是完全不同的对象，所以 <code>children.type === TreeNode</code> 结果就是 false。解决方法：我们在需要比较组件类型时，可以比较该类上的一个标识，或者比较原型链来绕过这个坑。</p>
@@ -193,7 +193,7 @@
             <div class="level-start">
                 <div class="level-item">
                     <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/webpack/">webpack</a>
+                    <a class="has-link-grey -link" href="/blog/tags/webpack/">webpack</a>
                 </div>
             </div>
         </div>
@@ -245,7 +245,7 @@
     <div class="level post-navigation is-flex-wrap is-mobile">
         
         <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2017/06/26/一点思考/">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/blog/2017/06/26/一点思考/">
                 <i class="level-item fas fa-chevron-left"></i>
                 <span class="level-item">一点思考</span>
             </a>
@@ -253,7 +253,7 @@
         
         
         <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2017/03/30/探秘-MobX/">
+            <a class="level level-item has-link-grey  article-nav-next" href="/blog/2017/03/30/探秘-MobX/">
                 <span class="level-item">探秘 MobX</span>
                 <i class="level-item fas fa-chevron-right"></i>
             </a>
@@ -278,7 +278,7 @@
             <div class="level-item has-text-centered">
                 <div>
                     
-                        <img class="image is-128x128 has-mb-6" src="/images/avatar.png" alt="Your name">
+                        <img class="image is-128x128 has-mb-6" src="/blog/images/avatar.png" alt="Your name">
                     
                     
                     <p class="is-size-4 is-block">
@@ -363,7 +363,7 @@
                 
             </a>
             
-            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/blog/">
                 
                 <i class="fas fa-rss"></i>
                 
@@ -424,7 +424,7 @@
             </h3>
             <ul class="menu-list">
             <li>
-        <a class="level is-marginless" href="/categories/心得总结/">
+        <a class="level is-marginless" href="/blog/categories/心得总结/">
             <span class="level-start">
                 <span class="level-item">心得总结</span>
             </span>
@@ -432,7 +432,7 @@
                 <span class="level-item tag">6</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/总结/">
+        <a class="level is-marginless" href="/blog/categories/总结/">
             <span class="level-start">
                 <span class="level-item">总结</span>
             </span>
@@ -440,7 +440,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/积累/">
+        <a class="level is-marginless" href="/blog/categories/积累/">
             <span class="level-start">
                 <span class="level-item">积累</span>
             </span>
@@ -448,7 +448,7 @@
                 <span class="level-item tag">2</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/移动端/">
+        <a class="level is-marginless" href="/blog/categories/移动端/">
             <span class="level-start">
                 <span class="level-item">移动端</span>
             </span>
@@ -456,7 +456,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/翻译/">
+        <a class="level is-marginless" href="/blog/categories/翻译/">
             <span class="level-start">
                 <span class="level-item">翻译</span>
             </span>
@@ -464,7 +464,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/造轮子/">
+        <a class="level is-marginless" href="/blog/categories/造轮子/">
             <span class="level-start">
                 <span class="level-item">造轮子</span>
             </span>
@@ -483,7 +483,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/AngularJS/" style="font-size: 10px;">AngularJS</a> <a href="/tags/AngularJS-lazyload/" style="font-size: 10px;">AngularJS lazyload</a> <a href="/tags/AngularJs/" style="font-size: 10px;">AngularJs</a> <a href="/tags/CDN共享/" style="font-size: 10px;">CDN共享</a> <a href="/tags/MobX/" style="font-size: 10px;">MobX</a> <a href="/tags/Module-SeaJS/" style="font-size: 10px;">Module SeaJS</a> <a href="/tags/MutationObserver/" style="font-size: 10px;">MutationObserver</a> <a href="/tags/Promise/" style="font-size: 20px;">Promise</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/js模式/" style="font-size: 10px;">js模式</a> <a href="/tags/mobile-video/" style="font-size: 10px;">mobile video</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/template/" style="font-size: 10px;">template</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/业务流程/" style="font-size: 10px;">业务流程</a> <a href="/tags/前端工程化/" style="font-size: 10px;">前端工程化</a> <a href="/tags/前端错误/" style="font-size: 10px;">前端错误</a> <a href="/tags/框架/" style="font-size: 20px;">框架</a> <a href="/tags/秒杀/" style="font-size: 10px;">秒杀</a> <a href="/tags/组件/" style="font-size: 10px;">组件</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/设计/" style="font-size: 10px;">设计</a> <a href="/tags/调研-MVVM/" style="font-size: 10px;">调研 MVVM</a> <a href="/tags/阅读笔记/" style="font-size: 10px;">阅读笔记</a>
+        <a href="/blog/tags/AngularJS/" style="font-size: 10px;">AngularJS</a> <a href="/blog/tags/AngularJS-lazyload/" style="font-size: 10px;">AngularJS lazyload</a> <a href="/blog/tags/AngularJs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/CDN共享/" style="font-size: 10px;">CDN共享</a> <a href="/blog/tags/MobX/" style="font-size: 10px;">MobX</a> <a href="/blog/tags/Module-SeaJS/" style="font-size: 10px;">Module SeaJS</a> <a href="/blog/tags/MutationObserver/" style="font-size: 10px;">MutationObserver</a> <a href="/blog/tags/Promise/" style="font-size: 20px;">Promise</a> <a href="/blog/tags/React/" style="font-size: 10px;">React</a> <a href="/blog/tags/js模式/" style="font-size: 10px;">js模式</a> <a href="/blog/tags/mobile-video/" style="font-size: 10px;">mobile video</a> <a href="/blog/tags/react/" style="font-size: 10px;">react</a> <a href="/blog/tags/template/" style="font-size: 10px;">template</a> <a href="/blog/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/blog/tags/业务流程/" style="font-size: 10px;">业务流程</a> <a href="/blog/tags/前端工程化/" style="font-size: 10px;">前端工程化</a> <a href="/blog/tags/前端错误/" style="font-size: 10px;">前端错误</a> <a href="/blog/tags/框架/" style="font-size: 20px;">框架</a> <a href="/blog/tags/秒杀/" style="font-size: 10px;">秒杀</a> <a href="/blog/tags/组件/" style="font-size: 10px;">组件</a> <a href="/blog/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/blog/tags/设计/" style="font-size: 10px;">设计</a> <a href="/blog/tags/调研-MVVM/" style="font-size: 10px;">调研 MVVM</a> <a href="/blog/tags/阅读笔记/" style="font-size: 10px;">阅读笔记</a>
     </div>
 </div>
 
@@ -500,16 +500,16 @@
         
         <article class="media">
             
-            <a href="/2017/08/31/introduce-to-websocket/" class="media-left">
+            <a href="/blog/2017/08/31/introduce-to-websocket/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="introduce to websocket">
+                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="introduce to websocket">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2017-08-31T03:32:17.000Z">2017-08-31</time></div>
-                    <a href="/2017/08/31/introduce-to-websocket/" class="has-link-black-ter is-size-6">introduce to websocket</a>
+                    <a href="/blog/2017/08/31/introduce-to-websocket/" class="has-link-black-ter is-size-6">introduce to websocket</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -519,16 +519,16 @@
         
         <article class="media">
             
-            <a href="/2017/06/26/一点思考/" class="media-left">
+            <a href="/blog/2017/06/26/一点思考/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="一点思考">
+                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="一点思考">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2017-06-26T10:14:59.000Z">2017-06-26</time></div>
-                    <a href="/2017/06/26/一点思考/" class="has-link-black-ter is-size-6">一点思考</a>
+                    <a href="/blog/2017/06/26/一点思考/" class="has-link-black-ter is-size-6">一点思考</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -538,16 +538,16 @@
         
         <article class="media">
             
-            <a href="/2017/06/25/HMR-踩坑记/" class="media-left">
+            <a href="/blog/2017/06/25/HMR-踩坑记/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="HMR 踩坑记">
+                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="HMR 踩坑记">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2017-06-25T09:44:55.000Z">2017-06-25</time></div>
-                    <a href="/2017/06/25/HMR-踩坑记/" class="has-link-black-ter is-size-6">HMR 踩坑记</a>
+                    <a href="/blog/2017/06/25/HMR-踩坑记/" class="has-link-black-ter is-size-6">HMR 踩坑记</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -557,16 +557,16 @@
         
         <article class="media">
             
-            <a href="/2017/03/30/探秘-MobX/" class="media-left">
+            <a href="/blog/2017/03/30/探秘-MobX/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="探秘 MobX">
+                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="探秘 MobX">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2017-03-30T10:41:22.000Z">2017-03-30</time></div>
-                    <a href="/2017/03/30/探秘-MobX/" class="has-link-black-ter is-size-6">探秘 MobX</a>
+                    <a href="/blog/2017/03/30/探秘-MobX/" class="has-link-black-ter is-size-6">探秘 MobX</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -576,16 +576,16 @@
         
         <article class="media">
             
-            <a href="/2017/02/22/git-合并策略-之-recursive/" class="media-left">
+            <a href="/blog/2017/02/22/git-合并策略-之-recursive/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git 合并策略 之 recursive">
+                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="git 合并策略 之 recursive">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2017-02-22T00:52:04.000Z">2017-02-22</time></div>
-                    <a href="/2017/02/22/git-合并策略-之-recursive/" class="has-link-black-ter is-size-6">git 合并策略 之 recursive</a>
+                    <a href="/blog/2017/02/22/git-合并策略-之-recursive/" class="has-link-black-ter is-size-6">git 合并策略 之 recursive</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -606,7 +606,7 @@
         <ul class="menu-list">
         
         <li>
-            <a class="level is-marginless" href="/archives/2017/08/">
+            <a class="level is-marginless" href="/blog/archives/2017/08/">
                 <span class="level-start">
                     <span class="level-item">八月 2017</span>
                 </span>
@@ -617,7 +617,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2017/06/">
+            <a class="level is-marginless" href="/blog/archives/2017/06/">
                 <span class="level-start">
                     <span class="level-item">六月 2017</span>
                 </span>
@@ -628,7 +628,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2017/03/">
+            <a class="level is-marginless" href="/blog/archives/2017/03/">
                 <span class="level-start">
                     <span class="level-item">三月 2017</span>
                 </span>
@@ -639,7 +639,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2017/02/">
+            <a class="level is-marginless" href="/blog/archives/2017/02/">
                 <span class="level-start">
                     <span class="level-item">二月 2017</span>
                 </span>
@@ -650,7 +650,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2017/01/">
+            <a class="level is-marginless" href="/blog/archives/2017/01/">
                 <span class="level-start">
                     <span class="level-item">一月 2017</span>
                 </span>
@@ -661,7 +661,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2016/07/">
+            <a class="level is-marginless" href="/blog/archives/2016/07/">
                 <span class="level-start">
                     <span class="level-item">七月 2016</span>
                 </span>
@@ -672,7 +672,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2016/05/">
+            <a class="level is-marginless" href="/blog/archives/2016/05/">
                 <span class="level-start">
                     <span class="level-item">五月 2016</span>
                 </span>
@@ -683,7 +683,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2016/02/">
+            <a class="level is-marginless" href="/blog/archives/2016/02/">
                 <span class="level-start">
                     <span class="level-item">二月 2016</span>
                 </span>
@@ -694,7 +694,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2015/05/">
+            <a class="level is-marginless" href="/blog/archives/2015/05/">
                 <span class="level-start">
                     <span class="level-item">五月 2015</span>
                 </span>
@@ -705,7 +705,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2015/04/">
+            <a class="level is-marginless" href="/blog/archives/2015/04/">
                 <span class="level-start">
                     <span class="level-item">四月 2015</span>
                 </span>
@@ -716,7 +716,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2015/01/">
+            <a class="level is-marginless" href="/blog/archives/2015/01/">
                 <span class="level-start">
                     <span class="level-item">一月 2015</span>
                 </span>
@@ -727,7 +727,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2014/11/">
+            <a class="level is-marginless" href="/blog/archives/2014/11/">
                 <span class="level-start">
                     <span class="level-item">十一月 2014</span>
                 </span>
@@ -738,7 +738,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2014/10/">
+            <a class="level is-marginless" href="/blog/archives/2014/10/">
                 <span class="level-start">
                     <span class="level-item">十月 2014</span>
                 </span>
@@ -749,7 +749,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2014/03/">
+            <a class="level is-marginless" href="/blog/archives/2014/03/">
                 <span class="level-start">
                     <span class="level-item">三月 2014</span>
                 </span>
@@ -760,7 +760,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2014/02/">
+            <a class="level is-marginless" href="/blog/archives/2014/02/">
                 <span class="level-start">
                     <span class="level-item">二月 2014</span>
                 </span>
@@ -771,7 +771,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2013/11/">
+            <a class="level is-marginless" href="/blog/archives/2013/11/">
                 <span class="level-start">
                     <span class="level-item">十一月 2013</span>
                 </span>
@@ -782,7 +782,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2013/10/">
+            <a class="level is-marginless" href="/blog/archives/2013/10/">
                 <span class="level-start">
                     <span class="level-item">十月 2013</span>
                 </span>
@@ -793,7 +793,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2013/08/">
+            <a class="level is-marginless" href="/blog/archives/2013/08/">
                 <span class="level-start">
                     <span class="level-item">八月 2013</span>
                 </span>
@@ -817,168 +817,168 @@
             <div class="field is-grouped is-grouped-multiline">
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/AngularJS/">
+                    <a class="tags has-addons" href="/blog/tags/AngularJS/">
                         <span class="tag">AngularJS</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/AngularJS-lazyload/">
+                    <a class="tags has-addons" href="/blog/tags/AngularJS-lazyload/">
                         <span class="tag">AngularJS lazyload</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/AngularJs/">
+                    <a class="tags has-addons" href="/blog/tags/AngularJs/">
                         <span class="tag">AngularJs</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/CDN共享/">
+                    <a class="tags has-addons" href="/blog/tags/CDN共享/">
                         <span class="tag">CDN共享</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/MobX/">
+                    <a class="tags has-addons" href="/blog/tags/MobX/">
                         <span class="tag">MobX</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/Module-SeaJS/">
+                    <a class="tags has-addons" href="/blog/tags/Module-SeaJS/">
                         <span class="tag">Module SeaJS</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/MutationObserver/">
+                    <a class="tags has-addons" href="/blog/tags/MutationObserver/">
                         <span class="tag">MutationObserver</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/Promise/">
+                    <a class="tags has-addons" href="/blog/tags/Promise/">
                         <span class="tag">Promise</span>
                         <span class="tag is-grey">2</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/React/">
+                    <a class="tags has-addons" href="/blog/tags/React/">
                         <span class="tag">React</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/js模式/">
+                    <a class="tags has-addons" href="/blog/tags/js模式/">
                         <span class="tag">js模式</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/mobile-video/">
+                    <a class="tags has-addons" href="/blog/tags/mobile-video/">
                         <span class="tag">mobile video</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/react/">
+                    <a class="tags has-addons" href="/blog/tags/react/">
                         <span class="tag">react</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/template/">
+                    <a class="tags has-addons" href="/blog/tags/template/">
                         <span class="tag">template</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/webpack/">
+                    <a class="tags has-addons" href="/blog/tags/webpack/">
                         <span class="tag">webpack</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/业务流程/">
+                    <a class="tags has-addons" href="/blog/tags/业务流程/">
                         <span class="tag">业务流程</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/前端工程化/">
+                    <a class="tags has-addons" href="/blog/tags/前端工程化/">
                         <span class="tag">前端工程化</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/前端错误/">
+                    <a class="tags has-addons" href="/blog/tags/前端错误/">
                         <span class="tag">前端错误</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/框架/">
+                    <a class="tags has-addons" href="/blog/tags/框架/">
                         <span class="tag">框架</span>
                         <span class="tag is-grey">2</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/秒杀/">
+                    <a class="tags has-addons" href="/blog/tags/秒杀/">
                         <span class="tag">秒杀</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/组件/">
+                    <a class="tags has-addons" href="/blog/tags/组件/">
                         <span class="tag">组件</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/翻译/">
+                    <a class="tags has-addons" href="/blog/tags/翻译/">
                         <span class="tag">翻译</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/设计/">
+                    <a class="tags has-addons" href="/blog/tags/设计/">
                         <span class="tag">设计</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/调研-MVVM/">
+                    <a class="tags has-addons" href="/blog/tags/调研-MVVM/">
                         <span class="tag">调研 MVVM</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/阅读笔记/">
+                    <a class="tags has-addons" href="/blog/tags/阅读笔记/">
                         <span class="tag">阅读笔记</span>
                         <span class="tag is-grey">1</span>
                     </a>
@@ -1009,16 +1009,16 @@
         
         <article class="media">
             
-            <a href="/2017/08/31/introduce-to-websocket/" class="media-left">
+            <a href="/blog/2017/08/31/introduce-to-websocket/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="introduce to websocket">
+                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="introduce to websocket">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2017-08-31T03:32:17.000Z">2017-08-31</time></div>
-                    <a href="/2017/08/31/introduce-to-websocket/" class="has-link-black-ter is-size-6">introduce to websocket</a>
+                    <a href="/blog/2017/08/31/introduce-to-websocket/" class="has-link-black-ter is-size-6">introduce to websocket</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -1028,16 +1028,16 @@
         
         <article class="media">
             
-            <a href="/2017/06/26/一点思考/" class="media-left">
+            <a href="/blog/2017/06/26/一点思考/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="一点思考">
+                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="一点思考">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2017-06-26T10:14:59.000Z">2017-06-26</time></div>
-                    <a href="/2017/06/26/一点思考/" class="has-link-black-ter is-size-6">一点思考</a>
+                    <a href="/blog/2017/06/26/一点思考/" class="has-link-black-ter is-size-6">一点思考</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -1047,16 +1047,16 @@
         
         <article class="media">
             
-            <a href="/2017/06/25/HMR-踩坑记/" class="media-left">
+            <a href="/blog/2017/06/25/HMR-踩坑记/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="HMR 踩坑记">
+                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="HMR 踩坑记">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2017-06-25T09:44:55.000Z">2017-06-25</time></div>
-                    <a href="/2017/06/25/HMR-踩坑记/" class="has-link-black-ter is-size-6">HMR 踩坑记</a>
+                    <a href="/blog/2017/06/25/HMR-踩坑记/" class="has-link-black-ter is-size-6">HMR 踩坑记</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -1066,16 +1066,16 @@
         
         <article class="media">
             
-            <a href="/2017/03/30/探秘-MobX/" class="media-left">
+            <a href="/blog/2017/03/30/探秘-MobX/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="探秘 MobX">
+                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="探秘 MobX">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2017-03-30T10:41:22.000Z">2017-03-30</time></div>
-                    <a href="/2017/03/30/探秘-MobX/" class="has-link-black-ter is-size-6">探秘 MobX</a>
+                    <a href="/blog/2017/03/30/探秘-MobX/" class="has-link-black-ter is-size-6">探秘 MobX</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -1085,16 +1085,16 @@
         
         <article class="media">
             
-            <a href="/2017/02/22/git-合并策略-之-recursive/" class="media-left">
+            <a href="/blog/2017/02/22/git-合并策略-之-recursive/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git 合并策略 之 recursive">
+                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="git 合并策略 之 recursive">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2017-02-22T00:52:04.000Z">2017-02-22</time></div>
-                    <a href="/2017/02/22/git-合并策略-之-recursive/" class="has-link-black-ter is-size-6">git 合并策略 之 recursive</a>
+                    <a href="/blog/2017/02/22/git-合并策略-之-recursive/" class="has-link-black-ter is-size-6">git 合并策略 之 recursive</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -1115,7 +1115,7 @@
         <ul class="menu-list">
         
         <li>
-            <a class="level is-marginless" href="/archives/2017/08/">
+            <a class="level is-marginless" href="/blog/archives/2017/08/">
                 <span class="level-start">
                     <span class="level-item">八月 2017</span>
                 </span>
@@ -1126,7 +1126,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2017/06/">
+            <a class="level is-marginless" href="/blog/archives/2017/06/">
                 <span class="level-start">
                     <span class="level-item">六月 2017</span>
                 </span>
@@ -1137,7 +1137,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2017/03/">
+            <a class="level is-marginless" href="/blog/archives/2017/03/">
                 <span class="level-start">
                     <span class="level-item">三月 2017</span>
                 </span>
@@ -1148,7 +1148,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2017/02/">
+            <a class="level is-marginless" href="/blog/archives/2017/02/">
                 <span class="level-start">
                     <span class="level-item">二月 2017</span>
                 </span>
@@ -1159,7 +1159,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2017/01/">
+            <a class="level is-marginless" href="/blog/archives/2017/01/">
                 <span class="level-start">
                     <span class="level-item">一月 2017</span>
                 </span>
@@ -1170,7 +1170,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2016/07/">
+            <a class="level is-marginless" href="/blog/archives/2016/07/">
                 <span class="level-start">
                     <span class="level-item">七月 2016</span>
                 </span>
@@ -1181,7 +1181,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2016/05/">
+            <a class="level is-marginless" href="/blog/archives/2016/05/">
                 <span class="level-start">
                     <span class="level-item">五月 2016</span>
                 </span>
@@ -1192,7 +1192,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2016/02/">
+            <a class="level is-marginless" href="/blog/archives/2016/02/">
                 <span class="level-start">
                     <span class="level-item">二月 2016</span>
                 </span>
@@ -1203,7 +1203,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2015/05/">
+            <a class="level is-marginless" href="/blog/archives/2015/05/">
                 <span class="level-start">
                     <span class="level-item">五月 2015</span>
                 </span>
@@ -1214,7 +1214,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2015/04/">
+            <a class="level is-marginless" href="/blog/archives/2015/04/">
                 <span class="level-start">
                     <span class="level-item">四月 2015</span>
                 </span>
@@ -1225,7 +1225,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2015/01/">
+            <a class="level is-marginless" href="/blog/archives/2015/01/">
                 <span class="level-start">
                     <span class="level-item">一月 2015</span>
                 </span>
@@ -1236,7 +1236,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2014/11/">
+            <a class="level is-marginless" href="/blog/archives/2014/11/">
                 <span class="level-start">
                     <span class="level-item">十一月 2014</span>
                 </span>
@@ -1247,7 +1247,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2014/10/">
+            <a class="level is-marginless" href="/blog/archives/2014/10/">
                 <span class="level-start">
                     <span class="level-item">十月 2014</span>
                 </span>
@@ -1258,7 +1258,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2014/03/">
+            <a class="level is-marginless" href="/blog/archives/2014/03/">
                 <span class="level-start">
                     <span class="level-item">三月 2014</span>
                 </span>
@@ -1269,7 +1269,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2014/02/">
+            <a class="level is-marginless" href="/blog/archives/2014/02/">
                 <span class="level-start">
                     <span class="level-item">二月 2014</span>
                 </span>
@@ -1280,7 +1280,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2013/11/">
+            <a class="level is-marginless" href="/blog/archives/2013/11/">
                 <span class="level-start">
                     <span class="level-item">十一月 2013</span>
                 </span>
@@ -1291,7 +1291,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2013/10/">
+            <a class="level is-marginless" href="/blog/archives/2013/10/">
                 <span class="level-start">
                     <span class="level-item">十月 2013</span>
                 </span>
@@ -1302,7 +1302,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2013/08/">
+            <a class="level is-marginless" href="/blog/archives/2013/08/">
                 <span class="level-start">
                     <span class="level-item">八月 2013</span>
                 </span>
@@ -1326,168 +1326,168 @@
             <div class="field is-grouped is-grouped-multiline">
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/AngularJS/">
+                    <a class="tags has-addons" href="/blog/tags/AngularJS/">
                         <span class="tag">AngularJS</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/AngularJS-lazyload/">
+                    <a class="tags has-addons" href="/blog/tags/AngularJS-lazyload/">
                         <span class="tag">AngularJS lazyload</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/AngularJs/">
+                    <a class="tags has-addons" href="/blog/tags/AngularJs/">
                         <span class="tag">AngularJs</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/CDN共享/">
+                    <a class="tags has-addons" href="/blog/tags/CDN共享/">
                         <span class="tag">CDN共享</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/MobX/">
+                    <a class="tags has-addons" href="/blog/tags/MobX/">
                         <span class="tag">MobX</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/Module-SeaJS/">
+                    <a class="tags has-addons" href="/blog/tags/Module-SeaJS/">
                         <span class="tag">Module SeaJS</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/MutationObserver/">
+                    <a class="tags has-addons" href="/blog/tags/MutationObserver/">
                         <span class="tag">MutationObserver</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/Promise/">
+                    <a class="tags has-addons" href="/blog/tags/Promise/">
                         <span class="tag">Promise</span>
                         <span class="tag is-grey">2</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/React/">
+                    <a class="tags has-addons" href="/blog/tags/React/">
                         <span class="tag">React</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/js模式/">
+                    <a class="tags has-addons" href="/blog/tags/js模式/">
                         <span class="tag">js模式</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/mobile-video/">
+                    <a class="tags has-addons" href="/blog/tags/mobile-video/">
                         <span class="tag">mobile video</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/react/">
+                    <a class="tags has-addons" href="/blog/tags/react/">
                         <span class="tag">react</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/template/">
+                    <a class="tags has-addons" href="/blog/tags/template/">
                         <span class="tag">template</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/webpack/">
+                    <a class="tags has-addons" href="/blog/tags/webpack/">
                         <span class="tag">webpack</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/业务流程/">
+                    <a class="tags has-addons" href="/blog/tags/业务流程/">
                         <span class="tag">业务流程</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/前端工程化/">
+                    <a class="tags has-addons" href="/blog/tags/前端工程化/">
                         <span class="tag">前端工程化</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/前端错误/">
+                    <a class="tags has-addons" href="/blog/tags/前端错误/">
                         <span class="tag">前端错误</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/框架/">
+                    <a class="tags has-addons" href="/blog/tags/框架/">
                         <span class="tag">框架</span>
                         <span class="tag is-grey">2</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/秒杀/">
+                    <a class="tags has-addons" href="/blog/tags/秒杀/">
                         <span class="tag">秒杀</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/组件/">
+                    <a class="tags has-addons" href="/blog/tags/组件/">
                         <span class="tag">组件</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/翻译/">
+                    <a class="tags has-addons" href="/blog/tags/翻译/">
                         <span class="tag">翻译</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/设计/">
+                    <a class="tags has-addons" href="/blog/tags/设计/">
                         <span class="tag">设计</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/调研-MVVM/">
+                    <a class="tags has-addons" href="/blog/tags/调研-MVVM/">
                         <span class="tag">调研 MVVM</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/阅读笔记/">
+                    <a class="tags has-addons" href="/blog/tags/阅读笔记/">
                         <span class="tag">阅读笔记</span>
                         <span class="tag is-grey">1</span>
                     </a>
@@ -1508,9 +1508,9 @@
     <div class="container">
         <div class="level">
             <div class="level-start has-text-centered-mobile">
-                <a class="footer-logo is-block has-mb-6" href="/">
+                <a class="footer-logo is-block has-mb-6" href="/blog/">
                 
-                    <img src="/images/logo.svg" alt="HMR 踩坑记" height="28">
+                    <img src="/blog/images/logo.svg" alt="HMR 踩坑记" height="28">
                 
                 </a>
                 <p class="is-size-7">
@@ -1562,7 +1562,7 @@
     
     
     
-    <script src="/js/animation.js"></script>
+    <script src="/blog/js/animation.js"></script>
     
 
     
@@ -1570,7 +1570,7 @@
     
     <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
-    <script src="/js/gallery.js" defer></script>
+    <script src="/blog/js/gallery.js" defer></script>
     
 
     
@@ -1625,7 +1625,7 @@ document.addEventListener('DOMContentLoaded', function () {
 <a id="back-to-top" title="回到顶端" href="javascript:;">
     <i class="fas fa-chevron-up"></i>
 </a>
-<script src="/js/back-to-top.js" defer></script>
+<script src="/blog/js/back-to-top.js" defer></script>
 
 
     
@@ -1642,7 +1642,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
     
     <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
-    <script src="/js/clipboard.js" defer></script>
+    <script src="/blog/js/clipboard.js" defer></script>
     
 
     
@@ -1650,7 +1650,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
 
 
-<script src="/js/main.js" defer></script>
+<script src="/blog/js/main.js" defer></script>
 
     
     <div class="searchbox ins-search">
@@ -1674,14 +1674,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 TAGS: '标签',
                 UNTITLED: '(无标题)',
             },
-            CONTENT_URL: '/content.json',
+            CONTENT_URL: '/blog/content.json',
         };
         window.INSIGHT_CONFIG = INSIGHT_CONFIG;
     })(window);
 </script>
-<script src="/js/insight.js" defer></script>
-<link rel="stylesheet" href="/css/search.css">
-<link rel="stylesheet" href="/css/insight.css">
+<script src="/blog/js/insight.js" defer></script>
+<link rel="stylesheet" href="/blog/css/search.css">
+<link rel="stylesheet" href="/blog/css/insight.css">
     
 </body>
 </html>

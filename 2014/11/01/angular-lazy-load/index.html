@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
 <title>AngularJS中的懒加载【翻译】 - fedeoo</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -11,16 +11,16 @@
 <meta name="keywords" content="AngularJS lazyload">
 <meta property="og:type" content="article">
 <meta property="og:title" content="AngularJS中的懒加载【翻译】">
-<meta property="og:url" content="http://fedeoo.github.io/blog/2014/11/01/angular-lazy-load/index.html">
+<meta property="og:url" content="https://fedeoo.github.io/blog/2014/11/01/angular-lazy-load/index.html">
 <meta property="og:site_name" content="fedeoo">
 <meta property="og:description" content="原文 Lazy Loading In AngularJS  当我们使用 AngularJS 构建一个包含许多路由/视图的大型应用的时候，我们希望在最初加载的时，最好不加载所有的 artefacts，像 controller、directive 之类。理想情况下，最初加载时只加载必需的模块。之后用户改变路由，加载尚未加载的所需模块。这样做的好处不仅会加快页面初次加载速度，而且会节约带宽。这篇文章就">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://fedeoo.github.io/images/og_image.png">
+<meta property="og:image" content="https://fedeoo.github.io/blog/images/og_image.png">
 <meta property="og:updated_time" content="2019-07-01T02:49:27.201Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AngularJS中的懒加载【翻译】">
 <meta name="twitter:description" content="原文 Lazy Loading In AngularJS  当我们使用 AngularJS 构建一个包含许多路由/视图的大型应用的时候，我们希望在最初加载的时，最好不加载所有的 artefacts，像 controller、directive 之类。理想情况下，最初加载时只加载必需的模块。之后用户改变路由，加载尚未加载的所需模块。这样做的好处不仅会加快页面初次加载速度，而且会节约带宽。这篇文章就">
-<meta name="twitter:image" content="http://fedeoo.github.io/images/og_image.png">
+<meta name="twitter:image" content="https://fedeoo.github.io/blog/images/og_image.png">
 
 
 
@@ -28,7 +28,7 @@
 
 
 
-<link rel="icon" href="/images/favicon.svg">
+<link rel="icon" href="/blog/images/favicon.svg">
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
@@ -61,7 +61,7 @@
     
     
 
-<link rel="stylesheet" href="/css/back-to-top.css">
+<link rel="stylesheet" href="/blog/css/back-to-top.css">
 
 
     
@@ -74,7 +74,7 @@
 
     
     
-<link rel="stylesheet" href="/css/progressbar.css">
+<link rel="stylesheet" href="/blog/css/progressbar.css">
 <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
 
     
@@ -86,15 +86,15 @@
     
 
 
-<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/blog/css/style.css">
 </head>
 <body class="is-3-column">
     <nav class="navbar navbar-main">
     <div class="container">
         <div class="navbar-brand is-flex-center">
-            <a class="navbar-item navbar-logo" href="/">
+            <a class="navbar-item navbar-logo" href="/blog/">
             
-                <img src="/images/logo.svg" alt="AngularJS中的懒加载【翻译】" height="28">
+                <img src="/blog/images/logo.svg" alt="AngularJS中的懒加载【翻译】" height="28">
             
             </a>
         </div>
@@ -102,15 +102,15 @@
             
             <div class="navbar-start">
                 
-                <a class="navbar-item" href="/">Home</a>
+                <a class="navbar-item" href="/blog/">Home</a>
                 
-                <a class="navbar-item" href="/archives">Archives</a>
+                <a class="navbar-item" href="/blog/archives">Archives</a>
                 
-                <a class="navbar-item" href="/categories">Categories</a>
+                <a class="navbar-item" href="/blog/categories">Categories</a>
                 
-                <a class="navbar-item" href="/tags">Tags</a>
+                <a class="navbar-item" href="/blog/tags">Tags</a>
                 
-                <a class="navbar-item" href="/about">About</a>
+                <a class="navbar-item" href="/blog/about">About</a>
                 
             </div>
             
@@ -148,7 +148,7 @@
                 <time class="level-item has-text-grey" datetime="2014-10-31T13:00:00.000Z">2014-11-01</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/翻译/">翻译</a>
+                <a class="has-link-grey -link" href="/blog/categories/翻译/">翻译</a>
                 </div>
                 
                 
@@ -181,29 +181,29 @@
 </li>
 </ol>
 <p>第一个问题是因为在应用启动后，不能使用模块 API 注册 artefacts。换句话说，如果我们尝试在已经启动的应用中使用下面的方式注册一个 controller:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">angular.module(<span class="string">'app'</span>).controller(<span class="string">'SomeLazyController'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$scope</span>) </span>&#123;</span><br><span class="line">    $scope.key = <span class="string">'...'</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">angular.module(<span class="hljs-string">'app'</span>).controller(<span class="hljs-string">'SomeLazyController'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$scope</span>) </span>&#123;</span><br><span class="line">    $scope.key = <span class="hljs-string">'...'</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>当你使用 <code>ng-controller</code> 指令引用到这个 controller 时，将会出现下面的错误提示：</p>
 <p><code>Error: Argument ‘SomeLazyController’ is not a function, got undefined</code></p>
 <p>这时，在一个已经启动的应用中唯一注册 artefacts 的方式不是使用模块 API，而是使用 Angular provider。Providers 往往用来创建和配置 artefacts 的实例。因此为了注册一个 provider，你应该使用 $controllerProvider。同样，使用 $compileProvider 来注册 directive，使用 $filterProvider 注册 filter，使用 $provider 来注册服务。注册 controller 和 directive 的代码大概是这样的：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Registering a controller after app bootstrap</span></span><br><span class="line">$controllerProvider.register(<span class="string">'SomeLazyController'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$scope</span>) </span>&#123;</span><br><span class="line">  $scope.key = <span class="string">'...'</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Registering a directive after app bootstrap</span></span><br><span class="line">$compileProvider.directive(<span class="string">'SomeLazyDirective'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    restrict: <span class="string">'A'</span>,</span><br><span class="line">    templateUrl: <span class="string">'templates/some-lazy-directive.html'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// etc</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// Registering a controller after app bootstrap</span></span><br><span class="line">$controllerProvider.register(<span class="hljs-string">'SomeLazyController'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$scope</span>) </span>&#123;</span><br><span class="line">  $scope.key = <span class="hljs-string">'...'</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// Registering a directive after app bootstrap</span></span><br><span class="line">$compileProvider.directive(<span class="hljs-string">'SomeLazyDirective'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">return</span> &#123;</span><br><span class="line">    restrict: <span class="hljs-string">'A'</span>,</span><br><span class="line">    templateUrl: <span class="hljs-string">'templates/some-lazy-directive.html'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="hljs-comment">// etc</span></span><br></pre></td></tr></table></figure>
 <p>provider 只有在模块配置的时候可用，因此你需要保存一个引用，这样子就可以注册一个 artefact。类似于下面的方式：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> app = angular.module(<span class="string">'app'</span>, []);</span><br><span class="line"></span><br><span class="line">  app.config(<span class="function"><span class="keyword">function</span>(<span class="params">$routeProvider, $controllerProvider, $compileProvider, $filterProvider, $provide</span>) </span>&#123;</span><br><span class="line">    app.controllerProvider = $controllerProvider;</span><br><span class="line">    app.compileProvider    = $compileProvider;</span><br><span class="line">    app.routeProvider      = $routeProvider;</span><br><span class="line">    app.filterProvider     = $filterProvider;</span><br><span class="line">    app.provide            = $provide;</span><br><span class="line">    <span class="comment">// Register routes with the $routeProvider</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
-<p>你就可以用这种方式注册controller：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">angular.module(<span class="string">'app'</span>).controllerProvider.resgister(<span class="string">'SomeLazyController'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$scope</span>) </span>&#123;</span><br><span class="line">    $scope.key = <span class="string">'...'</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">var</span> app = angular.module(<span class="hljs-string">'app'</span>, []);</span><br><span class="line"></span><br><span class="line">  app.config(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$routeProvider, $controllerProvider, $compileProvider, $filterProvider, $provide</span>) </span>&#123;</span><br><span class="line">    app.controllerProvider = $controllerProvider;</span><br><span class="line">    app.compileProvider    = $compileProvider;</span><br><span class="line">    app.routeProvider      = $routeProvider;</span><br><span class="line">    app.filterProvider     = $filterProvider;</span><br><span class="line">    app.provide            = $provide;</span><br><span class="line">    <span class="hljs-comment">// Register routes with the $routeProvider</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<p>你就可以用这种方式注册controller：<br><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">angular.module(<span class="hljs-string">'app'</span>).controllerProvider.resgister(<span class="hljs-string">'SomeLazyController'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$scope</span>) </span>&#123;</span><br><span class="line">    $scope.key = <span class="hljs-string">'...'</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 <p>还有另外一个问题，什么时候加载上面的脚本呢？在 route 的 resolve 属性中可以做到。</p>
 <p>使用 $routeProvider 时，你可以指定一个可选的 key/factory 依赖表，这个会注入到 rotute controller 中，依赖表使用 resolve 指定如下：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$routeProvider.when(<span class="string">'/about'</span>, &#123;</span><br><span class="line">  templateUrl:<span class="string">'views/about.html'</span>,</span><br><span class="line">  controller:<span class="string">'AboutViewController'</span>,</span><br><span class="line">  resolve:&#123; <span class="attr">key</span>: factory &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$routeProvider.when(<span class="hljs-string">'/about'</span>, &#123;</span><br><span class="line">  templateUrl:<span class="hljs-string">'views/about.html'</span>,</span><br><span class="line">  controller:<span class="hljs-string">'AboutViewController'</span>,</span><br><span class="line">  resolve:&#123; <span class="hljs-attr">key</span>: factory &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>依赖表中的 key 作为依赖的 name，factory 要么是一个字符串，要么是一个函数。字符串作为服务的别名，函数使用返回值。如果函数返回的是 Promise，这个 Promise 在 route 开始渲染之前完成 resolved。这样我们就可以在依赖表中的函数中返回一个加载脚本的 Promise，保证在 route 开始渲染之前加载所依赖脚本。下面的例子中使用 $script 完成脚本加载：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$routeProvider.when(<span class="string">'/about'</span>, &#123;</span><br><span class="line">  templateUrl:<span class="string">'views/about.html'</span>,</span><br><span class="line">  resolve:&#123;</span><br><span class="line">    deps: <span class="function"><span class="keyword">function</span>(<span class="params">$q, $rootScope</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> deferred = $q.defer();</span><br><span class="line">    <span class="keyword">var</span> dependencies = [</span><br><span class="line">      <span class="string">'controllers/AboutViewController.js'</span>,</span><br><span class="line">      <span class="string">'directives/some-directive.js'</span></span><br><span class="line">    ];</span><br><span class="line">    <span class="comment">// Load the dependencies</span></span><br><span class="line">    $script(dependencies, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="comment">// all dependencies have now been loaded by so resolve the promise</span></span><br><span class="line">      $rootScope.$apply(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">          deferred.resolve();</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> deferred.promise;</span><br><span class="line">&#125;&#125;&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$routeProvider.when(<span class="hljs-string">'/about'</span>, &#123;</span><br><span class="line">  templateUrl:<span class="hljs-string">'views/about.html'</span>,</span><br><span class="line">  resolve:&#123;</span><br><span class="line">    deps: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$q, $rootScope</span>) </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">var</span> deferred = $q.defer();</span><br><span class="line">    <span class="hljs-keyword">var</span> dependencies = [</span><br><span class="line">      <span class="hljs-string">'controllers/AboutViewController.js'</span>,</span><br><span class="line">      <span class="hljs-string">'directives/some-directive.js'</span></span><br><span class="line">    ];</span><br><span class="line">    <span class="hljs-comment">// Load the dependencies</span></span><br><span class="line">    $script(dependencies, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">      <span class="hljs-comment">// all dependencies have now been loaded by so resolve the promise</span></span><br><span class="line">      $rootScope.$apply(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">          deferred.resolve();</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="hljs-keyword">return</span> deferred.promise;</span><br><span class="line">&#125;&#125;&#125;);</span><br></pre></td></tr></table></figure>
 <p>唯一需要注意的是promise的resolve很可能需要在AngularJS的环境中执行，像上面那样。可以使用$rootScope的$apply方法实现。如果不这样做的话，在页面完成加载时route不会开始渲染。</p>
 <p>现在模块定义看起来像下面这样：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> app = angular.module(<span class="string">'app'</span>, []);</span><br><span class="line"></span><br><span class="line">    app.config(<span class="function"><span class="keyword">function</span>(<span class="params">$routeProvider, $controllerProvider, $compileProvider, $filterProvider, $provide</span>) </span>&#123;</span><br><span class="line">        app.controllerProvider = $controllerProvider;</span><br><span class="line">        app.compileProvider    = $compileProvider;</span><br><span class="line">        app.routeProvider      = $routeProvider;</span><br><span class="line">        app.filterProvider     = $filterProvider;</span><br><span class="line">        app.provide            = $provide;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Register routes with the $routeProvider</span></span><br><span class="line">        $routeProvider.when(<span class="string">'/'</span>, &#123; <span class="attr">templateUrl</span>:<span class="string">'views/home.html'</span> &#125;);</span><br><span class="line">        $routeProvider.when(<span class="string">'/about'</span>, &#123;</span><br><span class="line">          templateUrl:<span class="string">'views/about.html'</span>,</span><br><span class="line">          resolve:&#123;</span><br><span class="line">            deps: <span class="function"><span class="keyword">function</span>(<span class="params">$q, $rootScope</span>) </span>&#123;</span><br><span class="line">              <span class="keyword">var</span> deferred = $q.defer();</span><br><span class="line">              <span class="keyword">var</span> dependencies = [</span><br><span class="line">                <span class="string">'controllers/AboutViewController.js'</span>,</span><br><span class="line">                <span class="string">'directives/some-directive.js'</span></span><br><span class="line">              ];</span><br><span class="line"></span><br><span class="line">              $script(dependencies, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                <span class="comment">// all dependencies have now been loaded by $script.js so resolve the promise</span></span><br><span class="line">                $rootScope.$apply(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                    deferred.resolve();</span><br><span class="line">                &#125;);</span><br><span class="line">              &#125;);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> deferred.promise;</span><br><span class="line">        &#125;&#125;&#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
-<p>最后，你可以用下面的方式启动应用：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// This file will be loaded from index.html</span></span><br><span class="line">$script([<span class="string">'appModule.js'</span>], <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    angular.bootstrap(<span class="built_in">document</span>, [<span class="string">'app'</span>])</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">var</span> app = angular.module(<span class="hljs-string">'app'</span>, []);</span><br><span class="line"></span><br><span class="line">    app.config(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$routeProvider, $controllerProvider, $compileProvider, $filterProvider, $provide</span>) </span>&#123;</span><br><span class="line">        app.controllerProvider = $controllerProvider;</span><br><span class="line">        app.compileProvider    = $compileProvider;</span><br><span class="line">        app.routeProvider      = $routeProvider;</span><br><span class="line">        app.filterProvider     = $filterProvider;</span><br><span class="line">        app.provide            = $provide;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">// Register routes with the $routeProvider</span></span><br><span class="line">        $routeProvider.when(<span class="hljs-string">'/'</span>, &#123; <span class="hljs-attr">templateUrl</span>:<span class="hljs-string">'views/home.html'</span> &#125;);</span><br><span class="line">        $routeProvider.when(<span class="hljs-string">'/about'</span>, &#123;</span><br><span class="line">          templateUrl:<span class="hljs-string">'views/about.html'</span>,</span><br><span class="line">          resolve:&#123;</span><br><span class="line">            deps: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$q, $rootScope</span>) </span>&#123;</span><br><span class="line">              <span class="hljs-keyword">var</span> deferred = $q.defer();</span><br><span class="line">              <span class="hljs-keyword">var</span> dependencies = [</span><br><span class="line">                <span class="hljs-string">'controllers/AboutViewController.js'</span>,</span><br><span class="line">                <span class="hljs-string">'directives/some-directive.js'</span></span><br><span class="line">              ];</span><br><span class="line"></span><br><span class="line">              $script(dependencies, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">                <span class="hljs-comment">// all dependencies have now been loaded by $script.js so resolve the promise</span></span><br><span class="line">                $rootScope.$apply(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">                    deferred.resolve();</span><br><span class="line">                &#125;);</span><br><span class="line">              &#125;);</span><br><span class="line"></span><br><span class="line">            <span class="hljs-keyword">return</span> deferred.promise;</span><br><span class="line">        &#125;&#125;&#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<p>最后，你可以用下面的方式启动应用：<br><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// This file will be loaded from index.html</span></span><br><span class="line">$script([<span class="hljs-string">'appModule.js'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">    angular.bootstrap(<span class="hljs-built_in">document</span>, [<span class="hljs-string">'app'</span>])</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 <p>以上就是实现懒加载的大概步骤。总之，首先在定义你的 app 模块时，保存相关 provider 实例的引用。然后你应该使用它们注册你自己的 artefacts，之后在定义 route 时，使用resolve返回一个 promise，在其中加载所需的脚本，完成之后 resolve promise，不要忘了在 $rootScope.$apply 里面。最后，加载完主模块后，你应该手动启动应用。</p>
 <hr>
 <h3 id="翻译之外"><a href="#翻译之外" class="headerlink" title="翻译之外"></a>翻译之外</h3><p>可以看下 angular-lazyload，一样的思路!</p>
 <p>也有反对的声音：不过并不提倡这种 hack 的方式，因为不符合 Angular 的设计思想。 Angular 将配置和执行独立分开，在配置块之外禁用 providers。<br>这样做可能会导致 bug 和不可预期的结果，因为 AngularJS 在 injdector 创建之后并不期望再去注册 controller 和 directive。<br>当然懒加载是一个很好的想法，不过我们应该等待框架支持而不是用 hack 的方式实现。在 AngularJS 2.0 中将支持这一特性。</p>
 <p>之前在介绍启动的时候提过<a href="http://fedeoo.github.io/%E7%BF%BB%E8%AF%91/2014/11/03/angular-bootstrap/">Angular启动</a>：</p>
-<p>在使用 module 的 api 时，并木有直接注册 controller，而是丢在了 <code>_invokeQueue中</code>。启动的时候，从队列中取出，完成加载：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$controllerProvidre.register(<span class="string">'controllerName'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>在使用 module 的 api 时，并木有直接注册 controller，而是丢在了 <code>_invokeQueue中</code>。启动的时候，从队列中取出，完成加载：<br><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$controllerProvidre.register(<span class="hljs-string">'controllerName'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;&#125;);</span><br></pre></td></tr></table></figure></p>
 
         </div>
         
@@ -211,7 +211,7 @@
             <div class="level-start">
                 <div class="level-item">
                     <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/AngularJS-lazyload/">AngularJS lazyload</a>
+                    <a class="has-link-grey -link" href="/blog/tags/AngularJS-lazyload/">AngularJS lazyload</a>
                 </div>
             </div>
         </div>
@@ -263,7 +263,7 @@
     <div class="level post-navigation is-flex-wrap is-mobile">
         
         <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2015/01/07/fis-in-work/">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/blog/2015/01/07/fis-in-work/">
                 <i class="level-item fas fa-chevron-left"></i>
                 <span class="level-item">工作中的前端工程化问题</span>
             </a>
@@ -271,7 +271,7 @@
         
         
         <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2014/10/31/angularjs-bootstrap/">
+            <a class="level level-item has-link-grey  article-nav-next" href="/blog/2014/10/31/angularjs-bootstrap/">
                 <span class="level-item">Angular启动</span>
                 <i class="level-item fas fa-chevron-right"></i>
             </a>
@@ -296,7 +296,7 @@
             <div class="level-item has-text-centered">
                 <div>
                     
-                        <img class="image is-128x128 has-mb-6" src="/images/avatar.png" alt="Your name">
+                        <img class="image is-128x128 has-mb-6" src="/blog/images/avatar.png" alt="Your name">
                     
                     
                     <p class="is-size-4 is-block">
@@ -381,7 +381,7 @@
                 
             </a>
             
-            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/blog/">
                 
                 <i class="fas fa-rss"></i>
                 
@@ -442,7 +442,7 @@
             </h3>
             <ul class="menu-list">
             <li>
-        <a class="level is-marginless" href="/categories/心得总结/">
+        <a class="level is-marginless" href="/blog/categories/心得总结/">
             <span class="level-start">
                 <span class="level-item">心得总结</span>
             </span>
@@ -450,7 +450,7 @@
                 <span class="level-item tag">6</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/总结/">
+        <a class="level is-marginless" href="/blog/categories/总结/">
             <span class="level-start">
                 <span class="level-item">总结</span>
             </span>
@@ -458,7 +458,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/积累/">
+        <a class="level is-marginless" href="/blog/categories/积累/">
             <span class="level-start">
                 <span class="level-item">积累</span>
             </span>
@@ -466,7 +466,7 @@
                 <span class="level-item tag">2</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/移动端/">
+        <a class="level is-marginless" href="/blog/categories/移动端/">
             <span class="level-start">
                 <span class="level-item">移动端</span>
             </span>
@@ -474,7 +474,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/翻译/">
+        <a class="level is-marginless" href="/blog/categories/翻译/">
             <span class="level-start">
                 <span class="level-item">翻译</span>
             </span>
@@ -482,7 +482,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/造轮子/">
+        <a class="level is-marginless" href="/blog/categories/造轮子/">
             <span class="level-start">
                 <span class="level-item">造轮子</span>
             </span>
@@ -501,7 +501,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/AngularJS/" style="font-size: 10px;">AngularJS</a> <a href="/tags/AngularJS-lazyload/" style="font-size: 10px;">AngularJS lazyload</a> <a href="/tags/AngularJs/" style="font-size: 10px;">AngularJs</a> <a href="/tags/CDN共享/" style="font-size: 10px;">CDN共享</a> <a href="/tags/MobX/" style="font-size: 10px;">MobX</a> <a href="/tags/Module-SeaJS/" style="font-size: 10px;">Module SeaJS</a> <a href="/tags/MutationObserver/" style="font-size: 10px;">MutationObserver</a> <a href="/tags/Promise/" style="font-size: 20px;">Promise</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/js模式/" style="font-size: 10px;">js模式</a> <a href="/tags/mobile-video/" style="font-size: 10px;">mobile video</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/template/" style="font-size: 10px;">template</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/业务流程/" style="font-size: 10px;">业务流程</a> <a href="/tags/前端工程化/" style="font-size: 10px;">前端工程化</a> <a href="/tags/前端错误/" style="font-size: 10px;">前端错误</a> <a href="/tags/框架/" style="font-size: 20px;">框架</a> <a href="/tags/秒杀/" style="font-size: 10px;">秒杀</a> <a href="/tags/组件/" style="font-size: 10px;">组件</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/设计/" style="font-size: 10px;">设计</a> <a href="/tags/调研-MVVM/" style="font-size: 10px;">调研 MVVM</a> <a href="/tags/阅读笔记/" style="font-size: 10px;">阅读笔记</a>
+        <a href="/blog/tags/AngularJS/" style="font-size: 10px;">AngularJS</a> <a href="/blog/tags/AngularJS-lazyload/" style="font-size: 10px;">AngularJS lazyload</a> <a href="/blog/tags/AngularJs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/CDN共享/" style="font-size: 10px;">CDN共享</a> <a href="/blog/tags/MobX/" style="font-size: 10px;">MobX</a> <a href="/blog/tags/Module-SeaJS/" style="font-size: 10px;">Module SeaJS</a> <a href="/blog/tags/MutationObserver/" style="font-size: 10px;">MutationObserver</a> <a href="/blog/tags/Promise/" style="font-size: 20px;">Promise</a> <a href="/blog/tags/React/" style="font-size: 10px;">React</a> <a href="/blog/tags/js模式/" style="font-size: 10px;">js模式</a> <a href="/blog/tags/mobile-video/" style="font-size: 10px;">mobile video</a> <a href="/blog/tags/react/" style="font-size: 10px;">react</a> <a href="/blog/tags/template/" style="font-size: 10px;">template</a> <a href="/blog/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/blog/tags/业务流程/" style="font-size: 10px;">业务流程</a> <a href="/blog/tags/前端工程化/" style="font-size: 10px;">前端工程化</a> <a href="/blog/tags/前端错误/" style="font-size: 10px;">前端错误</a> <a href="/blog/tags/框架/" style="font-size: 20px;">框架</a> <a href="/blog/tags/秒杀/" style="font-size: 10px;">秒杀</a> <a href="/blog/tags/组件/" style="font-size: 10px;">组件</a> <a href="/blog/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/blog/tags/设计/" style="font-size: 10px;">设计</a> <a href="/blog/tags/调研-MVVM/" style="font-size: 10px;">调研 MVVM</a> <a href="/blog/tags/阅读笔记/" style="font-size: 10px;">阅读笔记</a>
     </div>
 </div>
 
@@ -518,16 +518,16 @@
         
         <article class="media">
             
-            <a href="/2017/08/31/introduce-to-websocket/" class="media-left">
+            <a href="/blog/2017/08/31/introduce-to-websocket/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="introduce to websocket">
+                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="introduce to websocket">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2017-08-31T03:32:17.000Z">2017-08-31</time></div>
-                    <a href="/2017/08/31/introduce-to-websocket/" class="has-link-black-ter is-size-6">introduce to websocket</a>
+                    <a href="/blog/2017/08/31/introduce-to-websocket/" class="has-link-black-ter is-size-6">introduce to websocket</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -537,16 +537,16 @@
         
         <article class="media">
             
-            <a href="/2017/06/26/一点思考/" class="media-left">
+            <a href="/blog/2017/06/26/一点思考/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="一点思考">
+                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="一点思考">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2017-06-26T10:14:59.000Z">2017-06-26</time></div>
-                    <a href="/2017/06/26/一点思考/" class="has-link-black-ter is-size-6">一点思考</a>
+                    <a href="/blog/2017/06/26/一点思考/" class="has-link-black-ter is-size-6">一点思考</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -556,16 +556,16 @@
         
         <article class="media">
             
-            <a href="/2017/06/25/HMR-踩坑记/" class="media-left">
+            <a href="/blog/2017/06/25/HMR-踩坑记/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="HMR 踩坑记">
+                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="HMR 踩坑记">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2017-06-25T09:44:55.000Z">2017-06-25</time></div>
-                    <a href="/2017/06/25/HMR-踩坑记/" class="has-link-black-ter is-size-6">HMR 踩坑记</a>
+                    <a href="/blog/2017/06/25/HMR-踩坑记/" class="has-link-black-ter is-size-6">HMR 踩坑记</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -575,16 +575,16 @@
         
         <article class="media">
             
-            <a href="/2017/03/30/探秘-MobX/" class="media-left">
+            <a href="/blog/2017/03/30/探秘-MobX/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="探秘 MobX">
+                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="探秘 MobX">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2017-03-30T10:41:22.000Z">2017-03-30</time></div>
-                    <a href="/2017/03/30/探秘-MobX/" class="has-link-black-ter is-size-6">探秘 MobX</a>
+                    <a href="/blog/2017/03/30/探秘-MobX/" class="has-link-black-ter is-size-6">探秘 MobX</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -594,16 +594,16 @@
         
         <article class="media">
             
-            <a href="/2017/02/22/git-合并策略-之-recursive/" class="media-left">
+            <a href="/blog/2017/02/22/git-合并策略-之-recursive/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git 合并策略 之 recursive">
+                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="git 合并策略 之 recursive">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2017-02-22T00:52:04.000Z">2017-02-22</time></div>
-                    <a href="/2017/02/22/git-合并策略-之-recursive/" class="has-link-black-ter is-size-6">git 合并策略 之 recursive</a>
+                    <a href="/blog/2017/02/22/git-合并策略-之-recursive/" class="has-link-black-ter is-size-6">git 合并策略 之 recursive</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -624,7 +624,7 @@
         <ul class="menu-list">
         
         <li>
-            <a class="level is-marginless" href="/archives/2017/08/">
+            <a class="level is-marginless" href="/blog/archives/2017/08/">
                 <span class="level-start">
                     <span class="level-item">八月 2017</span>
                 </span>
@@ -635,7 +635,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2017/06/">
+            <a class="level is-marginless" href="/blog/archives/2017/06/">
                 <span class="level-start">
                     <span class="level-item">六月 2017</span>
                 </span>
@@ -646,7 +646,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2017/03/">
+            <a class="level is-marginless" href="/blog/archives/2017/03/">
                 <span class="level-start">
                     <span class="level-item">三月 2017</span>
                 </span>
@@ -657,7 +657,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2017/02/">
+            <a class="level is-marginless" href="/blog/archives/2017/02/">
                 <span class="level-start">
                     <span class="level-item">二月 2017</span>
                 </span>
@@ -668,7 +668,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2017/01/">
+            <a class="level is-marginless" href="/blog/archives/2017/01/">
                 <span class="level-start">
                     <span class="level-item">一月 2017</span>
                 </span>
@@ -679,7 +679,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2016/07/">
+            <a class="level is-marginless" href="/blog/archives/2016/07/">
                 <span class="level-start">
                     <span class="level-item">七月 2016</span>
                 </span>
@@ -690,7 +690,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2016/05/">
+            <a class="level is-marginless" href="/blog/archives/2016/05/">
                 <span class="level-start">
                     <span class="level-item">五月 2016</span>
                 </span>
@@ -701,7 +701,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2016/02/">
+            <a class="level is-marginless" href="/blog/archives/2016/02/">
                 <span class="level-start">
                     <span class="level-item">二月 2016</span>
                 </span>
@@ -712,7 +712,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2015/05/">
+            <a class="level is-marginless" href="/blog/archives/2015/05/">
                 <span class="level-start">
                     <span class="level-item">五月 2015</span>
                 </span>
@@ -723,7 +723,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2015/04/">
+            <a class="level is-marginless" href="/blog/archives/2015/04/">
                 <span class="level-start">
                     <span class="level-item">四月 2015</span>
                 </span>
@@ -734,7 +734,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2015/01/">
+            <a class="level is-marginless" href="/blog/archives/2015/01/">
                 <span class="level-start">
                     <span class="level-item">一月 2015</span>
                 </span>
@@ -745,7 +745,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2014/11/">
+            <a class="level is-marginless" href="/blog/archives/2014/11/">
                 <span class="level-start">
                     <span class="level-item">十一月 2014</span>
                 </span>
@@ -756,7 +756,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2014/10/">
+            <a class="level is-marginless" href="/blog/archives/2014/10/">
                 <span class="level-start">
                     <span class="level-item">十月 2014</span>
                 </span>
@@ -767,7 +767,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2014/03/">
+            <a class="level is-marginless" href="/blog/archives/2014/03/">
                 <span class="level-start">
                     <span class="level-item">三月 2014</span>
                 </span>
@@ -778,7 +778,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2014/02/">
+            <a class="level is-marginless" href="/blog/archives/2014/02/">
                 <span class="level-start">
                     <span class="level-item">二月 2014</span>
                 </span>
@@ -789,7 +789,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2013/11/">
+            <a class="level is-marginless" href="/blog/archives/2013/11/">
                 <span class="level-start">
                     <span class="level-item">十一月 2013</span>
                 </span>
@@ -800,7 +800,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2013/10/">
+            <a class="level is-marginless" href="/blog/archives/2013/10/">
                 <span class="level-start">
                     <span class="level-item">十月 2013</span>
                 </span>
@@ -811,7 +811,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2013/08/">
+            <a class="level is-marginless" href="/blog/archives/2013/08/">
                 <span class="level-start">
                     <span class="level-item">八月 2013</span>
                 </span>
@@ -835,168 +835,168 @@
             <div class="field is-grouped is-grouped-multiline">
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/AngularJS/">
+                    <a class="tags has-addons" href="/blog/tags/AngularJS/">
                         <span class="tag">AngularJS</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/AngularJS-lazyload/">
+                    <a class="tags has-addons" href="/blog/tags/AngularJS-lazyload/">
                         <span class="tag">AngularJS lazyload</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/AngularJs/">
+                    <a class="tags has-addons" href="/blog/tags/AngularJs/">
                         <span class="tag">AngularJs</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/CDN共享/">
+                    <a class="tags has-addons" href="/blog/tags/CDN共享/">
                         <span class="tag">CDN共享</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/MobX/">
+                    <a class="tags has-addons" href="/blog/tags/MobX/">
                         <span class="tag">MobX</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/Module-SeaJS/">
+                    <a class="tags has-addons" href="/blog/tags/Module-SeaJS/">
                         <span class="tag">Module SeaJS</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/MutationObserver/">
+                    <a class="tags has-addons" href="/blog/tags/MutationObserver/">
                         <span class="tag">MutationObserver</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/Promise/">
+                    <a class="tags has-addons" href="/blog/tags/Promise/">
                         <span class="tag">Promise</span>
                         <span class="tag is-grey">2</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/React/">
+                    <a class="tags has-addons" href="/blog/tags/React/">
                         <span class="tag">React</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/js模式/">
+                    <a class="tags has-addons" href="/blog/tags/js模式/">
                         <span class="tag">js模式</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/mobile-video/">
+                    <a class="tags has-addons" href="/blog/tags/mobile-video/">
                         <span class="tag">mobile video</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/react/">
+                    <a class="tags has-addons" href="/blog/tags/react/">
                         <span class="tag">react</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/template/">
+                    <a class="tags has-addons" href="/blog/tags/template/">
                         <span class="tag">template</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/webpack/">
+                    <a class="tags has-addons" href="/blog/tags/webpack/">
                         <span class="tag">webpack</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/业务流程/">
+                    <a class="tags has-addons" href="/blog/tags/业务流程/">
                         <span class="tag">业务流程</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/前端工程化/">
+                    <a class="tags has-addons" href="/blog/tags/前端工程化/">
                         <span class="tag">前端工程化</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/前端错误/">
+                    <a class="tags has-addons" href="/blog/tags/前端错误/">
                         <span class="tag">前端错误</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/框架/">
+                    <a class="tags has-addons" href="/blog/tags/框架/">
                         <span class="tag">框架</span>
                         <span class="tag is-grey">2</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/秒杀/">
+                    <a class="tags has-addons" href="/blog/tags/秒杀/">
                         <span class="tag">秒杀</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/组件/">
+                    <a class="tags has-addons" href="/blog/tags/组件/">
                         <span class="tag">组件</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/翻译/">
+                    <a class="tags has-addons" href="/blog/tags/翻译/">
                         <span class="tag">翻译</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/设计/">
+                    <a class="tags has-addons" href="/blog/tags/设计/">
                         <span class="tag">设计</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/调研-MVVM/">
+                    <a class="tags has-addons" href="/blog/tags/调研-MVVM/">
                         <span class="tag">调研 MVVM</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/阅读笔记/">
+                    <a class="tags has-addons" href="/blog/tags/阅读笔记/">
                         <span class="tag">阅读笔记</span>
                         <span class="tag is-grey">1</span>
                     </a>
@@ -1027,16 +1027,16 @@
         
         <article class="media">
             
-            <a href="/2017/08/31/introduce-to-websocket/" class="media-left">
+            <a href="/blog/2017/08/31/introduce-to-websocket/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="introduce to websocket">
+                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="introduce to websocket">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2017-08-31T03:32:17.000Z">2017-08-31</time></div>
-                    <a href="/2017/08/31/introduce-to-websocket/" class="has-link-black-ter is-size-6">introduce to websocket</a>
+                    <a href="/blog/2017/08/31/introduce-to-websocket/" class="has-link-black-ter is-size-6">introduce to websocket</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -1046,16 +1046,16 @@
         
         <article class="media">
             
-            <a href="/2017/06/26/一点思考/" class="media-left">
+            <a href="/blog/2017/06/26/一点思考/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="一点思考">
+                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="一点思考">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2017-06-26T10:14:59.000Z">2017-06-26</time></div>
-                    <a href="/2017/06/26/一点思考/" class="has-link-black-ter is-size-6">一点思考</a>
+                    <a href="/blog/2017/06/26/一点思考/" class="has-link-black-ter is-size-6">一点思考</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -1065,16 +1065,16 @@
         
         <article class="media">
             
-            <a href="/2017/06/25/HMR-踩坑记/" class="media-left">
+            <a href="/blog/2017/06/25/HMR-踩坑记/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="HMR 踩坑记">
+                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="HMR 踩坑记">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2017-06-25T09:44:55.000Z">2017-06-25</time></div>
-                    <a href="/2017/06/25/HMR-踩坑记/" class="has-link-black-ter is-size-6">HMR 踩坑记</a>
+                    <a href="/blog/2017/06/25/HMR-踩坑记/" class="has-link-black-ter is-size-6">HMR 踩坑记</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -1084,16 +1084,16 @@
         
         <article class="media">
             
-            <a href="/2017/03/30/探秘-MobX/" class="media-left">
+            <a href="/blog/2017/03/30/探秘-MobX/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="探秘 MobX">
+                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="探秘 MobX">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2017-03-30T10:41:22.000Z">2017-03-30</time></div>
-                    <a href="/2017/03/30/探秘-MobX/" class="has-link-black-ter is-size-6">探秘 MobX</a>
+                    <a href="/blog/2017/03/30/探秘-MobX/" class="has-link-black-ter is-size-6">探秘 MobX</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -1103,16 +1103,16 @@
         
         <article class="media">
             
-            <a href="/2017/02/22/git-合并策略-之-recursive/" class="media-left">
+            <a href="/blog/2017/02/22/git-合并策略-之-recursive/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="git 合并策略 之 recursive">
+                    <img class="thumbnail" src="/blog/images/thumbnail.svg" alt="git 合并策略 之 recursive">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2017-02-22T00:52:04.000Z">2017-02-22</time></div>
-                    <a href="/2017/02/22/git-合并策略-之-recursive/" class="has-link-black-ter is-size-6">git 合并策略 之 recursive</a>
+                    <a href="/blog/2017/02/22/git-合并策略-之-recursive/" class="has-link-black-ter is-size-6">git 合并策略 之 recursive</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -1133,7 +1133,7 @@
         <ul class="menu-list">
         
         <li>
-            <a class="level is-marginless" href="/archives/2017/08/">
+            <a class="level is-marginless" href="/blog/archives/2017/08/">
                 <span class="level-start">
                     <span class="level-item">八月 2017</span>
                 </span>
@@ -1144,7 +1144,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2017/06/">
+            <a class="level is-marginless" href="/blog/archives/2017/06/">
                 <span class="level-start">
                     <span class="level-item">六月 2017</span>
                 </span>
@@ -1155,7 +1155,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2017/03/">
+            <a class="level is-marginless" href="/blog/archives/2017/03/">
                 <span class="level-start">
                     <span class="level-item">三月 2017</span>
                 </span>
@@ -1166,7 +1166,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2017/02/">
+            <a class="level is-marginless" href="/blog/archives/2017/02/">
                 <span class="level-start">
                     <span class="level-item">二月 2017</span>
                 </span>
@@ -1177,7 +1177,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2017/01/">
+            <a class="level is-marginless" href="/blog/archives/2017/01/">
                 <span class="level-start">
                     <span class="level-item">一月 2017</span>
                 </span>
@@ -1188,7 +1188,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2016/07/">
+            <a class="level is-marginless" href="/blog/archives/2016/07/">
                 <span class="level-start">
                     <span class="level-item">七月 2016</span>
                 </span>
@@ -1199,7 +1199,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2016/05/">
+            <a class="level is-marginless" href="/blog/archives/2016/05/">
                 <span class="level-start">
                     <span class="level-item">五月 2016</span>
                 </span>
@@ -1210,7 +1210,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2016/02/">
+            <a class="level is-marginless" href="/blog/archives/2016/02/">
                 <span class="level-start">
                     <span class="level-item">二月 2016</span>
                 </span>
@@ -1221,7 +1221,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2015/05/">
+            <a class="level is-marginless" href="/blog/archives/2015/05/">
                 <span class="level-start">
                     <span class="level-item">五月 2015</span>
                 </span>
@@ -1232,7 +1232,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2015/04/">
+            <a class="level is-marginless" href="/blog/archives/2015/04/">
                 <span class="level-start">
                     <span class="level-item">四月 2015</span>
                 </span>
@@ -1243,7 +1243,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2015/01/">
+            <a class="level is-marginless" href="/blog/archives/2015/01/">
                 <span class="level-start">
                     <span class="level-item">一月 2015</span>
                 </span>
@@ -1254,7 +1254,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2014/11/">
+            <a class="level is-marginless" href="/blog/archives/2014/11/">
                 <span class="level-start">
                     <span class="level-item">十一月 2014</span>
                 </span>
@@ -1265,7 +1265,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2014/10/">
+            <a class="level is-marginless" href="/blog/archives/2014/10/">
                 <span class="level-start">
                     <span class="level-item">十月 2014</span>
                 </span>
@@ -1276,7 +1276,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2014/03/">
+            <a class="level is-marginless" href="/blog/archives/2014/03/">
                 <span class="level-start">
                     <span class="level-item">三月 2014</span>
                 </span>
@@ -1287,7 +1287,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2014/02/">
+            <a class="level is-marginless" href="/blog/archives/2014/02/">
                 <span class="level-start">
                     <span class="level-item">二月 2014</span>
                 </span>
@@ -1298,7 +1298,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2013/11/">
+            <a class="level is-marginless" href="/blog/archives/2013/11/">
                 <span class="level-start">
                     <span class="level-item">十一月 2013</span>
                 </span>
@@ -1309,7 +1309,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2013/10/">
+            <a class="level is-marginless" href="/blog/archives/2013/10/">
                 <span class="level-start">
                     <span class="level-item">十月 2013</span>
                 </span>
@@ -1320,7 +1320,7 @@
         </li>
         
         <li>
-            <a class="level is-marginless" href="/archives/2013/08/">
+            <a class="level is-marginless" href="/blog/archives/2013/08/">
                 <span class="level-start">
                     <span class="level-item">八月 2013</span>
                 </span>
@@ -1344,168 +1344,168 @@
             <div class="field is-grouped is-grouped-multiline">
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/AngularJS/">
+                    <a class="tags has-addons" href="/blog/tags/AngularJS/">
                         <span class="tag">AngularJS</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/AngularJS-lazyload/">
+                    <a class="tags has-addons" href="/blog/tags/AngularJS-lazyload/">
                         <span class="tag">AngularJS lazyload</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/AngularJs/">
+                    <a class="tags has-addons" href="/blog/tags/AngularJs/">
                         <span class="tag">AngularJs</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/CDN共享/">
+                    <a class="tags has-addons" href="/blog/tags/CDN共享/">
                         <span class="tag">CDN共享</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/MobX/">
+                    <a class="tags has-addons" href="/blog/tags/MobX/">
                         <span class="tag">MobX</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/Module-SeaJS/">
+                    <a class="tags has-addons" href="/blog/tags/Module-SeaJS/">
                         <span class="tag">Module SeaJS</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/MutationObserver/">
+                    <a class="tags has-addons" href="/blog/tags/MutationObserver/">
                         <span class="tag">MutationObserver</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/Promise/">
+                    <a class="tags has-addons" href="/blog/tags/Promise/">
                         <span class="tag">Promise</span>
                         <span class="tag is-grey">2</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/React/">
+                    <a class="tags has-addons" href="/blog/tags/React/">
                         <span class="tag">React</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/js模式/">
+                    <a class="tags has-addons" href="/blog/tags/js模式/">
                         <span class="tag">js模式</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/mobile-video/">
+                    <a class="tags has-addons" href="/blog/tags/mobile-video/">
                         <span class="tag">mobile video</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/react/">
+                    <a class="tags has-addons" href="/blog/tags/react/">
                         <span class="tag">react</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/template/">
+                    <a class="tags has-addons" href="/blog/tags/template/">
                         <span class="tag">template</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/webpack/">
+                    <a class="tags has-addons" href="/blog/tags/webpack/">
                         <span class="tag">webpack</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/业务流程/">
+                    <a class="tags has-addons" href="/blog/tags/业务流程/">
                         <span class="tag">业务流程</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/前端工程化/">
+                    <a class="tags has-addons" href="/blog/tags/前端工程化/">
                         <span class="tag">前端工程化</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/前端错误/">
+                    <a class="tags has-addons" href="/blog/tags/前端错误/">
                         <span class="tag">前端错误</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/框架/">
+                    <a class="tags has-addons" href="/blog/tags/框架/">
                         <span class="tag">框架</span>
                         <span class="tag is-grey">2</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/秒杀/">
+                    <a class="tags has-addons" href="/blog/tags/秒杀/">
                         <span class="tag">秒杀</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/组件/">
+                    <a class="tags has-addons" href="/blog/tags/组件/">
                         <span class="tag">组件</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/翻译/">
+                    <a class="tags has-addons" href="/blog/tags/翻译/">
                         <span class="tag">翻译</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/设计/">
+                    <a class="tags has-addons" href="/blog/tags/设计/">
                         <span class="tag">设计</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/调研-MVVM/">
+                    <a class="tags has-addons" href="/blog/tags/调研-MVVM/">
                         <span class="tag">调研 MVVM</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/阅读笔记/">
+                    <a class="tags has-addons" href="/blog/tags/阅读笔记/">
                         <span class="tag">阅读笔记</span>
                         <span class="tag is-grey">1</span>
                     </a>
@@ -1526,9 +1526,9 @@
     <div class="container">
         <div class="level">
             <div class="level-start has-text-centered-mobile">
-                <a class="footer-logo is-block has-mb-6" href="/">
+                <a class="footer-logo is-block has-mb-6" href="/blog/">
                 
-                    <img src="/images/logo.svg" alt="AngularJS中的懒加载【翻译】" height="28">
+                    <img src="/blog/images/logo.svg" alt="AngularJS中的懒加载【翻译】" height="28">
                 
                 </a>
                 <p class="is-size-7">
@@ -1580,7 +1580,7 @@
     
     
     
-    <script src="/js/animation.js"></script>
+    <script src="/blog/js/animation.js"></script>
     
 
     
@@ -1588,7 +1588,7 @@
     
     <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
-    <script src="/js/gallery.js" defer></script>
+    <script src="/blog/js/gallery.js" defer></script>
     
 
     
@@ -1643,7 +1643,7 @@ document.addEventListener('DOMContentLoaded', function () {
 <a id="back-to-top" title="回到顶端" href="javascript:;">
     <i class="fas fa-chevron-up"></i>
 </a>
-<script src="/js/back-to-top.js" defer></script>
+<script src="/blog/js/back-to-top.js" defer></script>
 
 
     
@@ -1660,7 +1660,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
     
     <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
-    <script src="/js/clipboard.js" defer></script>
+    <script src="/blog/js/clipboard.js" defer></script>
     
 
     
@@ -1668,7 +1668,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
 
 
-<script src="/js/main.js" defer></script>
+<script src="/blog/js/main.js" defer></script>
 
     
     <div class="searchbox ins-search">
@@ -1692,14 +1692,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 TAGS: '标签',
                 UNTITLED: '(无标题)',
             },
-            CONTENT_URL: '/content.json',
+            CONTENT_URL: '/blog/content.json',
         };
         window.INSIGHT_CONFIG = INSIGHT_CONFIG;
     })(window);
 </script>
-<script src="/js/insight.js" defer></script>
-<link rel="stylesheet" href="/css/search.css">
-<link rel="stylesheet" href="/css/insight.css">
+<script src="/blog/js/insight.js" defer></script>
+<link rel="stylesheet" href="/blog/css/search.css">
+<link rel="stylesheet" href="/blog/css/insight.css">
     
 </body>
 </html>
