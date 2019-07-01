@@ -3,18 +3,17 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: LuckyShark
+title: "fedeoo"
 subtitle:
-description: 幸运鲨的博客，记录所读所学所思所想。
-keywords:
-author: "LuckyShark"
+description: "记录所读所学所思所想"
+author: "fedeoo"
 language: zh-CN
 timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://luckyshark.me
-root: /
+url: https://fedeoo.github.io/blog
+root: /blog/
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 
@@ -78,9 +77,7 @@ theme: icarus
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type: rsync
-  host: 3.104.59.123
-  user: ubuntu
-  root: /var/www/hexo
-  port: 22
+  type: git
+  repo: git@github.com:fedeoo/blog.git
+  branch: gh-pages
 
